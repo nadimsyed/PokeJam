@@ -330,6 +330,6 @@ ASALocalRun/
 .mfractor/
 
 Web.config
-Startup.Auth.cs
+
 Web.Debug.config
 Web.Release.config
