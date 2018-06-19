@@ -281,6 +281,44 @@ namespace PokeJam.Controllers
             ViewBag.Shot = shot;
             return View();
         }
+        public ActionResult Tier5Congratulations()
+        {
+
+            return View();
+        }
+
+        public ActionResult TournamentLoss()
+        {
+
+            return View();
+        }
+        public ActionResult TournamentNext()
+        {
+
+            return View();
+        }
+        public ActionResult SingleNext()
+        {
+
+            return View();
+        }
+        public ActionResult GameplayResult()
+        {
+
+            return View();
+        }
+        public ActionResult Conclusion3()
+        {
+
+            return View();
+        }
+        public ActionResult Conclusion2()
+        {
+
+            return View();
+        }
+
+
 
         static string UppercaseFirst(string s)
         {

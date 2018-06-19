@@ -366,6 +366,13 @@
     <Content Include="Views\Home\Tier5.cshtml" />
     <Content Include="Views\Home\GamePlay.cshtml" />
     <Content Include="Views\Home\PlayConclusion.cshtml" />
+    <Content Include="Views\Home\Tier5Congratulations.cshtml" />
+    <Content Include="Views\Home\TournamentLoss.cshtml" />
+    <Content Include="Views\Home\TournamentNext.cshtml" />
+    <Content Include="Views\Home\SingleNext.cshtml" />
+    <Content Include="Views\Home\GameplayResult.cshtml" />
+    <Content Include="Views\Home\Conclusion3.cshtml" />
+    <Content Include="Views\Home\Conclusion2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
