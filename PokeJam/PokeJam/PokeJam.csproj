@@ -350,6 +350,22 @@
     <Content Include="Views\Users\Details.cshtml" />
     <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Home\SkillPoint.cshtml" />
+    <Content Include="Views\Home\CreatePlayerStart.cshtml" />
+    <Content Include="Views\Home\CreatePlayer.cshtml" />
+    <Content Include="Views\Home\SuccessfullyCreatedChar.cshtml" />
+    <Content Include="Views\Home\PokeJam.cshtml" />
+    <Content Include="Views\Home\Rules.cshtml" />
+    <Content Include="Views\Home\ViewStats.cshtml" />
+    <Content Include="Views\Home\SinglePlayer.cshtml" />
+    <Content Include="Views\Home\Tournament.cshtml" />
+    <Content Include="Views\Home\Tier1.cshtml" />
+    <Content Include="Views\Home\Tier2.cshtml" />
+    <Content Include="Views\Home\Tier3.cshtml" />
+    <Content Include="Views\Home\Tier4.cshtml" />
+    <Content Include="Views\Home\Tier5.cshtml" />
+    <Content Include="Views\Home\GamePlay.cshtml" />
+    <Content Include="Views\Home\PlayConclusion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
