@@ -281,6 +281,19 @@ namespace PokeJam.Controllers
             ViewBag.Shot = shot;
             return View();
         }
+
+        public ActionResult PlayConclusion2()
+        {
+
+            return View();
+        }
+
+        public ActionResult PlayConclusion3()
+        {
+
+            return View();
+        }
+
         public ActionResult Tier5Congratulations()
         {
 
@@ -307,16 +320,8 @@ namespace PokeJam.Controllers
 
             return View();
         }
-        public ActionResult Conclusion3()
-        {
-
-            return View();
-        }
-        public ActionResult Conclusion2()
-        {
-
-            return View();
-        }
+        
+        
 
 
 
