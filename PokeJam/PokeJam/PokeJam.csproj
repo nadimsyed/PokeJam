@@ -193,8 +193,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\GamePlayController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\Methods.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -373,6 +375,22 @@
     <Content Include="Views\Home\GameplayResult.cshtml" />
     <Content Include="Views\Home\PlayConclusion2.cshtml" />
     <Content Include="Views\Home\PlayConclusion3.cshtml" />
+    <Content Include="Views\GamePlay\SinglePlayer.cshtml" />
+    <Content Include="Views\GamePlay\Tournament.cshtml" />
+    <Content Include="Views\GamePlay\Tier1.cshtml" />
+    <Content Include="Views\GamePlay\Tier2.cshtml" />
+    <Content Include="Views\GamePlay\Tier3.cshtml" />
+    <Content Include="Views\GamePlay\Tier4.cshtml" />
+    <Content Include="Views\GamePlay\Tier5.cshtml" />
+    <Content Include="Views\GamePlay\GamePlay.cshtml" />
+    <Content Include="Views\GamePlay\PlayConclusion.cshtml" />
+    <Content Include="Views\GamePlay\PlayConclusion2.cshtml" />
+    <Content Include="Views\GamePlay\PlayConclusion3.cshtml" />
+    <Content Include="Views\GamePlay\Tier5Congratulations.cshtml" />
+    <Content Include="Views\GamePlay\TournamentLoss.cshtml" />
+    <Content Include="Views\GamePlay\TournamentNext.cshtml" />
+    <Content Include="Views\GamePlay\SingleNext.cshtml" />
+    <Content Include="Views\GamePlay\GameplayResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
