@@ -44,7 +44,7 @@ namespace PokeJam.Controllers
                 JObject JsonData = JObject.Parse(PokemonData);
                 ViewBag.Name = JsonData["forms"][0];
                 string name = ViewBag.Name.name;
-                ViewBag.NameProp = UppercaseFirst(name);
+                ViewBag.NameProp = Methods.UppercaseFirst(name);
 
                 ViewBag.Speed = JsonData["stats"][0];
                 ViewBag.SpecialDef = JsonData["stats"][1];
