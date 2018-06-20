@@ -363,7 +363,6 @@
     <Content Include="Views\Home\Rules.cshtml" />
     <Content Include="Views\Home\ViewStats.cshtml" />
     <Content Include="Views\GamePlay\SinglePlayer.cshtml" />
-    <Content Include="Views\GamePlay\Tournament.cshtml" />
     <Content Include="Views\GamePlay\Tier1.cshtml" />
     <Content Include="Views\GamePlay\Tier2.cshtml" />
     <Content Include="Views\GamePlay\Tier3.cshtml" />

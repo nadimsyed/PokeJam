@@ -27,11 +27,6 @@ namespace PokeJam.Controllers
             
         }
 
-        public ActionResult Tournament()
-        {
-            return View();
-        }
-
         public ActionResult Tier1()
         {
             return View();
