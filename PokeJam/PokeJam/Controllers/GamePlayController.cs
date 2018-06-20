@@ -15,8 +15,9 @@ namespace PokeJam.Controllers
         }
 
         public ActionResult SinglePlayer()
-        {
+        {   
             return View();
+            
         }
 
         public ActionResult Tournament()
@@ -49,10 +50,18 @@ namespace PokeJam.Controllers
             return View();
         }
 
-        public ActionResult GamePlay()
+        public ActionResult GamePlay(string PlayType = "")
         {
+            ViewBag.PlayType = PlayType;
+            if (Session["PlayType"] == null)
+            {
+                Session.Add("PlayType", ViewBag.PlayType);
+            }
+            PlayType = (string)Session["PlayType"];
+            Session["PlayType"] = PlayType;
             return View();
         }
+       
 
         public ActionResult PlayConclusion(string shot)
         {
