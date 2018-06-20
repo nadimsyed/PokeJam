@@ -1,25 +1,25 @@
 ﻿Congratulations you've made it to Tier 3!
 @{
-    ViewBag.Title = "Tier3";
+    ViewBag.Title = "Tier 3";
 }
 
-<h2>Tier3</h2>
+<h2>Tier 3</h2>
 
-<form action="~/Home/GamePlay/" method="post">
+<form action="~/GamePlay/GamePlay/" method="post">
 
     Choose your opponent
-    <select>
-        <option></option>
+    <select name="pokemon">
+        @for (int i = 0; i < ViewBag.Poke.Count; i++)
+        {
+            var pokemon = ViewBag.Poke[i];
+            <option value="@pokemon.PokeID">@pokemon.PokeName</option>
+        }
     </select>
     <br />
     <br />
     <br />
 
     Heads or Tails?
-    <select>
-        <option value="heads">Heads</option>
-        <option value="tails">Tails</option>
-    </select>
-
-    <input type="submit" name="submit" value="Submit" />
+    <input type="submit" name="Coin" value="Heads" />
+    <input type="submit" name="Coin" value="Tails" />
 </form>

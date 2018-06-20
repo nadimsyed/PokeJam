@@ -39,21 +39,41 @@ namespace PokeJam.Controllers
 
         public ActionResult Tier2()
         {
+            List<PokeTier> tiers = db.PokeTiers.Where(
+                p => p.Tiers == 2).ToList();
+
+            ViewBag.Poke = tiers;
+
             return View();
         }
 
         public ActionResult Tier3()
         {
+            List<PokeTier> tiers = db.PokeTiers.Where(
+                p => p.Tiers == 3).ToList();
+
+            ViewBag.Poke = tiers;
+
             return View();
         }
 
         public ActionResult Tier4()
         {
+            List<PokeTier> tiers = db.PokeTiers.Where(
+                p => p.Tiers == 4).ToList();
+
+            ViewBag.Poke = tiers;
+
             return View();
         }
 
         public ActionResult Tier5()
         {
+            List<PokeTier> tiers = db.PokeTiers.Where(
+                p => p.Tiers == 5).ToList();
+
+            ViewBag.Poke = tiers;
+
             return View();
         }
 
