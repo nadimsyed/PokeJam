@@ -8,3 +8,21 @@
 <h3>@ViewBag.Shot</h3>
 
 @*TODO: Did shot go in, or did ball get stolen/blocked*@
+
+@if (ViewBag.Which == 1)
+{
+    <h2>@(ViewBag.Success ? "Ball was Stolen" : "")</h2>
+    if (!ViewBag.Success)
+    {
+        <h3>@ViewBag.Made</h3>
+    }
+}
+@if (ViewBag.Which == 2)
+{
+    <h2>@(ViewBag.Success ? "Ball was Stolen" : "")</h2>
+    if (!ViewBag.Success)
+    {
+        <h3>@ViewBag.Made</h3>
+    }
+}
+

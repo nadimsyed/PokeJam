@@ -242,7 +242,10 @@ namespace PokeJam.Controllers
                 List<Character> characters = new List<Character>();
                 characters.Add(character);
                 ViewBag.Char = characters;
+
+                Session["Char"] = character.CharID;
             }
+
 
             return View();
         }
