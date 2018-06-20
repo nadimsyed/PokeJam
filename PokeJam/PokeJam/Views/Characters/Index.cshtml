@@ -1,0 +1,81 @@
+﻿@model IEnumerable<PokeJam.Models.Character>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CharName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Height)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Weight)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ThreePoint)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FieldGoal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Paint)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Steal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Block)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.UserName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CharName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Height)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Weight)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ThreePoint)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FieldGoal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Paint)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Steal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Block)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.UserName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CharID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.CharID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.CharID })
+        </td>
+    </tr>
+}
+
+</table>

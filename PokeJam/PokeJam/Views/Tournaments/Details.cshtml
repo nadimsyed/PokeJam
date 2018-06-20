@@ -1,0 +1,106 @@
+﻿@model PokeJam.Models.Tournament
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Tournament</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.T1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.T1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.T2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.T2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.T3)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.T3)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.T4)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.T4)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.T5)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.T5)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.P1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.P1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.P2)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.P2)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.P3)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.P3)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.P4)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.P4)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.P5)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.P5)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.UserName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
