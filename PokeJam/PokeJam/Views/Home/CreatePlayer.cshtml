@@ -8,6 +8,10 @@
 <form action="~/Home/SuccessfullyCreatedChar/" method="post">
     Distribute 100 Skill Points into the the stats below to build your character how you want!<br />
 
+    <input type="hidden" name="CharName" value="@ViewBag.CharName" />
+    <input type="hidden" name="CharHeight" value="@ViewBag.CharHeight" />
+    <input type="hidden" name="CharWeight" value="@ViewBag.CharWeight" />
+
     ThreePoint %: <input type="number" id="ThreePointPerc" name="ThreePoint" min="@ViewBag.ThreePointWH" value="@ViewBag.ThreePointWH" /><br />
 
     FieldGoal %:<input type="number" id="FieldGoatPerc" name="FieldGoat" min="@ViewBag.FieldGoalWH" value="@ViewBag.FieldGoalWH" /><br />
@@ -17,6 +21,8 @@
     Steal %:<input type="number" id="StealPerc" name="Steal" min="@ViewBag.StealWH" value="@ViewBag.StealWH" /><br />
 
     Block %:<input type="number" id="BlockPerc" name="Block" min="@ViewBag.BlockWH" value="@ViewBag.BlockWH" /><br />
+
+
 
     Submit: <input type="submit" name="submit" value="Submit SkillPoint Distribution" onclick="return Check()" /><br />
 </form>

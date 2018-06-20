@@ -1,4 +1,5 @@
-﻿
+﻿@using PokeJam.Models;
+
 @{
     ViewBag.Title = "SuccessfullyCreatedChar";
 }
@@ -6,5 +7,49 @@
 <h2>You have successfully created your character!</h2>
 
 @*TODO: ADD CREATED PLAYER'S STATS HERE'*@
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>CharName</th>
+        <th>CharHeight</th>
+        <th>CharWeight</th>
+        <th>ThreePoint</th>
+        <th>FieldGoal</th>
+        <th>In-the-Paint</th>
+        <th>Steal</th>
+        <th>Block</th>
+
+
+    </tr>
+    @for (int i = 0; i < ViewBag.Char.Count; i++)
+    {
+        var Char = ViewBag.Char[i];
+        <tr>
+            <td>
+                @Char.CharName
+            </td>
+            <td>
+                @Char.Height
+            </td>
+            <td>
+                @Char.Weight
+            </td>
+            <td>
+                @Char.ThreePoint
+            </td>
+            <td>
+                @Char.FieldGoal
+            </td>
+            <td>
+                @Char.Paint
+            </td>
+            <td>
+                @Char.Steal
+            </td>
+            <td>
+                @Char.Block
+            </td>
+        </tr>
+    }
+</table>
 
 <a href="~/Home/PokeJam">PokeJam</a>

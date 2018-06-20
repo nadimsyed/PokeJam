@@ -6,11 +6,14 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using PokeJam.Models;
 
 namespace PokeJam.Controllers
 {
     public class HomeController : Controller
     {
+        private PokeJamEntities db = new PokeJamEntities();
+
         public ActionResult Index()
         {
             HttpWebRequest WR = WebRequest.CreateHttp("https://pokeapi.co/api/v2/pokemon/3/");
@@ -162,6 +165,10 @@ namespace PokeJam.Controllers
 
         public ActionResult CreatePlayer(string CharName, int? CharHeight, int? CharWeight)
         {
+            ViewBag.CharName = CharName;
+            ViewBag.CharHeight = CharHeight;
+            ViewBag.CharWeight = CharWeight;
+
             Random random = new Random();
 
 
@@ -215,8 +222,27 @@ namespace PokeJam.Controllers
         }
 
         //Might have to pass in CharName, CharHeight, CharWeight from previous action to this action to make the character in database
-        public ActionResult SuccessfullyCreatedChar(int ThreePoint, int FieldGoat, int Paint, int Steal, int Block)
+        public ActionResult SuccessfullyCreatedChar(string CharName, int CharHeight,  int CharWeight, int ThreePoint, int FieldGoat, int Paint, int Steal, int Block)
         {
+            if (CharName != null)
+            {
+                Character character = new Character();
+                character.UserID = 2;
+                character.CharName = CharName;
+                character.Height = CharHeight;
+                character.Weight = CharWeight;
+                character.ThreePoint = ThreePoint;
+                character.FieldGoal = FieldGoat;
+                character.Paint = Paint;
+                character.Steal = Steal;
+                character.Block = Block;
+
+                db.Characters.Add(character);
+                db.SaveChanges();
+                List<Character> characters = new List<Character>();
+                characters.Add(character);
+                ViewBag.Char = characters;
+            }
 
             return View();
         }
