@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using PokeJam.Models;
 
 namespace PokeJam.Controllers
 {
     public class GamePlayController : Controller
     {
+        private PokeJamEntities db = new PokeJamEntities();
+
         // GET: GamePlay
         public ActionResult Index()
         {
@@ -15,7 +18,11 @@ namespace PokeJam.Controllers
         }
 
         public ActionResult SinglePlayer()
-        {   
+        {
+            List<PokeTier> all = db.PokeTiers.ToList();
+
+            ViewBag.All = all;
+
             return View();
             
         }
@@ -50,7 +57,7 @@ namespace PokeJam.Controllers
             return View();
         }
 
-        public ActionResult GamePlay(string PlayType = "")
+        public ActionResult GamePlay(string pokemon, string Coin, string PlayType = "")
         {
             ViewBag.PlayType = PlayType;
             if (Session["PlayType"] == null)
@@ -59,6 +66,10 @@ namespace PokeJam.Controllers
             }
             PlayType = (string)Session["PlayType"];
             Session["PlayType"] = PlayType;
+
+            ViewBag.Coin = Coin;
+            ViewBag.Choice = pokemon;
+
             return View();
         }
        
