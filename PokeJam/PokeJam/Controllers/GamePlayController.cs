@@ -22,13 +22,18 @@ namespace PokeJam.Controllers
             List<PokeTier> all = db.PokeTiers.ToList();
 
             ViewBag.All = all;
-
+                
             return View();
             
         }
 
         public ActionResult Tier1()
         {
+            List<PokeTier> tiers = db.PokeTiers.Where(
+                p => p.Tiers == 1).ToList();
+
+            ViewBag.Poke = tiers;
+
             return View();
         }
 
