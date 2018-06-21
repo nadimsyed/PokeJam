@@ -402,6 +402,12 @@
     <Content Include="Views\PokeTiers\Edit.cshtml" />
     <Content Include="Views\PokeTiers\Index.cshtml" />
     <Content Include="Views\GamePlay\PlayConclusion4.cshtml" />
+    <Content Include="Views\GamePlay\GamePlay2.cshtml" />
+    <Content Include="Views\GamePlay\PlayConclusionX.cshtml" />
+    <Content Include="Views\GamePlay\PlayConclusionX2.cshtml" />
+    <Content Include="Views\GamePlay\PlayConclusionX3.cshtml" />
+    <Content Include="Views\GamePlay\PlayConclusionX4.cshtml" />
+    <Content Include="Views\GamePlay\GameplayResult2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

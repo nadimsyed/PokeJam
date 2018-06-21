@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "PlayConclusionX";
+}
+
+<h2>PlayConclusionX</h2>
+
+<h3>@Session["User"]</h3>
+<h3>@ViewBag.Shot</h3>
+
+
+@if (ViewBag.Which == 1)
+{
+    <h2>@(ViewBag.Success ? "Ball was Stolen" : "")</h2>
+    if (!ViewBag.Success)
+    {
+        <h3>@ViewBag.Made</h3>
+    }
+}
+@if (ViewBag.Which == 2)
+{
+    <h2>@(ViewBag.Success ? "Ball was Stolen" : "")</h2>
+    if (!ViewBag.Success)
+    {
+        <h3>@ViewBag.Made</h3>
+    }
+}
+
+<a href="~/GamePlay/PlayConclusionX2">Continue</a>

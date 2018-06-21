@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "GamePlay2";
+}
+
+<h2>GamePlay2</h2>
+
+@Session["PlayType"]
+
+<h3>@Session["Comp"]</h3>
+
+@if (ViewBag.Which == 1)
+{
+    <h2>@(ViewBag.Success ? "Ball was Stolen" : "")</h2>
+    if (!ViewBag.Success)
+    {
+        <h3>@ViewBag.Made</h3>
+    }
+}
+@if (ViewBag.Which == 2)
+{
+    <h2>@(ViewBag.Success ? "Ball was Stolen" : "")</h2>
+    if (!ViewBag.Success)
+    {
+        <h3>@ViewBag.Made</h3>
+    }
+}
+
+What shot would you like to take?
+
+
+
+<form action="~/GamePlay/PlayConclusionX/" method="post">
+    <input type="submit" name="shot" value="ThreePoint" />
+</form>
+
+<form action="~/GamePlay/PlayConclusionX/" method="post">
+    <input type="submit" name="shot" value="MidRange" />
+</form>
+
+<form action="~/GamePlay/PlayConclusionX/" method="post">
+    <input type="submit" name="shot" value="Paint" />
+</form>
+
+@*<h3>@ViewBag.Coin</h3><br />
+    <h3>@ViewBag.Choice</h3>*@
