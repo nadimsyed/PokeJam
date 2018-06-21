@@ -218,7 +218,7 @@ namespace PokeJam.Controllers
             else if (shot == "MidRange")
             {
                 bool truth = Methods.ShotConfirm(character.FieldGoal);
-                string made =  ? "Shot went in!" : "Shot missed!";
+                string made =  truth ? "Shot went in!" : "Shot missed!";
                 ViewBag.Made = made;
                 if (truth)
                 {
@@ -228,7 +228,7 @@ namespace PokeJam.Controllers
             else if (shot == "Paint")
             {
                 bool truth = Methods.ShotConfirm(character.Paint);
-                string made =  ? "Shot went in!" : "Shot missed!";
+                string made =  truth ? "Shot went in!" : "Shot missed!";
                 ViewBag.Made = made;
                 if (truth)
                 {
