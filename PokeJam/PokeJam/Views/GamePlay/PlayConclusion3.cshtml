@@ -5,10 +5,21 @@
 
 <h2>PlayConclusion3</h2>
 
-<!--need logout button-->
-<h2>You made a 3</h2>
+@if (ViewBag.Which == 1)
+{
+    <h2>@(ViewBag.Success ? "Ball was Stolen" : "")</h2>
+    if (!ViewBag.Success)
+    {
+        <h3>@ViewBag.Made</h3>
+    }
+}
+@if (ViewBag.Which == 2)
+{
+    <h2>@(ViewBag.Success ? "Ball was Stolen" : "")</h2>
+    if (!ViewBag.Success)
+    {
+        <h3>@ViewBag.Made</h3>
+    }
+}
 
-<!--need to put in conclusion from gameplay (wether the user made the shot or stole the ball or simply defended against the shot)-->
-
-<a href="~/Home/GameplayResult/">Results</a>
-
+<a href="~/GamePlay/GameplayResult">Continue</a>

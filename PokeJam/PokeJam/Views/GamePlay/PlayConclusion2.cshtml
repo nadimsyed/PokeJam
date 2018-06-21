@@ -2,9 +2,33 @@
 @{
     ViewBag.Title = "PlayConclusion2";
 }
-<!--need logout button-->
-<h2>You made a 3</h2>
 
-<!--need to put in conclusion from gameplay (wether the user made the shot or stole the ball or simply defended against the shot)-->
+@if (ViewBag.Which == 1)
+{
+    <h2>@(ViewBag.Success ? "Ball was Stolen" : "")</h2>
+    if (!ViewBag.Success)
+    {
+        <h3>@ViewBag.Made</h3>
+    }
+}
+@if (ViewBag.Which == 2)
+{
+    <h2>@(ViewBag.Success ? "Ball was Stolen" : "")</h2>
+    if (!ViewBag.Success)
+    {
+        <h3>@ViewBag.Made</h3>
+    }
+}
 
-<a href="~/Home/GameplayResult/">Results</a>
+What shot do you want to try next?<br /><br />
+<form action="~/GamePlay/PlayConclusion3" method="post">
+    <input type="submit" name="shot" value="ThreePoint" />
+</form>
+
+<form action="~/GamePlay/PlayConclusion3" method="post">
+    <input type="submit" name="shot" value="MidRange" />
+</form>
+
+<form action="~/GamePlay/PlayConclusion3/" method="post">
+    <input type="submit" name="shot" value="Paint" />
+</form>

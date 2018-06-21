@@ -227,6 +227,7 @@ namespace PokeJam.Controllers
             if (CharName != null)
             {
                 Character character = new Character();
+                //The ID will be the ID from the identity if we make that switch
                 character.UserID = 2;
                 character.CharName = CharName;
                 character.Height = CharHeight;
