@@ -13,6 +13,7 @@ namespace PokeJam.Controllers
     public class GamePlayController : Controller
     {
         private PokeJamEntities db = new PokeJamEntities();
+        //int TierCount = 1;
 
         // GET: GamePlay
         public ActionResult Index()
@@ -23,6 +24,18 @@ namespace PokeJam.Controllers
 
         public ActionResult HeadsTailsSingle(int pokemon, string Coin)
         {
+            if (Session["TierCount"] == null)
+            {
+                Session["TierCount"] = 1;
+            }
+            else if (Session["TierCount"] != null)
+            {
+                int x = (int)Session["TierCount"];
+                x++;
+                Session["TierCount"] = x;
+            }
+
+
             Random random = new Random();
             int flip = random.Next(1, 3);
 
@@ -1526,7 +1539,23 @@ namespace PokeJam.Controllers
 
         public ActionResult TournamentNext()
         {
-
+            int TierCount = (int)Session["TierCount"];
+            if (TierCount == 1)
+            {
+                ViewBag.Redirect = "/GamePlay/Tier2/";
+            }
+            else if (TierCount == 2)
+            {
+                ViewBag.Redirect = "/GamePlay/Tier3/";
+            }
+            else if (TierCount == 3)
+            {
+                ViewBag.Redirect = "/GamePlay/Tier4/";
+            }
+            else if (TierCount == 4)
+            {
+                ViewBag.Redirect = "/GamePlay/Tier5/";
+            }
             return View();
         }
 
@@ -1541,11 +1570,17 @@ namespace PokeJam.Controllers
             int u = (int)Session["User"];
             int c = (int)Session["Comp"];
 
+            int TierCount = (int)Session["TierCount"];
+
             if (u > c)
             {
                 ViewBag.Winner = "Player Won!!!";
                 if ((string)Session["PlayType"] == "Tournament")
                 {
+                    if (TierCount == 5)
+                    {
+                        return View("Tier5Congratulations");
+                    }
                     ViewBag.Truth = "True"; 
                 }
             }
@@ -1572,12 +1607,17 @@ namespace PokeJam.Controllers
         {
             int u = (int)Session["User"];
             int c = (int)Session["Comp"];
+            int TierCount = (int)Session["TierCount"];
 
             if (u > c)
             {
                 ViewBag.Winner = "Player Won!!!";
                 if ((string)Session["PlayType"] == "Tournament")
                 {
+                    if (TierCount == 5)
+                    {
+                        return View("Tier5Congratulations");
+                    }
                     ViewBag.Truth = "True";
                 }
             }

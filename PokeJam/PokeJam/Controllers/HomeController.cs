@@ -31,7 +31,7 @@ namespace PokeJam.Controllers
                 Session["I"] = aspNetUsers[i].Id;
             }
 
-            HttpWebRequest WR = WebRequest.CreateHttp("https://pokeapi.co/api/v2/pokemon/3/");
+            HttpWebRequest WR = WebRequest.CreateHttp("https://pokeapi.co/api/v2/pokemon/9/");
             WR.UserAgent = ".NET Framework Test Client";
 
             HttpWebResponse Response;
