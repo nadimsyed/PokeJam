@@ -17,14 +17,21 @@ namespace PokeJam.Controllers
         // GET: GamePlay
         public ActionResult Index()
         {
-            Session["User"] = 0;
-            Session["Comp"] = 0;
-
+            
             return View();
         }
 
-        public ActionResult SinglePlayer()
+        public ActionResult SinglePlayer(string play)
         {
+            if (Session["PlayType"] == null)
+            {
+                Session.Add("PlayType", play);
+            }
+            else if (Session["PlayType"] == null)
+            {
+                Session["PlayType"] = play;
+            }
+
             List<PokeTier> all = db.PokeTiers.ToList();
 
             ViewBag.All = all;
@@ -33,8 +40,17 @@ namespace PokeJam.Controllers
             
         }
 
-        public ActionResult Tier1()
+        public ActionResult Tier1(string play)
         {
+            if (Session["PlayType"] == null)
+            {
+                Session.Add("PlayType", play);
+            }
+            else if (Session["PlayType"] == null)
+            {
+                Session["PlayType"] = play;
+            }
+
             List<PokeTier> tiers = db.PokeTiers.Where(
                 p => p.Tiers == 1).ToList();
 
@@ -83,15 +99,9 @@ namespace PokeJam.Controllers
             return View();
         }
 
-        public ActionResult GamePlay(int pokemon, string Coin, string PlayType = "")
+        public ActionResult GamePlay(int pokemon, string Coin)
         {
-            ViewBag.PlayType = PlayType;
-            if (Session["PlayType"] == null)
-            {
-                Session.Add("PlayType", ViewBag.PlayType);
-            }
-            PlayType = (string)Session["PlayType"];
-            Session["PlayType"] = PlayType;
+            
 
             Session["Pokemon"] = pokemon;
 
@@ -501,7 +511,9 @@ namespace PokeJam.Controllers
                 ViewBag.Made = made;
                 if (truth)
                 {
-                    int x = (int)Session["User"];
+                    //TODO: Somehting is going wrong with storing session value into ints as well as later on at the end for winning, figure that out
+                    string z = (string)Session["User"].ToString();
+                    int x = int.Parse(z);
                     x += 3;
                     Session["User"] = x;
                 }

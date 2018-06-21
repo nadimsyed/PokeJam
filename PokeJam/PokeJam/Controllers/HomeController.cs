@@ -14,8 +14,20 @@ namespace PokeJam.Controllers
     {
         private PokeJamEntities db = new PokeJamEntities();
 
+        [Authorize]
         public ActionResult Index()
         {
+            Session["User"] = 0;
+            Session["Comp"] = 0;
+
+            List<AspNetUser> aspNetUsers = (from a in db.AspNetUsers
+                                            select a).ToList();
+            
+            for (int i = 0; i < aspNetUsers.Count; i++)
+            {
+                Session["I"] = aspNetUsers[i].Id;
+            }
+
             HttpWebRequest WR = WebRequest.CreateHttp("https://pokeapi.co/api/v2/pokemon/3/");
             WR.UserAgent = ".NET Framework Test Client";
 
@@ -228,7 +240,8 @@ namespace PokeJam.Controllers
             {
                 Character character = new Character();
                 //The ID will be the ID from the identity if we make that switch
-                character.UserID = 2;
+                //character.UserID = 2;
+                character.Id = (string)Session["I"];
                 character.CharName = CharName;
                 character.Height = CharHeight;
                 character.Weight = CharWeight;

@@ -12,19 +12,11 @@ namespace PokeJam.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Character
+    public partial class C__MigrationHistory
     {
-        public int CharID { get; set; }
-        public string Id { get; set; }
-        public string CharName { get; set; }
-        public int Height { get; set; }
-        public int Weight { get; set; }
-        public int ThreePoint { get; set; }
-        public int FieldGoal { get; set; }
-        public int Paint { get; set; }
-        public int Steal { get; set; }
-        public int Block { get; set; }
-    
-        public virtual AspNetUser AspNetUser { get; set; }
+        public string MigrationId { get; set; }
+        public string ContextKey { get; set; }
+        public byte[] Model { get; set; }
+        public string ProductVersion { get; set; }
     }
 }

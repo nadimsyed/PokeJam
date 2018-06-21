@@ -12,20 +12,12 @@ namespace PokeJam.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Tournament
+    public partial class AspNetUserClaim
     {
-        public int TID { get; set; }
-        public string Id { get; set; }
-        public bool T1 { get; set; }
-        public bool T2 { get; set; }
-        public bool T3 { get; set; }
-        public bool T4 { get; set; }
-        public bool T5 { get; set; }
-        public string P1 { get; set; }
-        public string P2 { get; set; }
-        public string P3 { get; set; }
-        public string P4 { get; set; }
-        public string P5 { get; set; }
+        public int Id { get; set; }
+        public string UserId { get; set; }
+        public string ClaimType { get; set; }
+        public string ClaimValue { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
     }

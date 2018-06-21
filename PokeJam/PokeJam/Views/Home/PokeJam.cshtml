@@ -8,7 +8,12 @@
 
 <a href="~/Home/Rules/">Rules</a>
 <a href="~/Home/ViewStats/">View Stats</a>
-<a href="~/GamePlay/SinglePlayer/">Single Player</a>
-<a href="~/GamePlay/Tier1/">Tournament</a>
+
+<form action="~/GamePlay/SinglePlayer/" method="post">
+    <input type="submit" name="play" value="Single" />
+</form>
+<form action="~/GamePlay/Tier1/" method="post">
+    <input type="submit" name="play" value="Tournament" />
+</form>
 
 @*TODO:INSERT IMAGE HERE*@
