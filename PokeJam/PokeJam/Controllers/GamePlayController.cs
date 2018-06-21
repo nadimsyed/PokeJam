@@ -145,6 +145,7 @@ namespace PokeJam.Controllers
         {
             //ViewBag.Coin = Coin;
             //ViewBag.Choice = Session["Pokemon"];
+            bool success = true;
 
             int ThreePoint = 0;
             int FieldGoal = 0;
@@ -244,14 +245,14 @@ namespace PokeJam.Controllers
 
                 if (which == 1)
                 {
-                    bool success = Methods.StealBlockConfirm(SD, StealC);
+                    success = Methods.StealBlockConfirm(SD, StealC);
 
                     ViewBag.Which = 1;
                     ViewBag.Success = success;
                 }
                 else if (which == 2)
                 {
-                    bool success = Methods.StealBlockConfirm(SD, BlockC);
+                    success = Methods.StealBlockConfirm(SD, BlockC);
 
                     ViewBag.Which = 2;
                     ViewBag.Success = success;
@@ -272,7 +273,7 @@ namespace PokeJam.Controllers
                 bool truth = Methods.ShotConfirm(ThreePoint);
                 string made = truth ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
                 ViewBag.Made = made;
-                if (truth)
+                if (truth && !success)
                 {
                     Session["Comp"] = 3;
                 }
@@ -282,7 +283,7 @@ namespace PokeJam.Controllers
                 bool truth = Methods.ShotConfirm(FieldGoal);
                 string made = truth ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
                 ViewBag.Made = made;
-                if (truth)
+                if (truth && !success)
                 {
                     Session["Comp"] = 2;
                 }
@@ -292,7 +293,7 @@ namespace PokeJam.Controllers
                 bool truth = Methods.ShotConfirm(Paint);
                 string made = truth ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
                 ViewBag.Made = made;
-                if (truth)
+                if (truth && !success)
                 {
                     Session["Comp"] = 2;
                 }
@@ -303,6 +304,8 @@ namespace PokeJam.Controllers
 
         public ActionResult PlayConclusion(string shot)
         {
+            bool success = true;
+
             ViewBag.Shot = shot;
 
             int ID = (int)Session["Char"];
@@ -382,14 +385,14 @@ namespace PokeJam.Controllers
 
                 if (which == 1)
                 {
-                    bool success = Methods.StealBlockConfirm(StealC, SD);
+                    success = Methods.StealBlockConfirm(StealC, SD);
 
                     ViewBag.Which = 1;
                     ViewBag.Success = success;
                 }
                 else if (which == 2)
                 {
-                    bool success = Methods.StealBlockConfirm(BlockC, SD);
+                    success = Methods.StealBlockConfirm(BlockC, SD);
 
                     ViewBag.Which = 2;
                     ViewBag.Success = success;
@@ -409,7 +412,7 @@ namespace PokeJam.Controllers
                 bool truth = Methods.ShotConfirm(character.ThreePoint);
                 string made =  truth ? "Shot went in!": "Shot missed!";
                 ViewBag.Made = made;
-                if (truth)
+                if (truth && !success)
                 {
                     Session["User"] = 3;
                 }
@@ -419,7 +422,7 @@ namespace PokeJam.Controllers
                 bool truth = Methods.ShotConfirm(character.FieldGoal);
                 string made =  truth ? "Shot went in!" : "Shot missed!";
                 ViewBag.Made = made;
-                if (truth)
+                if (truth && !success)
                 {
                     Session["User"] = 2;
                 }
@@ -429,7 +432,7 @@ namespace PokeJam.Controllers
                 bool truth = Methods.ShotConfirm(character.Paint);
                 string made =  truth ? "Shot went in!" : "Shot missed!";
                 ViewBag.Made = made;
-                if (truth)
+                if (truth && !success)
                 {
                     Session["User"] = 2;
                 }
@@ -440,6 +443,8 @@ namespace PokeJam.Controllers
 
         public ActionResult PlayConclusionX(string shot)
         {
+            bool success = true;
+
             ViewBag.Shot = shot;
 
             int ID = (int)Session["Char"];
@@ -519,14 +524,14 @@ namespace PokeJam.Controllers
 
                 if (which == 1)
                 {
-                    bool success = Methods.StealBlockConfirm(StealC, SD);
+                    success = Methods.StealBlockConfirm(StealC, SD);
 
                     ViewBag.Which = 1;
                     ViewBag.Success = success;
                 }
                 else if (which == 2)
                 {
-                    bool success = Methods.StealBlockConfirm(BlockC, SD);
+                    success = Methods.StealBlockConfirm(BlockC, SD);
 
                     ViewBag.Which = 2;
                     ViewBag.Success = success;
@@ -546,7 +551,7 @@ namespace PokeJam.Controllers
                 bool truth = Methods.ShotConfirm(character.ThreePoint);
                 string made = truth ? "Shot went in!" : "Shot missed!";
                 ViewBag.Made = made;
-                if (truth)
+                if (truth && !success)
                 {
                     Session["User"] = 3;
                 }
@@ -556,7 +561,7 @@ namespace PokeJam.Controllers
                 bool truth = Methods.ShotConfirm(character.FieldGoal);
                 string made = truth ? "Shot went in!" : "Shot missed!";
                 ViewBag.Made = made;
-                if (truth)
+                if (truth && !success)
                 {
                     Session["User"] = 2;
                 }
@@ -566,7 +571,7 @@ namespace PokeJam.Controllers
                 bool truth = Methods.ShotConfirm(character.Paint);
                 string made = truth ? "Shot went in!" : "Shot missed!";
                 ViewBag.Made = made;
-                if (truth)
+                if (truth && !success)
                 {
                     Session["User"] = 2;
                 }
@@ -577,6 +582,8 @@ namespace PokeJam.Controllers
 
         public ActionResult PlayConclusion2()
         {
+            bool success = true;
+
             int ThreePoint = 0;
             int FieldGoal = 0;
             int Paint = 0;
@@ -675,14 +682,14 @@ namespace PokeJam.Controllers
 
                 if (which == 1)
                 {
-                    bool success = Methods.StealBlockConfirm(SD, StealC);
+                    success = Methods.StealBlockConfirm(SD, StealC);
 
                     ViewBag.Which = 1;
                     ViewBag.Success = success;
                 }
                 else if (which == 2)
                 {
-                    bool success = Methods.StealBlockConfirm(SD, BlockC);
+                    success = Methods.StealBlockConfirm(SD, BlockC);
 
                     ViewBag.Which = 2;
                     ViewBag.Success = success;
@@ -703,7 +710,7 @@ namespace PokeJam.Controllers
                 bool truth = Methods.ShotConfirm(ThreePoint);
                 string made = truth ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
                 ViewBag.Made = made;
-                if (truth)
+                if (truth && !success)
                 {
                     Session["Comp"] = 3;
                 }
@@ -713,7 +720,7 @@ namespace PokeJam.Controllers
                 bool truth = Methods.ShotConfirm(FieldGoal);
                 string made =  truth ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
                 ViewBag.Made = made;
-                if (truth)
+                if (truth && !success)
                 {
                     Session["Comp"] = 2;
                 }
@@ -723,7 +730,7 @@ namespace PokeJam.Controllers
                 bool truth = Methods.ShotConfirm(Paint);
                 string made = truth ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
                 ViewBag.Made = made;
-                if (truth)
+                if (truth && !success)
                 {
                     Session["Comp"] = 2;
                 }
@@ -734,6 +741,8 @@ namespace PokeJam.Controllers
 
         public ActionResult PlayConclusionX2()
         {
+            bool success = true;
+
             int ThreePoint = 0;
             int FieldGoal = 0;
             int Paint = 0;
@@ -832,14 +841,14 @@ namespace PokeJam.Controllers
 
                 if (which == 1)
                 {
-                    bool success = Methods.StealBlockConfirm(SD, StealC);
+                    success = Methods.StealBlockConfirm(SD, StealC);
 
                     ViewBag.Which = 1;
                     ViewBag.Success = success;
                 }
                 else if (which == 2)
                 {
-                    bool success = Methods.StealBlockConfirm(SD, BlockC);
+                    success = Methods.StealBlockConfirm(SD, BlockC);
 
                     ViewBag.Which = 2;
                     ViewBag.Success = success;
@@ -860,7 +869,7 @@ namespace PokeJam.Controllers
                 bool truth = Methods.ShotConfirm(ThreePoint);
                 string made = truth ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
                 ViewBag.Made = made;
-                if (truth)
+                if (truth && !success)
                 {
                     Session["Comp"] = 3;
                 }
@@ -870,7 +879,7 @@ namespace PokeJam.Controllers
                 bool truth = Methods.ShotConfirm(FieldGoal);
                 string made = truth ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
                 ViewBag.Made = made;
-                if (truth)
+                if (truth && !success)
                 {
                     Session["Comp"] = 2;
                 }
@@ -880,7 +889,7 @@ namespace PokeJam.Controllers
                 bool truth = Methods.ShotConfirm(Paint);
                 string made = truth ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
                 ViewBag.Made = made;
-                if (truth)
+                if (truth && !success)
                 {
                     Session["Comp"] = 2;
                 }
@@ -891,6 +900,8 @@ namespace PokeJam.Controllers
 
         public ActionResult PlayConclusion3(string shot)
         {
+            bool success = true;
+
             ViewBag.Shot = shot;
 
             int ID = (int)Session["Char"];
@@ -965,14 +976,14 @@ namespace PokeJam.Controllers
 
                 if (which == 1)
                 {
-                    bool success = Methods.StealBlockConfirm(SD, StealC);
+                    success = Methods.StealBlockConfirm(SD, StealC);
 
                     ViewBag.Which = 1;
                     ViewBag.Success = success;
                 }
                 else if (which == 2)
                 {
-                    bool success = Methods.StealBlockConfirm(SD, BlockC);
+                    success = Methods.StealBlockConfirm(SD, BlockC);
 
                     ViewBag.Which = 2;
                     ViewBag.Success = success;
@@ -992,7 +1003,7 @@ namespace PokeJam.Controllers
                 bool truth = Methods.ShotConfirm(character.ThreePoint);
                 string made =  truth ? "Shot went in!" : "Shot missed!";
                 ViewBag.Made = made;
-                if (truth)
+                if (truth && !success)
                 {
                     //TODO: Somehting is going wrong with storing session value into ints as well as later on at the end for winning, figure that out
                     string z = (string)Session["User"].ToString();
@@ -1006,7 +1017,7 @@ namespace PokeJam.Controllers
                 bool truth = Methods.ShotConfirm(character.FieldGoal);
                 string made = truth ? "Shot went in!" : "Shot missed!";
                 ViewBag.Made = made;
-                if (truth)
+                if (truth && !success)
                 {
                     int x = (int)Session["User"];
                     x += 2;
@@ -1018,7 +1029,7 @@ namespace PokeJam.Controllers
                 bool truth = Methods.ShotConfirm(character.Paint);
                 string made = truth ? "Shot went in!" : "Shot missed!";
                 ViewBag.Made = made;
-                if (truth)
+                if (truth && !success)
                 {
                     int x = (int)Session["User"];
                     x += 2;
@@ -1031,6 +1042,8 @@ namespace PokeJam.Controllers
 
         public ActionResult PlayConclusionX3(string shot)
         {
+            bool success = true;
+
             ViewBag.Shot = shot;
 
             int ID = (int)Session["Char"];
@@ -1105,14 +1118,14 @@ namespace PokeJam.Controllers
 
                 if (which == 1)
                 {
-                    bool success = Methods.StealBlockConfirm(SD, StealC);
+                    success = Methods.StealBlockConfirm(SD, StealC);
 
                     ViewBag.Which = 1;
                     ViewBag.Success = success;
                 }
                 else if (which == 2)
                 {
-                    bool success = Methods.StealBlockConfirm(SD, BlockC);
+                    success = Methods.StealBlockConfirm(SD, BlockC);
 
                     ViewBag.Which = 2;
                     ViewBag.Success = success;
@@ -1132,7 +1145,7 @@ namespace PokeJam.Controllers
                 bool truth = Methods.ShotConfirm(character.ThreePoint);
                 string made = truth ? "Shot went in!" : "Shot missed!";
                 ViewBag.Made = made;
-                if (truth)
+                if (truth && !success)
                 {
                     //TODO: Somehting is going wrong with storing session value into ints as well as later on at the end for winning, figure that out
                     string z = (string)Session["User"].ToString();
@@ -1146,7 +1159,7 @@ namespace PokeJam.Controllers
                 bool truth = Methods.ShotConfirm(character.FieldGoal);
                 string made = truth ? "Shot went in!" : "Shot missed!";
                 ViewBag.Made = made;
-                if (truth)
+                if (truth && !success)
                 {
                     int x = (int)Session["User"];
                     x += 2;
@@ -1158,7 +1171,7 @@ namespace PokeJam.Controllers
                 bool truth = Methods.ShotConfirm(character.Paint);
                 string made = truth ? "Shot went in!" : "Shot missed!";
                 ViewBag.Made = made;
-                if (truth)
+                if (truth && !success)
                 {
                     int x = (int)Session["User"];
                     x += 2;
@@ -1171,6 +1184,8 @@ namespace PokeJam.Controllers
 
         public ActionResult PlayConclusion4()
         {
+            bool success = true;
+
             int ThreePoint = 0;
             int FieldGoal = 0;
             int Paint = 0;
@@ -1269,14 +1284,14 @@ namespace PokeJam.Controllers
 
                 if (which == 1)
                 {
-                    bool success = Methods.StealBlockConfirm(SD, StealC);
+                    success = Methods.StealBlockConfirm(SD, StealC);
 
                     ViewBag.Which = 1;
                     ViewBag.Success = success;
                 }
                 else if (which == 2)
                 {
-                    bool success = Methods.StealBlockConfirm(SD, BlockC);
+                    success = Methods.StealBlockConfirm(SD, BlockC);
 
                     ViewBag.Which = 2;
                     ViewBag.Success = success;
@@ -1297,7 +1312,7 @@ namespace PokeJam.Controllers
                 bool truth = Methods.ShotConfirm(ThreePoint);
                 string made = truth ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
                 ViewBag.Made = made;
-                if (truth)
+                if (truth && !success)
                 {
                     int x = (int)Session["Comp"];
                     x += 3;
@@ -1309,7 +1324,7 @@ namespace PokeJam.Controllers
                 bool truth = Methods.ShotConfirm(FieldGoal);
                 string made = truth ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
                 ViewBag.Made = made;
-                if (truth)
+                if (truth && !success)
                 {
                     int x = (int)Session["Comp"];
                     x += 2;
@@ -1321,7 +1336,7 @@ namespace PokeJam.Controllers
                 bool truth = Methods.ShotConfirm(Paint);
                 string made = truth ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
                 ViewBag.Made = made;
-                if (truth)
+                if (truth && !success)
                 {
                     int x = (int)Session["Comp"];
                     x += 3;
@@ -1334,6 +1349,8 @@ namespace PokeJam.Controllers
 
         public ActionResult PlayConclusionX4()
         {
+            bool success = true;
+
             int ThreePoint = 0;
             int FieldGoal = 0;
             int Paint = 0;
@@ -1432,14 +1449,14 @@ namespace PokeJam.Controllers
 
                 if (which == 1)
                 {
-                    bool success = Methods.StealBlockConfirm(SD, StealC);
+                    success = Methods.StealBlockConfirm(SD, StealC);
 
                     ViewBag.Which = 1;
                     ViewBag.Success = success;
                 }
                 else if (which == 2)
                 {
-                    bool success = Methods.StealBlockConfirm(SD, BlockC);
+                    success = Methods.StealBlockConfirm(SD, BlockC);
 
                     ViewBag.Which = 2;
                     ViewBag.Success = success;
@@ -1460,7 +1477,7 @@ namespace PokeJam.Controllers
                 bool truth = Methods.ShotConfirm(ThreePoint);
                 string made = truth ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
                 ViewBag.Made = made;
-                if (truth)
+                if (truth && !success)
                 {
                     int x = (int)Session["Comp"];
                     x += 3;
@@ -1472,7 +1489,7 @@ namespace PokeJam.Controllers
                 bool truth = Methods.ShotConfirm(FieldGoal);
                 string made = truth ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
                 ViewBag.Made = made;
-                if (truth)
+                if (truth && !success)
                 {
                     int x = (int)Session["Comp"];
                     x += 2;
@@ -1484,7 +1501,7 @@ namespace PokeJam.Controllers
                 bool truth = Methods.ShotConfirm(Paint);
                 string made = truth ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
                 ViewBag.Made = made;
-                if (truth)
+                if (truth && !success)
                 {
                     int x = (int)Session["Comp"];
                     x += 3;
