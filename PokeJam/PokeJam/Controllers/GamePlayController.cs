@@ -364,27 +364,30 @@ namespace PokeJam.Controllers
             if (shot == "ThreePoint")
             {
                 //TODO: For past MVP, insert Pokemon name, can store that name and just use as Variable for replacement
-                string made = Methods.ShotConfirm(ThreePoint) ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
+                bool truth = Methods.ShotConfirm(ThreePoint);
+                string made = truth ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
                 ViewBag.Made = made;
-                if (Methods.ShotConfirm(ThreePoint))
+                if (truth)
                 {
                     Session["Comp"] = 3;
                 }
             }
             else if (shot == "MidRange")
             {
-                string made = Methods.ShotConfirm(FieldGoal) ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
+                bool truth = Methods.ShotConfirm(FieldGoal);
+                string made =  truth ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
                 ViewBag.Made = made;
-                if (Methods.ShotConfirm(FieldGoal))
+                if (truth)
                 {
                     Session["Comp"] = 2;
                 }
             }
             else if (shot == "Paint")
             {
-                string made = Methods.ShotConfirm(Paint) ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
+                bool truth = Methods.ShotConfirm(Paint);
+                string made = truth ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
                 ViewBag.Made = made;
-                if (Methods.ShotConfirm(Paint))
+                if (truth)
                 {
                     Session["Comp"] = 2;
                 }
@@ -493,9 +496,10 @@ namespace PokeJam.Controllers
 
             if (shot == "ThreePoint")
             {
-                string made = Methods.ShotConfirm(character.ThreePoint) ? "Shot went in!" : "Shot missed!";
+                bool truth = Methods.ShotConfirm(character.ThreePoint);
+                string made =  truth ? "Shot went in!" : "Shot missed!";
                 ViewBag.Made = made;
-                if (Methods.ShotConfirm(character.ThreePoint))
+                if (truth)
                 {
                     int x = (int)Session["User"];
                     x += 3;
@@ -504,9 +508,10 @@ namespace PokeJam.Controllers
             }
             else if (shot == "MidRange")
             {
-                string made = Methods.ShotConfirm(character.FieldGoal) ? "Shot went in!" : "Shot missed!";
+                bool truth = Methods.ShotConfirm(character.FieldGoal);
+                string made = truth ? "Shot went in!" : "Shot missed!";
                 ViewBag.Made = made;
-                if (Methods.ShotConfirm(character.FieldGoal))
+                if (truth)
                 {
                     int x = (int)Session["User"];
                     x += 2;
@@ -515,9 +520,10 @@ namespace PokeJam.Controllers
             }
             else if (shot == "Paint")
             {
-                string made = Methods.ShotConfirm(character.Paint) ? "Shot went in!" : "Shot missed!";
+                bool truth = Methods.ShotConfirm(character.Paint);
+                string made = truth ? "Shot went in!" : "Shot missed!";
                 ViewBag.Made = made;
-                if (Methods.ShotConfirm(character.Paint))
+                if (truth)
                 {
                     int x = (int)Session["User"];
                     x += 2;
@@ -653,9 +659,10 @@ namespace PokeJam.Controllers
             if (shot == "ThreePoint")
             {
                 //TODO: For past MVP, insert Pokemon name, can store that name and just use as Variable for replacement
-                string made = Methods.ShotConfirm(ThreePoint) ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
+                bool truth = Methods.ShotConfirm(ThreePoint);
+                string made = truth ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
                 ViewBag.Made = made;
-                if (Methods.ShotConfirm(ThreePoint))
+                if (truth)
                 {
                     int x = (int)Session["Comp"];
                     x += 3;
@@ -664,9 +671,10 @@ namespace PokeJam.Controllers
             }
             else if (shot == "MidRange")
             {
-                string made = Methods.ShotConfirm(FieldGoal) ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
+                bool truth = Methods.ShotConfirm(FieldGoal);
+                string made = truth ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
                 ViewBag.Made = made;
-                if (Methods.ShotConfirm(FieldGoal))
+                if (truth)
                 {
                     int x = (int)Session["Comp"];
                     x += 2;
@@ -675,9 +683,10 @@ namespace PokeJam.Controllers
             }
             else if (shot == "Paint")
             {
-                string made = Methods.ShotConfirm(Paint) ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
+                bool truth = Methods.ShotConfirm(Paint);
+                string made = truth ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
                 ViewBag.Made = made;
-                if (Methods.ShotConfirm(Paint))
+                if (truth)
                 {
                     int x = (int)Session["Comp"];
                     x += 3;
