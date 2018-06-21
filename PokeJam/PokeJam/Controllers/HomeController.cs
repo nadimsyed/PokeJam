@@ -266,6 +266,8 @@ namespace PokeJam.Controllers
 
         public ActionResult PokeJam()
         {
+
+
             return View();
         }
 

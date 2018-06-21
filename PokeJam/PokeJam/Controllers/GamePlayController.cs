@@ -27,7 +27,7 @@ namespace PokeJam.Controllers
             {
                 Session.Add("PlayType", play);
             }
-            else if (Session["PlayType"] == null)
+            else if (Session["PlayType"] != null)
             {
                 Session["PlayType"] = play;
             }
@@ -46,7 +46,7 @@ namespace PokeJam.Controllers
             {
                 Session.Add("PlayType", play);
             }
-            else if (Session["PlayType"] == null)
+            else if (Session["PlayType"] != null)
             {
                 Session["PlayType"] = play;
             }
