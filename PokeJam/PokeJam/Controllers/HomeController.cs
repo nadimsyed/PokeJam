@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using PokeJam.Models;
+using Microsoft.AspNet.Identity;
 
 namespace PokeJam.Controllers
 {
@@ -17,6 +18,8 @@ namespace PokeJam.Controllers
         [Authorize]
         public ActionResult Index()
         {
+            Session["UserID"] = User.Identity.GetUserId();
+
             Session["User"] = 0;
             Session["Comp"] = 0;
 
