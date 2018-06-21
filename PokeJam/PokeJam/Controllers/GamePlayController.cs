@@ -156,6 +156,7 @@ namespace PokeJam.Controllers
                 string specialDef = (string)JsonData["stats"][1]["base_stat"];
                 string def = (string)JsonData["stats"][3]["base_stat"];
 
+                //TODO: Replace all the int.parse with the method
                 int SA = Methods.StatConverter(specialAtt);
                 int A = (int.Parse(att)) / 3 + 10;
                 int S = (int.Parse(speed)) / 3 + 15;
@@ -182,14 +183,14 @@ namespace PokeJam.Controllers
 
                 if (which == 1)
                 {
-                    bool success = Methods.StealBlockConfirm(SD, StealC);
+                    bool success = Methods.StealBlockConfirm(StealC, SD);
 
                     ViewBag.Which = 1;
                     ViewBag.Success = success;
                 }
                 else if (which == 2)
                 {
-                    bool success = Methods.StealBlockConfirm(SD, BlockC);
+                    bool success = Methods.StealBlockConfirm(BlockC, SD);
 
                     ViewBag.Which = 2;
                     ViewBag.Success = success;
@@ -206,22 +207,33 @@ namespace PokeJam.Controllers
 
             if (shot == "ThreePoint")
             {
-                string made = Methods.ShotConfirm(character.ThreePoint)? "Shot went in!": "Shot missed!";
+                bool truth = Methods.ShotConfirm(character.ThreePoint);
+                string made =  truth ? "Shot went in!": "Shot missed!";
                 ViewBag.Made = made;
-                if (Methods.ShotConfirm(character.ThreePoint))
+                if (truth)
                 {
-                    
+                    Session["User"] = 3;
                 }
             }
             else if (shot == "MidRange")
             {
-                string made = Methods.ShotConfirm(character.FieldGoal) ? "Shot went in!" : "Shot missed!";
+                bool truth = Methods.ShotConfirm(character.FieldGoal);
+                string made =  ? "Shot went in!" : "Shot missed!";
                 ViewBag.Made = made;
+                if (truth)
+                {
+                    Session["User"] = 2;
+                }
             }
             else if (shot == "Paint")
             {
-                string made = Methods.ShotConfirm(character.Paint) ? "Shot went in!" : "Shot missed!";
+                bool truth = Methods.ShotConfirm(character.Paint);
+                string made =  ? "Shot went in!" : "Shot missed!";
                 ViewBag.Made = made;
+                if (truth)
+                {
+                    Session["User"] = 2;
+                }
             }
 
             return View();
@@ -229,6 +241,10 @@ namespace PokeJam.Controllers
 
         public ActionResult PlayConclusion2()
         {
+            int ThreePoint = 0;
+            int FieldGoal = 0;
+            int Paint = 0;
+
             Random random = new Random();
             int iShot = random.Next(1, 4);
             string shot = "";
@@ -301,6 +317,9 @@ namespace PokeJam.Controllers
                 int SD = (int.Parse(specialDef)) / 3 - 20;
                 int D = (int.Parse(def)) / 3 - 15;
 
+                ThreePoint = SA;
+                FieldGoal = A;
+                Paint = S;
 
                 ViewBag.ThreePoint = SA;
                 ViewBag.FieldGoal = A;
@@ -345,18 +364,30 @@ namespace PokeJam.Controllers
             if (shot == "ThreePoint")
             {
                 //TODO: For past MVP, insert Pokemon name, can store that name and just use as Variable for replacement
-                string made = Methods.ShotConfirm(character.ThreePoint) ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
+                string made = Methods.ShotConfirm(ThreePoint) ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
                 ViewBag.Made = made;
+                if (Methods.ShotConfirm(ThreePoint))
+                {
+                    Session["Comp"] = 3;
+                }
             }
             else if (shot == "MidRange")
             {
-                string made = Methods.ShotConfirm(character.FieldGoal) ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
+                string made = Methods.ShotConfirm(FieldGoal) ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
                 ViewBag.Made = made;
+                if (Methods.ShotConfirm(FieldGoal))
+                {
+                    Session["Comp"] = 2;
+                }
             }
             else if (shot == "Paint")
             {
-                string made = Methods.ShotConfirm(character.Paint) ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
+                string made = Methods.ShotConfirm(Paint) ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
                 ViewBag.Made = made;
+                if (Methods.ShotConfirm(Paint))
+                {
+                    Session["Comp"] = 2;
+                }
             }
 
             return View();
@@ -464,16 +495,194 @@ namespace PokeJam.Controllers
             {
                 string made = Methods.ShotConfirm(character.ThreePoint) ? "Shot went in!" : "Shot missed!";
                 ViewBag.Made = made;
+                if (Methods.ShotConfirm(character.ThreePoint))
+                {
+                    int x = (int)Session["User"];
+                    x += 3;
+                    Session["User"] = x;
+                }
             }
             else if (shot == "MidRange")
             {
                 string made = Methods.ShotConfirm(character.FieldGoal) ? "Shot went in!" : "Shot missed!";
                 ViewBag.Made = made;
+                if (Methods.ShotConfirm(character.FieldGoal))
+                {
+                    int x = (int)Session["User"];
+                    x += 2;
+                    Session["User"] = x;
+                }
             }
             else if (shot == "Paint")
             {
                 string made = Methods.ShotConfirm(character.Paint) ? "Shot went in!" : "Shot missed!";
                 ViewBag.Made = made;
+                if (Methods.ShotConfirm(character.Paint))
+                {
+                    int x = (int)Session["User"];
+                    x += 2;
+                    Session["User"] = x;
+                }
+            }
+
+            return View();
+        }
+
+        public ActionResult PlayConclusion4()
+        {
+            int ThreePoint = 0;
+            int FieldGoal = 0;
+            int Paint = 0;
+
+            Random random = new Random();
+            int iShot = random.Next(1, 4);
+            string shot = "";
+
+            if (iShot == 1)
+            {
+                shot = "ThreePoint";
+            }
+            else if (iShot == 2)
+            {
+                shot = "MidRange";
+            }
+            else if (iShot == 3)
+            {
+                shot = "Paint";
+            }
+            int ID = (int)Session["Char"];
+
+            Character character = db.Characters.Where(
+                c => c.CharID == ID).Single();
+
+            int StealC = character.Steal;
+            int BlockC = character.Block;
+
+            int PID = (int)Session["Pokemon"];
+
+            //TODO: Ask whats worse practice, making a bunch of sessions and storing the Pokemons Basketball Stats, or a second request to the API
+            HttpWebRequest WR = WebRequest.CreateHttp($"https://pokeapi.co/api/v2/pokemon/{PID}/");
+            WR.UserAgent = ".NET Framework Test Client";
+
+            HttpWebResponse Response;
+
+            try
+            {
+                Response = (HttpWebResponse)WR.GetResponse();
+            }
+            catch (WebException e)
+            {
+                ViewBag.Error = "Exception";
+                ViewBag.ErrorDescription = e.Message;
+                return View();
+            }
+
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                ViewBag.Error = Response.StatusCode;
+                ViewBag.ErrorDescription = Response.StatusDescription;
+                return View();
+            }
+
+            StreamReader reader = new StreamReader(Response.GetResponseStream());
+            string PokemonData = reader.ReadToEnd();
+
+            try
+            {
+                JObject JsonData = JObject.Parse(PokemonData);
+                ViewBag.Name = JsonData["forms"][0];
+                string name = ViewBag.Name.name;
+                ViewBag.NameProp = Methods.UppercaseFirst(name);
+
+                string specialAtt = (string)JsonData["stats"][2]["base_stat"];
+                string att = (string)JsonData["stats"][4]["base_stat"];
+                string speed = (string)JsonData["stats"][0]["base_stat"];
+                string specialDef = (string)JsonData["stats"][1]["base_stat"];
+                string def = (string)JsonData["stats"][3]["base_stat"];
+
+                int SA = Methods.StatConverter(specialAtt);
+                int A = (int.Parse(att)) / 3 + 10;
+                int S = (int.Parse(speed)) / 3 + 15;
+                int SD = (int.Parse(specialDef)) / 3 - 20;
+                int D = (int.Parse(def)) / 3 - 15;
+
+                ThreePoint = SA;
+                FieldGoal = A;
+                Paint = S;
+
+                ViewBag.ThreePoint = SA;
+                ViewBag.FieldGoal = A;
+                ViewBag.Paint = S;
+                ViewBag.Steal = SD;
+                ViewBag.Block = D;
+
+                int x = Methods.Generator();
+
+                ViewBag.Number = x;
+
+                //int StealTester = SD + 5;
+
+                //bool success = Methods.StealBlockConfirm(SD, StealTester);
+
+                int which = random.Next(1, 3);
+
+                if (which == 1)
+                {
+                    bool success = Methods.StealBlockConfirm(SD, StealC);
+
+                    ViewBag.Which = 1;
+                    ViewBag.Success = success;
+                }
+                else if (which == 2)
+                {
+                    bool success = Methods.StealBlockConfirm(SD, BlockC);
+
+                    ViewBag.Which = 2;
+                    ViewBag.Success = success;
+                }
+
+            }
+            catch (Exception e)
+            {
+                ViewBag.Error = "JSON Issue";
+                ViewBag.ErrorDescription = e.Message;
+                return View();
+            }
+
+
+            if (shot == "ThreePoint")
+            {
+                //TODO: For past MVP, insert Pokemon name, can store that name and just use as Variable for replacement
+                string made = Methods.ShotConfirm(ThreePoint) ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
+                ViewBag.Made = made;
+                if (Methods.ShotConfirm(ThreePoint))
+                {
+                    int x = (int)Session["Comp"];
+                    x += 3;
+                    Session["Comp"] = x;
+                }
+            }
+            else if (shot == "MidRange")
+            {
+                string made = Methods.ShotConfirm(FieldGoal) ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
+                ViewBag.Made = made;
+                if (Methods.ShotConfirm(FieldGoal))
+                {
+                    int x = (int)Session["Comp"];
+                    x += 2;
+                    Session["Comp"] = x;
+                }
+            }
+            else if (shot == "Paint")
+            {
+                string made = Methods.ShotConfirm(Paint) ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
+                ViewBag.Made = made;
+                if (Methods.ShotConfirm(Paint))
+                {
+                    int x = (int)Session["Comp"];
+                    x += 3;
+                    Session["Comp"] = x;
+                }
             }
 
             return View();
@@ -505,7 +714,21 @@ namespace PokeJam.Controllers
 
         public ActionResult GameplayResult()
         {
+            int u = (int)Session["User"];
+            int c = (int)Session["Comp"];
 
+            if (u > c)
+            {
+                ViewBag.Winner = "Player Won!!!";
+            }
+            else if (c > u)
+            {
+                ViewBag.Winner = "Pokemon Won!!! D:";
+            }
+            else if (u == c)
+            {
+                ViewBag.Winner = "Game was a Tie! No one won.";
+            }
             return View();
         }
     }
