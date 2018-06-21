@@ -5,18 +5,32 @@
 
 @*<h2><!--Need to reference winner of game-->has won!</h2>
 
-<table class="table table-bordered">
-    <tr>
-        <th>User</th>
-        <th><!--Pokemon oponnent name--></th>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-    </tr>
-</table>
-<a href="~/Home/Pokejam/">Done</a>*@
+    <table class="table table-bordered">
+        <tr>
+            <th>User</th>
+            <th><!--Pokemon oponnent name--></th>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+    <a href="~/Home/Pokejam/">Done</a>*@
 
 <h2>@ViewBag.Winner</h2>
+
+@if (ViewBag.Truth == "True")
+{
+    <a href="~/GamePlay/TournamentNext">Move?</a>
+}
+else if (ViewBag.Truth == "False")
+{
+    <a href="~/GamePlay/TournamentLoss">Move?</a>
+}
+else if (ViewBag.Truth == "Tie")
+{
+    <h3>For Pokemon's, Tie's are the same as losses. You may Hoop Again!</h3>
+    <a href="~/GamePlay/TournamentNext">Move?</a>
+}
 
 

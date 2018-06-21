@@ -6,3 +6,17 @@
 <h2>Gameplay Result</h2>
 
 <h2>@ViewBag.Winner</h2>
+
+@if (ViewBag.Truth == "True")
+{
+    <a href="~/GamePlay/TournamentNext">Move?</a>
+}
+else if (ViewBag.Truth == "False")
+{
+    <a href="~/GamePlay/TournamentLoss">Move?</a>
+}
+else if (ViewBag.Truth == "Tie")
+{
+    <h3>For Pokemon's, Tie's are the same as losses. You may Hoop Again!</h3>
+    <a href="~/GamePlay/TournamentNext">Move?</a>
+}

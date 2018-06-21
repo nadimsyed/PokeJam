@@ -1544,14 +1544,26 @@ namespace PokeJam.Controllers
             if (u > c)
             {
                 ViewBag.Winner = "Player Won!!!";
+                if ((string)Session["PlayType"] == "Tournament")
+                {
+                    ViewBag.Truth = "True"; 
+                }
             }
             else if (c > u)
             {
                 ViewBag.Winner = "Pokemon Won!!! D:";
+                if ((string)Session["PlayType"] == "Tournament")
+                {
+                    ViewBag.Truth = "False";
+                }
             }
             else if (u == c)
             {
                 ViewBag.Winner = "Game was a Tie! No one won.";
+                if ((string)Session["PlayType"] == "Tournament")
+                {
+                    ViewBag.Truth = "Tie";
+                }
             }
             return View();
         }
@@ -1564,14 +1576,26 @@ namespace PokeJam.Controllers
             if (u > c)
             {
                 ViewBag.Winner = "Player Won!!!";
+                if ((string)Session["PlayType"] == "Tournament")
+                {
+                    ViewBag.Truth = "True";
+                }
             }
             else if (c > u)
             {
                 ViewBag.Winner = "Pokemon Won!!! D:";
+                if ((string)Session["PlayType"] == "Tournament")
+                {
+                    ViewBag.Truth = "False";
+                }
             }
             else if (u == c)
             {
                 ViewBag.Winner = "Game was a Tie! No one won.";
+                if ((string)Session["PlayType"] == "Tournament")
+                {
+                    ViewBag.Truth = "Tie";
+                }
             }
             return View();
         }
