@@ -24,38 +24,39 @@ namespace PokeJam.Controllers
 
         public ActionResult HeadsTailsSingle(int pokemon, string Coin)
         {
-            if (Session["TierCount"] == null)
+            if (Session["TierCount"] == null && (string)Session["PlayType"] == "Tournament")
             {
                 Session["TierCount"] = 1;
             }
-            else if (Session["TierCount"] != null)
+            else if (Session["TierCount"] != null && (string)Session["PlayType"] == "Tournament")
             {
                 int x = (int)Session["TierCount"];
                 x++;
                 Session["TierCount"] = x;
             }
 
-            if (Session["TierTrack"] == null)
+            //TODO: might be able to remove the &&, pretty sure already validated in the tiernext
+            if (Session["TierTrack"] == null && (string)Session["PlayType"] == "Tournament")
             {
                 Session["TierTrack"] = 0;
             }
 
-            List<string> pokemons = new List<string>();
-            string name = (from p in db.PokeTiers
-                           where p.PokeID == pokemon
-                           select p.PokeName).Single();
-            pokemons.Add(name);
+            //List<string> pokemons = new List<string>();
+            //string name = (from p in db.PokeTiers
+            //               where p.PokeID == pokemon
+            //               select p.PokeName).Single();
+            //pokemons.Add(name);
 
-            if (Session["TierPoke"] == null)
-            {
-                Session["TierPoke"] = pokemons;
-            }
-            else if (Session["TierPoke"] != null)
-            {
-                List<int> pokes = (List<int>)Session["TierPoke"];
-                pokes.Add(pokemon);
-                Session["TierPoke"] = pokes;
-            }
+            //if (Session["TierPoke"] == null)
+            //{
+            //    Session["TierPoke"] = pokemons;
+            //}
+            //else if (Session["TierPoke"] != null)
+            //{
+            //    List<string> pokes = (List<string>)Session["TierPoke"];
+            //    pokes.Add(pokemon);
+            //    Session["TierPoke"] = pokes;
+            //}
 
 
             Random random = new Random();
@@ -1560,6 +1561,7 @@ namespace PokeJam.Controllers
         public ActionResult TournamentLoss()
         {
 
+
             return View();
         }
 
@@ -1613,7 +1615,11 @@ namespace PokeJam.Controllers
             int u = (int)Session["User"];
             int c = (int)Session["Comp"];
 
-            int TierCount = (int)Session["TierCount"];
+            int TierCount = 0;
+            if ((string)Session["PlayType"] == "Tournament")
+            {
+                TierCount = (int)Session["TierCount"]; 
+            }
 
             if (u > c)
             {
@@ -1650,7 +1656,12 @@ namespace PokeJam.Controllers
         {
             int u = (int)Session["User"];
             int c = (int)Session["Comp"];
-            int TierCount = (int)Session["TierCount"];
+
+            int TierCount = 0;
+            if ((string)Session["PlayType"] == "Tournament")
+            {
+                TierCount = (int)Session["TierCount"];
+            }
 
             if (u > c)
             {
