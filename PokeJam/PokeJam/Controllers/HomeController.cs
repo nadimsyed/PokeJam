@@ -244,7 +244,7 @@ namespace PokeJam.Controllers
                 Character character = new Character();
                 //The ID will be the ID from the identity if we make that switch
                 //character.UserID = 2;
-                character.Id = (string)Session["I"];
+                character.Id = (string)Session["UserID"];
                 character.CharName = CharName;
                 character.Height = CharHeight;
                 character.Weight = CharWeight;

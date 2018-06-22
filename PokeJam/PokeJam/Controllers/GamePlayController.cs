@@ -35,6 +35,28 @@ namespace PokeJam.Controllers
                 Session["TierCount"] = x;
             }
 
+            if (Session["TierTrack"] == null)
+            {
+                Session["TierTrack"] = 0;
+            }
+
+            List<string> pokemons = new List<string>();
+            string name = (from p in db.PokeTiers
+                           where p.PokeID == pokemon
+                           select p.PokeName).Single();
+            pokemons.Add(name);
+
+            if (Session["TierPoke"] == null)
+            {
+                Session["TierPoke"] = pokemons;
+            }
+            else if (Session["TierPoke"] != null)
+            {
+                List<int> pokes = (List<int>)Session["TierPoke"];
+                pokes.Add(pokemon);
+                Session["TierPoke"] = pokes;
+            }
+
 
             Random random = new Random();
             int flip = random.Next(1, 3);
@@ -1528,6 +1550,10 @@ namespace PokeJam.Controllers
         public ActionResult Tier5Congratulations()
         {
 
+            int store = (int)Session["TierTrack"];
+            store++;
+            Session["TierTrack"] = store;
+
             return View();
         }
 
@@ -1543,18 +1569,35 @@ namespace PokeJam.Controllers
             if (TierCount == 1)
             {
                 ViewBag.Redirect = "/GamePlay/Tier2/";
+
+                int store = (int)Session["TierTrack"];
+                store++;
+                Session["TierTrack"] = store; 
+                
             }
             else if (TierCount == 2)
             {
                 ViewBag.Redirect = "/GamePlay/Tier3/";
+
+                int store = (int)Session["TierTrack"];
+                store++;
+                Session["TierTrack"] = store;
             }
             else if (TierCount == 3)
             {
                 ViewBag.Redirect = "/GamePlay/Tier4/";
+
+                int store = (int)Session["TierTrack"];
+                store++;
+                Session["TierTrack"] = store;
             }
             else if (TierCount == 4)
             {
                 ViewBag.Redirect = "/GamePlay/Tier5/";
+
+                int store = (int)Session["TierTrack"];
+                store++;
+                Session["TierTrack"] = store;
             }
             return View();
         }
