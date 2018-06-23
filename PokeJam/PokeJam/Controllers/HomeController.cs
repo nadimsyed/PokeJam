@@ -271,6 +271,8 @@ namespace PokeJam.Controllers
         {
             //Attempting to clear Tournament Data if user returns to home pages aka "Quits"
             Session["TierCount"] = 0;
+            Session["User"] = 0;
+            Session["Comp"] = 0;
 
             return View();
         }
