@@ -1897,6 +1897,9 @@ namespace PokeJam.Controllers
 
         public ActionResult TournamentNext()
         {
+            Session["User"] = 0;
+            Session["Comp"] = 0;
+
             int TierCount = (int)Session["TierCount"];
             if (TierCount == 1)
             {
@@ -1930,6 +1933,10 @@ namespace PokeJam.Controllers
                 int store = (int)Session["TierTrack"];
                 store++;
                 Session["TierTrack"] = store;
+            }
+            else if (TierCount == 5)
+            {
+                return RedirectToAction("Tier5Congratulations");
             }
             return View();
         }
