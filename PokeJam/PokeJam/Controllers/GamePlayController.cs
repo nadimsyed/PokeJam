@@ -265,7 +265,7 @@ namespace PokeJam.Controllers
                     {
                         //TODO: For past MVP, insert Pokemon name, can store that name and just use as Variable for replacement
                         bool truth = Methods.ShotConfirm(playerThreePoint);
-                        string made = truth ? "Player's shot went in!" : "Player's shot missed!";
+                        string made = truth ? "Player's Three-Point shot went in!" : "Player's Three-Point shot missed!";
 
                         playerPlays.Add(made);
 
@@ -280,7 +280,7 @@ namespace PokeJam.Controllers
                     else if (shot == "MidRange")
                     {
                         bool truth = Methods.ShotConfirm(playerFieldGoal);
-                        string made = truth ? "Player's shot went in!" : "Player's shot missed!";
+                        string made = truth ? "Player's Mid-Range shot went in!" : "Player's Mid-Range shot missed!";
 
                         playerPlays.Add(made);
 
@@ -295,7 +295,7 @@ namespace PokeJam.Controllers
                     else if (shot == "Paint")
                     {
                         bool truth = Methods.ShotConfirm(playerPaint);
-                        string made = truth ? "Player's shot went in!" : "Player's shot missed!";
+                        string made = truth ? "Player's In-the-Paint shot went in!" : "Player's In-the-Paint shot missed!";
 
                         playerPlays.Add(made);
 
@@ -361,7 +361,7 @@ namespace PokeJam.Controllers
                     {
                         //TODO: For past MVP, insert Pokemon name, can store that name and just use as Variable for replacement
                         bool truth = Methods.ShotConfirm(compThreePoint);
-                        string made = truth ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
+                        string made = truth ? "Pokemon's Three-Point shot went in!" : "Pokemon's Three-Point shot missed!";
 
                         computerPlays.Add(made);
 
@@ -376,7 +376,7 @@ namespace PokeJam.Controllers
                     else if (shot == "MidRange")
                     {
                         bool truth = Methods.ShotConfirm(compFieldGoal);
-                        string made = truth ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
+                        string made = truth ? "Pokemon's Mid-Range shot went in!" : "Pokemon's Mid-Range shot missed!";
 
                         computerPlays.Add(made);
 
@@ -391,7 +391,7 @@ namespace PokeJam.Controllers
                     else if (shot == "Paint")
                     {
                         bool truth = Methods.ShotConfirm(compPaint);
-                        string made = truth ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
+                        string made = truth ? "Pokemon's In-the-Paint shot went in!" : "Pokemon's In-the-Paint shot missed!";
 
                         computerPlays.Add(made);
 
