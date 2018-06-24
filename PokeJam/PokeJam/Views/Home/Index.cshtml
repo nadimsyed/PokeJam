@@ -5,7 +5,75 @@
 <h2>@ViewBag.Error</h2>
 <h2>@ViewBag.ErrorDescription</h2>
 
-<h1>@ViewBag.NameProp</h1>
+<a href="~/Home/CreatePlayerStart">Create</a>
+<table class="table">
+    <tr>
+        <th>
+            CharName
+        </th>
+        <th>
+            Height
+        </th>
+        <th>
+            Weigh
+        </th>
+        <th>
+            ThreePoint
+        </th>
+        <th>
+            FieldGoal
+        </th>
+        <th>
+            Paint
+        </th>
+        <th>
+            Steal
+        </th>
+        <th>
+            Block
+        </th>
+    </tr>
+
+    @foreach (var item in ViewBag.Characters)
+    {
+        <tr>
+            <td>
+                 @*@item.CharName*@
+                <form action="~/Home/PokeJam">
+                    <input type="hidden"  name="CharID" value="@item.CharID" />
+                    <input type="submit" name="CharName" value="@item.CharName" />
+                </form>
+            </td>
+            <td>
+                @item.Height
+            </td>
+            <td>
+                @item.Weight
+            </td>
+            <td>
+                @item.ThreePoint
+            </td>
+            <td>
+                @item.FieldGoal
+            </td>
+            <td>
+                @item.Paint
+            </td>
+            <td>
+                @item.Steal
+            </td>
+            <td>
+                @item.Block
+            </td>
+            <td>
+                <a href="/Characters/Delete/@item.CharID">Delete</a>
+            </td>
+        </tr>
+    }
+
+</table>
+
+@*<h1>@ViewBag.NameProp</h1>
 <h3>Speed: @ViewBag.Speed.base_stat</h3>
 <h3>SpecialDef: @ViewBag.SpecialDef.base_stat</h3>
 <h3>SpecialAttack: @ViewBag.SpecialAttack.base_stat</h3>
@@ -64,7 +132,7 @@
 </form>
 <script>
     function Check() {
-        @*var x = parseInt(@Session["SkillPoints"].ToString())*@
+        var x = parseInt(@Session["SkillPoints"].ToString())
         var a = parseInt( document.getElementById("ThreePointPerc").value ) - @ViewBag.ThreePointWH;
         var b = parseInt( document.getElementById("FieldGoatPerc").value ) - @ViewBag.FieldGoalWH;
         var c = parseInt( document.getElementById("PaintPerc").value ) - @ViewBag.PaintWH;
@@ -81,4 +149,4 @@
 
 
 
-</script>
+</script>*@

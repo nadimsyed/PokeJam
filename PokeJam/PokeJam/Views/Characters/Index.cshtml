@@ -36,7 +36,7 @@
             @Html.DisplayNameFor(model => model.Block)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.User.UserName)
+            @Html.DisplayNameFor(model => model.AspNetUser.Email)
         </th>
         <th></th>
     </tr>
@@ -68,7 +68,7 @@
             @Html.DisplayFor(modelItem => item.Block)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.User.UserName)
+            @Html.DisplayFor(modelItem => item.AspNetUser.Email)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.CharID }) |

@@ -74,23 +74,15 @@
         <dd>
             @Html.DisplayFor(model => model.Block)
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.User.UserName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.User.UserName)
-        </dd>
-
     </dl>
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
+    <div class="form-actions no-color">
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        @*@Html.ActionLink("Back to List", "Index")*@
+        <a href="/Home/Index/">Back to List</a>
+    </div>
     }
 </div>

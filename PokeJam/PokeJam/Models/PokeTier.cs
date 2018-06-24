@@ -17,5 +17,6 @@ namespace PokeJam.Models
         public int PokeID { get; set; }
         public int Tiers { get; set; }
         public string PokeName { get; set; }
+        public int PokedexNumber { get; set; }
     }
 }
