@@ -108,6 +108,8 @@ namespace PokeJam.Controllers
                 string name = ViewBag.Name.name;
                 ViewBag.NameProp = Methods.UppercaseFirst(name);
 
+                Session["PokeName"] = name;
+
                 string specialAtt = (string)JsonData["stats"][2]["base_stat"];
                 string att = (string)JsonData["stats"][4]["base_stat"];
                 string speed = (string)JsonData["stats"][0]["base_stat"];
@@ -451,6 +453,11 @@ namespace PokeJam.Controllers
                 Session["PlayType"] = play;
             }
 
+            bool[] Track = new bool[5];
+            string[] PokeTrack = new string[5];
+
+            Session["Track"] = Track;
+            Session["PokeTrack"] = PokeTrack;
             List<PokeTier> tiers = db.PokeTiers.Where(
                 p => p.Tiers == 1).ToList();
 
@@ -1881,9 +1888,31 @@ namespace PokeJam.Controllers
         public ActionResult Tier5Congratulations()
         {
 
-            int store = (int)Session["TierTrack"];
-            store++;
-            Session["TierTrack"] = store;
+            //int store = (int)Session["TierTrack"];
+            //store++;
+            //Session["TierTrack"] = store;
+
+            int TierCount = (int)Session["TierCount"];
+            if (TierCount == 5)
+            {
+                bool[] track = (bool[])Session["Track"];
+                string[] pokeTrack = (string[])Session["PokeTrack"];
+                Tournament tournament = new Tournament();
+                tournament.Id = (string)Session["UserID"];
+                tournament.T1 = track[0];
+                tournament.T2 = track[1];
+                tournament.T3 = track[2];
+                tournament.T4 = track[3];
+                tournament.T5 = track[4];
+                tournament.P1 = pokeTrack[0];
+                tournament.P2 = pokeTrack[1];
+                tournament.P3 = pokeTrack[2];
+                tournament.P4 = pokeTrack[3];
+                tournament.P5 = pokeTrack[4];
+
+                db.Tournaments.Add(tournament);
+                db.SaveChanges();
+            }
 
             return View();
         }
@@ -1903,6 +1932,13 @@ namespace PokeJam.Controllers
             int TierCount = (int)Session["TierCount"];
             if (TierCount == 1)
             {
+                bool[] track = (bool[])Session["Track"];
+                track[0] = true;
+                Session["Track"] = track;
+                string[] pokeTrack = (string[])Session["PokeTrack"];
+                pokeTrack[0] = (string)Session["PokeName"];
+
+
                 ViewBag.Redirect = "/GamePlay/Tier2/";
 
                 int store = (int)Session["TierTrack"];
@@ -1912,6 +1948,12 @@ namespace PokeJam.Controllers
             }
             else if (TierCount == 2)
             {
+                bool[] track = (bool[])Session["Track"];
+                track[1] = true;
+                Session["Track"] = track;
+                string[] pokeTrack = (string[])Session["PokeTrack"];
+                pokeTrack[1] = (string)Session["PokeName"];
+
                 ViewBag.Redirect = "/GamePlay/Tier3/";
 
                 int store = (int)Session["TierTrack"];
@@ -1920,6 +1962,12 @@ namespace PokeJam.Controllers
             }
             else if (TierCount == 3)
             {
+                bool[] track = (bool[])Session["Track"];
+                track[2] = true;
+                Session["Track"] = track;
+                string[] pokeTrack = (string[])Session["PokeTrack"];
+                pokeTrack[2] = (string)Session["PokeName"];
+
                 ViewBag.Redirect = "/GamePlay/Tier4/";
 
                 int store = (int)Session["TierTrack"];
@@ -1928,6 +1976,12 @@ namespace PokeJam.Controllers
             }
             else if (TierCount == 4)
             {
+                bool[] track = (bool[])Session["Track"];
+                track[3] = true;
+                Session["Track"] = track;
+                string[] pokeTrack = (string[])Session["PokeTrack"];
+                pokeTrack[3] = (string)Session["PokeName"];
+
                 ViewBag.Redirect = "/GamePlay/Tier5/";
 
                 int store = (int)Session["TierTrack"];
@@ -1936,6 +1990,12 @@ namespace PokeJam.Controllers
             }
             else if (TierCount == 5)
             {
+                bool[] track = (bool[])Session["Track"];
+                track[4] = true;
+                Session["Track"] = track;
+                string[] pokeTrack = (string[])Session["PokeTrack"];
+                pokeTrack[4] = (string)Session["PokeName"];
+
                 return RedirectToAction("Tier5Congratulations");
             }
             return View();
