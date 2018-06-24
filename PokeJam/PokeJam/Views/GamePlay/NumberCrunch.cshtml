@@ -10,9 +10,42 @@
 
 @if ((string)Session["Winner"] == "Player")
 {
+    <table class="table table-bordered">
+        <tr>
+            <th>Play's for Player</th>
+            @*Add quarter number to these header title or as a title of the page*@
+            <th>Total Points For Player at end of Quarter</th>
+            <th>Play's for Pokemon</th>
+            <th>Total Points For Pokemon at end of Quarter</th>
+        </tr>
+        @foreach (var item in ViewBag.Player)
+        {
+            <tr>
 
+                <td>@item</td>
+            </tr>
+
+        }
+        <tr>
+            <td>@Session["User"]</td>
+        </tr>
+
+        @foreach (var item in ViewBag.Computer)
+        {
+            <tr>
+
+                <td>@item</td>
+            </tr>
+
+        }
+        <tr>
+            <td>@Session["Comp"]</td>
+        </tr>
+
+    </table>
 }
-
+else if ((string)Session["Winner"] == "Computer")
+{
 <table class="table table-bordered">
     <tr>
         <th>Play's for Player</th>
@@ -21,18 +54,6 @@
         <th>Play's for Pokemon</th>
         <th>Total Points For Pokemon at end of Quarter</th>
     </tr>
-    @foreach (var item in ViewBag.Player)
-    {
-        <tr>
-
-            <td>@item</td>
-        </tr>
-
-    }
-    <tr>
-        <td>@Session["User"]</td>
-    </tr>
-
     @foreach (var item in ViewBag.Computer)
     {
         <tr>
@@ -45,7 +66,22 @@
         <td>@Session["Comp"]</td>
     </tr>
 
+    @foreach (var item in ViewBag.Player)
+    {
+        <tr>
+
+            <td>@item</td>
+        </tr>
+
+    }
+    <tr>
+        <td>@Session["User"]</td>
+    </tr>
+
 </table>
+}
+
+
 
 <a href="~/GamePlay/QuarterSelector">Move on to the Next Quarter</a>
 <a href="~/Home/PokeJam">Quit</a>

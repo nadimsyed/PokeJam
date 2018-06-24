@@ -19,6 +19,9 @@
 
 <h2>@ViewBag.Winner</h2>
 
+Player's Score: @Session["User"]
+Pokemon's: @Session["Comp"]
+
 @if (ViewBag.Truth == "True")
 {
     <a href="~/GamePlay/TournamentNext">Move?</a>
@@ -34,4 +37,4 @@ else if (ViewBag.Truth == "Tie")
 }
 
 
-    <a href="~/Home/PokeJam">Home</a>
+<a href="~/Home/PokeJam">Home</a>

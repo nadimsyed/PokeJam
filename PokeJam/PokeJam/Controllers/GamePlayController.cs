@@ -155,17 +155,17 @@ namespace PokeJam.Controllers
                 {
                     Session["Winner"] = "Player";
 
-                    return RedirectToAction("QuarterSelector", "GamePlay");
+                    return RedirectToAction("QuarterSelector");
                 }
                 else
                 {
                     Session["Winner"] = "Computer";
 
-                    return RedirectToAction("QuarterSelector", "GamePlay");
+                    return RedirectToAction("QuarterSelector");
                 }
             }
 
-            return RedirectToAction("QuarterSelector", "GamePlay");
+            return RedirectToAction("QuarterSelector");
         }
 
         public ActionResult QuarterSelector()
@@ -181,13 +181,14 @@ namespace PokeJam.Controllers
             }
             else if (quarter == 4 && winner == "Player")
             {
-                return View("GameplayResult");
+                return RedirectToAction("GameplayResult");
             }
             else if (quarter == 4 && winner == "Computer")
             {
-                return View("GameplayResult2");
+
+                return RedirectToAction("GameplayResult2");
             }
-            return View("GameplayResult");
+            return RedirectToAction("GameplayResult");
         }
 
         public ActionResult NumberCrunch(int ThreePoint, int MidRange, int Paint, int Steal, int Block)
@@ -1972,7 +1973,7 @@ namespace PokeJam.Controllers
             }
             else if (u == c)
             {
-                ViewBag.Winner = "Game was a Tie! No one won.";
+                ViewBag.Winner = "Game was a Tie!.";
                 if ((string)Session["PlayType"] == "Tournament")
                 {
                     ViewBag.Truth = "Tie";
@@ -2014,7 +2015,7 @@ namespace PokeJam.Controllers
             }
             else if (u == c)
             {
-                ViewBag.Winner = "Game was a Tie! No one won.";
+                ViewBag.Winner = "Game was a Tie!.";
                 if ((string)Session["PlayType"] == "Tournament")
                 {
                     ViewBag.Truth = "Tie";
