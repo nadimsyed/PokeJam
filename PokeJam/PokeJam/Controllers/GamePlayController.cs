@@ -171,19 +171,27 @@ namespace PokeJam.Controllers
         public ActionResult QuarterSelector()
         {
             int quarter = (int)Session["Quarter"];
-            quarter++;
-            Session["Quarter"] = quarter;
+            string winner = (string)Session["Winner"];
+            if (quarter != 4)
+            {
+                quarter++;
+                Session["Quarter"] = quarter;
 
-            return View();
+                return View(); 
+            }
+            else if (quarter == 4 && winner == "Player")
+            {
+                return View("GameplayResult");
+            }
+            else if (quarter == 4 && winner == "Computer")
+            {
+                return View("GameplayResult2");
+            }
+            return View("GameplayResult");
         }
 
         public ActionResult NumberCrunch(int ThreePoint, int MidRange, int Paint, int Steal, int Block)
         {
-            //ViewBag.A = ThreePoint;
-            //ViewBag.B = MidRange;
-            //ViewBag.C = Paint;
-            //ViewBag.D = Steal;
-            //ViewBag.E = Block;
             List<string> playerPlays = new List<string>();
             List<string> computerPlays = new List<string>();
 
