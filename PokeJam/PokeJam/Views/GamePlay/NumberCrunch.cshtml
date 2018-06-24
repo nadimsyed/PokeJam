@@ -3,7 +3,7 @@
     ViewBag.Title = "NumberCrunch";
 }
 
-<h2>NumberCrunch</h2>
+<h2>Quarter @Session["Quarter"]</h2>
 
 <h1>@ViewBag.Error</h1>
 <h1>@ViewBag.ErrorDescription</h1>
@@ -13,7 +13,7 @@
 
 }
 
-<table>
+<table class="table table-bordered">
     <tr>
         <th>Play's for Player</th>
         @*Add quarter number to these header title or as a title of the page*@
@@ -21,16 +21,28 @@
         <th>Play's for Pokemon</th>
         <th>Total Points For Pokemon at end of Quarter</th>
     </tr>
+    @foreach (var item in ViewBag.Player)
+    {
+        <tr>
+
+            <td>@item</td>
+        </tr>
+
+    }
     <tr>
-        @foreach (var item in ViewBag.Player)
-        {
-            <td>@item</td>
-        }
         <td>@Session["User"]</td>
-        @foreach (var item in ViewBag.Computer)
-        {
+    </tr>
+
+    @foreach (var item in ViewBag.Computer)
+    {
+        <tr>
+
             <td>@item</td>
-        }
+        </tr>
+
+    }
+    <tr>
         <td>@Session["Comp"]</td>
     </tr>
+
 </table>
