@@ -8,8 +8,29 @@
 <h1>@ViewBag.Error</h1>
 <h1>@ViewBag.ErrorDescription</h1>
 
-<h1>@ViewBag.A</h1>
-<h1>@ViewBag.B</h1>
-<h1>@ViewBag.C</h1>
-<h1>@ViewBag.D</h1>
-<h1>@ViewBag.E</h1>
+@if ((string)Session["Winner"] == "Player")
+{
+
+}
+
+<table>
+    <tr>
+        <th>Play's for Player</th>
+        @*Add quarter number to these header title or as a title of the page*@
+        <th>Total Points For Player at end of Quarter</th>
+        <th>Play's for Pokemon</th>
+        <th>Total Points For Pokemon at end of Quarter</th>
+    </tr>
+    <tr>
+        @foreach (var item in ViewBag.Player)
+        {
+            <td>@item</td>
+        }
+        <td>@Session["User"]</td>
+        @foreach (var item in ViewBag.Computer)
+        {
+            <td>@item</td>
+        }
+        <td>@Session["Comp"]</td>
+    </tr>
+</table>
