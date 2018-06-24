@@ -39,7 +39,7 @@
         <tr>
             <td>
                  @*@item.CharName*@
-                <form action="~/Home/PokeJam">
+                <form action="~/Home/PokeJam" method="post">
                     <input type="hidden"  name="CharID" value="@item.CharID" />
                     <input type="submit" name="CharName" value="@item.CharName" />
                 </form>
