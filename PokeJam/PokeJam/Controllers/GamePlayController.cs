@@ -24,6 +24,8 @@ namespace PokeJam.Controllers
 
         public ActionResult HeadsTailsSingle(int pokemon, string Coin)
         {
+            Session["Quarter"] = 0;
+
             if (Session["TierCount"] == null && (string)Session["PlayType"] == "Tournament")
             {
                 Session["TierCount"] = 1;
@@ -65,30 +67,239 @@ namespace PokeJam.Controllers
             Session["Pokemon"] = pokemon;
 
 
+            int PID = (from p in db.PokeTiers
+                       where p.PokeID == pokemon
+                       select p.PokedexNumber).Single();
+            int compThreePoint = 0;
+            int compFieldGoal = 0;
+            int compPaint = 0;
+            int compSteal = 0;
+            int compBlock = 0;
+            HttpWebRequest WR = WebRequest.CreateHttp($"https://pokeapi.co/api/v2/pokemon/{PID}/");
+            WR.UserAgent = ".NET Framework Test Client";
+
+            HttpWebResponse Response;
+
+            try
+            {
+                Response = (HttpWebResponse)WR.GetResponse();
+            }
+            catch (WebException e)
+            {
+                ViewBag.Error = "Exception";
+                ViewBag.ErrorDescription = e.Message;
+                return View();
+            }
+
+            if (Response.StatusCode != HttpStatusCode.OK)
+            {
+                ViewBag.Error = Response.StatusCode;
+                ViewBag.ErrorDescription = Response.StatusDescription;
+                return View();
+            }
+
+            StreamReader reader = new StreamReader(Response.GetResponseStream());
+            string PokemonData = reader.ReadToEnd();
+
+            try
+            {
+                JObject JsonData = JObject.Parse(PokemonData);
+                ViewBag.Name = JsonData["forms"][0];
+                string name = ViewBag.Name.name;
+                ViewBag.NameProp = Methods.UppercaseFirst(name);
+
+                string specialAtt = (string)JsonData["stats"][2]["base_stat"];
+                string att = (string)JsonData["stats"][4]["base_stat"];
+                string speed = (string)JsonData["stats"][0]["base_stat"];
+                string specialDef = (string)JsonData["stats"][1]["base_stat"];
+                string def = (string)JsonData["stats"][3]["base_stat"];
+
+                compThreePoint = Methods.StatConverter(specialAtt);
+                compFieldGoal = Methods.StatConverter(att) + 10;
+                compPaint = Methods.StatConverter(speed) + 15;
+                compSteal = Methods.StatConverter(specialDef) - 20;
+                compBlock = Methods.StatConverter(def) - 15;
+
+
+            }
+            catch (Exception e)
+            {
+                ViewBag.Error = "JSON Issue";
+                ViewBag.ErrorDescription = e.Message;
+                return View();
+            }
+
+            Session["compThreePoint"] = compThreePoint;
+            Session["compFieldGoal"] = compFieldGoal;
+            Session["compPaint"] = compPaint;
+            Session["compSteal"] = compSteal;
+            Session["compBlock"] = compBlock;
+
             if (flip == 1)
             {
                 if (Coin == "Heads")
                 {
-                    return RedirectToAction("GamePlay", "GamePlay");
+                    Session["Winner"] = "Player";
+                    return RedirectToAction("QuarterSelector", "GamePlay");
                 }
                 else
                 {
-                    return RedirectToAction("GamePlay2", "GamePlay");
+                    Session["Winner"] = "Computer";
+
+                    return RedirectToAction("QuarterSelector", "GamePlay");
                 }
             }
             else if (flip == 2)
             {
                 if (Coin == "Tails")
                 {
-                    return RedirectToAction("GamePlay", "GamePlay");
+                    Session["Winner"] = "Player";
+
+                    return RedirectToAction("QuarterSelector", "GamePlay");
                 }
                 else
                 {
-                    return RedirectToAction("GamePlay2", "GamePlay");
+                    Session["Winner"] = "Computer";
+
+                    return RedirectToAction("QuarterSelector", "GamePlay");
                 }
             }
 
-            return RedirectToAction("GamePlay", "GamePlay");
+            return RedirectToAction("QuarterSelector", "GamePlay");
+        }
+
+        public ActionResult QuarterSelector()
+        {
+            int quarter = (int)Session["Quarter"];
+            quarter++;
+            Session["Quarter"] = quarter;
+
+            return View();
+        }
+
+        public ActionResult NumberCrunch(int ThreePoint, int MidRange, int Paint, int Steal, int Block)
+        {
+            //ViewBag.A = ThreePoint;
+            //ViewBag.B = MidRange;
+            //ViewBag.C = Paint;
+            //ViewBag.D = Steal;
+            //ViewBag.E = Block;
+            List<string> playerPlays = new List<string>();
+            List<string> computerPlays = new List<string>();
+
+            int charNum = (int)Session["Char"];
+            Character player = (from c in db.Characters
+                                  where c.CharID == charNum
+                                  select c).Single();
+            int playerThreePoint = player.ThreePoint;
+            int playerFieldGoal = player.FieldGoal;
+            int playerPaint = player.Paint;
+            int playerSteal = player.Steal;
+            int playerBlock = player.Block;
+
+            int compNum = (int)Session["Pokemon"];
+            int PID = (from p in db.PokeTiers
+                       where p.PokeID == compNum
+                       select p.PokedexNumber).Single();
+            int compThreePoint = (int)Session["compThreePoint"];
+            int compFieldGoal = (int)Session["compFieldGoal"];
+            int compPaint = (int)Session["compPaint"];
+            int compSteal = (int)Session["compSteal"];
+            int compBlock = (int)Session["compBlock"];
+
+
+            int shotter = Methods.Generator();
+            string shot = "";
+
+            Random random = new Random();
+            bool success = true;
+            int which = random.Next(0, 101);
+
+            if (which <= Steal)
+            {
+                success = Methods.StealBlockConfirm(playerSteal, compSteal);
+
+                string happened = "Ball was stolen!";
+                playerPlays.Add(happened);
+
+                ViewBag.Which = 1;
+                ViewBag.Success = success;
+            }
+            else if (which > Steal && which <= 100)
+            {
+                success = Methods.StealBlockConfirm(playerBlock, compBlock);
+
+                string happened = "Ball was blocked!";
+                playerPlays.Add(happened);
+
+                ViewBag.Which = 2;
+                ViewBag.Success = success;
+            }
+
+            if (!success)
+            {
+                if (shotter <= ThreePoint)
+                {
+                    shot = "ThreePoint";
+                }
+                else if (shotter <= (ThreePoint + MidRange) && shotter > ThreePoint)
+                {
+                    shot = "MidRange";
+                }
+                else if (shotter <= (ThreePoint + MidRange + Paint) && shotter > (ThreePoint + MidRange))
+                {
+                    shot = "Paint";
+                }
+
+                if (shot == "ThreePoint")
+                {
+                    //TODO: For past MVP, insert Pokemon name, can store that name and just use as Variable for replacement
+                    bool truth = Methods.ShotConfirm(ThreePoint);
+                    string made = truth ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
+
+                    playerPlays.Add(made);
+
+                    ViewBag.Made = made;
+                    if (truth && !success)
+                    {
+                        int z = (int)Session["User"];
+                        z += 3;
+                        Session["User"] = z;
+                    }
+                }
+                else if (shot == "MidRange")
+                {
+                    bool truth = Methods.ShotConfirm(FieldGoal);
+                    string made = truth ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
+
+                    playerPlays.Add(made);
+
+                    ViewBag.Made = made;
+                    if (truth && !success)
+                    {
+                        int z = (int)Session["User"];
+                        z += 2;
+                        Session["User"] = 2;
+                    }
+                }
+                else if (shot == "Paint")
+                {
+                    bool truth = Methods.ShotConfirm(Paint);
+                    string made = truth ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
+
+                    playerPlays.Add(made);
+
+                    ViewBag.Made = made;
+                    if (truth && !success)
+                    {
+                        int z = (int)Session["User"];
+                        z += 2;
+                        Session["User"] = 2;
+                    }
+                } 
+            }
+
+            return View();
         }
 
         public ActionResult SinglePlayer(string play)

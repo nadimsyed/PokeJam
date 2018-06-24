@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="PokeJamModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="PokeJamModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="__MigrationHistory">
           <Key>
             <PropertyRef Name="MigrationId" />
@@ -88,6 +88,7 @@
           <Property Name="PokeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Tiers" Type="int" Nullable="false" />
           <Property Name="PokeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PokedexNumber" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Tournaments">
           <Key>
@@ -221,8 +222,7 @@
             <End Role="Tournaments" EntitySet="Tournaments" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PokeJamModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -310,6 +310,7 @@
           <Property Name="PokeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Tiers" Type="Int32" Nullable="false" />
           <Property Name="PokeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PokedexNumber" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Tournament">
           <Key>
@@ -495,6 +496,7 @@
           <EntitySetMapping Name="PokeTiers">
             <EntityTypeMapping TypeName="PokeJamModel.PokeTier">
               <MappingFragment StoreEntitySet="PokeTiers">
+                <ScalarProperty Name="PokedexNumber" ColumnName="PokedexNumber" />
                 <ScalarProperty Name="PokeID" ColumnName="PokeID" />
                 <ScalarProperty Name="Tiers" ColumnName="Tiers" />
                 <ScalarProperty Name="PokeName" ColumnName="PokeName" />

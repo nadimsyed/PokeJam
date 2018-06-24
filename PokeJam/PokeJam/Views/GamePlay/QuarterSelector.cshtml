@@ -1,0 +1,79 @@
+﻿
+@{
+    ViewBag.Title = "QuarterSelector";
+}
+
+<h2>QuarterSelector</h2>
+
+<form action="~/GamePlay/NumberCrunch">
+    Distribute 100 Points Across the Three Types of Shot to Decide how your Character Will Play this Quarter<br /><br />
+    Three Pointers: <input type="number" name="ThreePoint" value="34" min="0" max="100" /><br />
+    Mid-Range Shots: <input type="number" name="MidRange" value="33" min="0" max="100" /><br />
+    In-the-Paint Shots: <input type="number" name="Paint" value="33" min="0" max="100" /><br /><br /><br />
+
+    Distribute 100 Points Across the Two Types of Defensive Options for the Quarter<br /><br />
+    Steals: <input type="number" name="Steal" value="50" min="0" max="100" /><br />
+    Blocks: <input type="number" name="Block" value="50" min="0" max="100" /><br /><br />
+
+    <input type="submit" name="submit" value="Submit Distributions" onclick="return CheckShot() && Check()" />
+</form>
+
+<script>
+    function CheckShot() {
+        var a = parseInt(document.getElementById("ThreePoint").value );
+        var b = parseInt(document.getElementById("MidRange").value );
+        var c = parseInt(document.getElementById("Paint").value );
+        if ((100 - (a +b+c) == 0)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+
+    }
+    function Check() {
+        var d = parseInt( document.getElementById("Steal").value );
+        var e = parseInt(document.getElementById("Block").value);
+        if ((100 - (d + e) == 0)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+
+
+</script>
+@*<div class="slidecontainer">
+    Three Pointers: <input type="range" min="1" max="100" value="50" onchange="slider1()" class="slider" id="ThreePoint" name="ThreePoint">
+</div>
+<div class="slidecontainer">
+    Mid-Rangers: <input type="range" min="1" max="100" value="50" onchange="slider2()" class="slider" id="MidRange" name="MidRange">
+</div>
+<div class="slidecontainer">
+    In-the-Paint: <input type="range" min="1" max="100" value="50" onchange="slider3()" class="slider" id="Paint" name="Paint">
+</div>
+<div>
+    <h3 id="total"></h3>
+</div>
+
+<script>
+    var slider1 = document.getElementById("ThreePoint");
+    var slider2 = document.getElementById("MidRange");
+    var slider3 = document.getElementById("Paint");
+
+    var output = document.getElementById("total");
+    output.innerHTML = slider.value; // Display the default slider value
+
+    // Update the current slider value (each time you drag the slider handle)
+    function slider1() {
+        output.innerHTML = slider1 + slider2.value + slider3.value
+    }
+    function slider2() {
+        output.innerHTML = slider1 + slider2.value + slider3.value
+    }
+    function slider3() {
+        output.innerHTML = slider1 + slider2.value + slider3.value
+    }
+</script>*@
