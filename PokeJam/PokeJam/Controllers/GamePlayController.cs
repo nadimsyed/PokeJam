@@ -187,6 +187,11 @@ namespace PokeJam.Controllers
             List<string> playerPlays = new List<string>();
             List<string> computerPlays = new List<string>();
 
+            string shot = "";
+            bool success = true;
+            Random random = new Random();
+
+
             int charNum = (int)Session["Char"];
             Character player = (from c in db.Characters
                                   where c.CharID == charNum
@@ -208,96 +213,201 @@ namespace PokeJam.Controllers
             int compBlock = (int)Session["compBlock"];
 
 
-            int shotter = Methods.Generator();
-            string shot = "";
-
-            Random random = new Random();
-            bool success = true;
-            int which = random.Next(0, 101);
-
-            if (which <= Steal)
+            for (int i = 0; i < 5; i++)
             {
-                success = Methods.StealBlockConfirm(playerSteal, compSteal);
+                int shotter = Methods.Generator();
 
-                string happened = "Ball was stolen!";
-                playerPlays.Add(happened);
+                int which = random.Next(0, 101);
 
-                ViewBag.Which = 1;
-                ViewBag.Success = success;
+                if (which <= Steal)
+                {
+                    success = Methods.StealBlockConfirm(playerSteal, compSteal);
+
+                    if (success)
+                    {
+                        string happened = "Ball was stolen!";
+                        playerPlays.Add(happened); 
+                    }
+
+                    ViewBag.Which = 1;
+                    ViewBag.Success = success;
+                }
+                else if (which > Steal && which <= 100)
+                {
+                    success = Methods.StealBlockConfirm(playerBlock, compBlock);
+
+                    if (success)
+                    {
+                        string happened = "Ball was blocked!";
+                        playerPlays.Add(happened); 
+                    }
+
+                    ViewBag.Which = 2;
+                    ViewBag.Success = success;
+                }
+
+                if (!success)
+                {
+                    if (shotter <= ThreePoint)
+                    {
+                        shot = "ThreePoint";
+                    }
+                    else if (shotter <= (ThreePoint + MidRange) && shotter > ThreePoint)
+                    {
+                        shot = "MidRange";
+                    }
+                    else if (shotter <= (ThreePoint + MidRange + Paint) && shotter > (ThreePoint + MidRange))
+                    {
+                        shot = "Paint";
+                    }
+
+                    if (shot == "ThreePoint")
+                    {
+                        //TODO: For past MVP, insert Pokemon name, can store that name and just use as Variable for replacement
+                        bool truth = Methods.ShotConfirm(playerThreePoint);
+                        string made = truth ? "Player's shot went in!" : "Player's shot missed!";
+
+                        playerPlays.Add(made);
+
+                        ViewBag.Made = made;
+                        if (truth && !success)
+                        {
+                            int z = (int)Session["User"];
+                            z += 3;
+                            Session["User"] = z;
+                        }
+                    }
+                    else if (shot == "MidRange")
+                    {
+                        bool truth = Methods.ShotConfirm(playerFieldGoal);
+                        string made = truth ? "Player's shot went in!" : "Player's shot missed!";
+
+                        playerPlays.Add(made);
+
+                        ViewBag.Made = made;
+                        if (truth && !success)
+                        {
+                            int z = (int)Session["User"];
+                            z += 2;
+                            Session["User"] = z;
+                        }
+                    }
+                    else if (shot == "Paint")
+                    {
+                        bool truth = Methods.ShotConfirm(playerPaint);
+                        string made = truth ? "Player's shot went in!" : "Player's shot missed!";
+
+                        playerPlays.Add(made);
+
+                        ViewBag.Made = made;
+                        if (truth && !success)
+                        {
+                            int z = (int)Session["User"];
+                            z += 2;
+                            Session["User"] = z;
+                        }
+                    }
+                } 
             }
-            else if (which > Steal && which <= 100)
+
+            for (int i = 0; i < 5; i++)
             {
-                success = Methods.StealBlockConfirm(playerBlock, compBlock);
+                int which2 = random.Next(1, 3);
 
-                string happened = "Ball was blocked!";
-                playerPlays.Add(happened);
+                if (which2 == 1)
+                {
+                    success = Methods.StealBlockConfirm(compSteal, playerSteal);
 
-                ViewBag.Which = 2;
-                ViewBag.Success = success;
-            }
+                    if (success)
+                    {
+                        string happened = "Ball was stolen!";
+                        computerPlays.Add(happened);
+                    }
 
-            if (!success)
-            {
-                if (shotter <= ThreePoint)
+                    ViewBag.Which = 1;
+                    ViewBag.Success = success;
+                }
+                else if (which2 == 2)
+                {
+                    success = Methods.StealBlockConfirm(compBlock, playerBlock);
+
+                    if (success)
+                    {
+                        string happened = "Ball was blocked!";
+                        computerPlays.Add(happened);
+                    }
+
+                    ViewBag.Which = 2;
+                    ViewBag.Success = success;
+                }
+                int iShot = random.Next(1, 4);
+
+                if (iShot == 1)
                 {
                     shot = "ThreePoint";
                 }
-                else if (shotter <= (ThreePoint + MidRange) && shotter > ThreePoint)
+                else if (iShot == 2)
                 {
                     shot = "MidRange";
                 }
-                else if (shotter <= (ThreePoint + MidRange + Paint) && shotter > (ThreePoint + MidRange))
+                else if (iShot == 3)
                 {
                     shot = "Paint";
                 }
 
-                if (shot == "ThreePoint")
+                if (!success)
                 {
-                    //TODO: For past MVP, insert Pokemon name, can store that name and just use as Variable for replacement
-                    bool truth = Methods.ShotConfirm(ThreePoint);
-                    string made = truth ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
-
-                    playerPlays.Add(made);
-
-                    ViewBag.Made = made;
-                    if (truth && !success)
+                    if (shot == "ThreePoint")
                     {
-                        int z = (int)Session["User"];
-                        z += 3;
-                        Session["User"] = z;
+                        //TODO: For past MVP, insert Pokemon name, can store that name and just use as Variable for replacement
+                        bool truth = Methods.ShotConfirm(compThreePoint);
+                        string made = truth ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
+
+                        computerPlays.Add(made);
+
+                        ViewBag.Made = made;
+                        if (truth && !success)
+                        {
+                            int z = (int)Session["Comp"];
+                            z += 3;
+                            Session["Comp"] = z;
+                        }
                     }
-                }
-                else if (shot == "MidRange")
-                {
-                    bool truth = Methods.ShotConfirm(FieldGoal);
-                    string made = truth ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
-
-                    playerPlays.Add(made);
-
-                    ViewBag.Made = made;
-                    if (truth && !success)
+                    else if (shot == "MidRange")
                     {
-                        int z = (int)Session["User"];
-                        z += 2;
-                        Session["User"] = 2;
+                        bool truth = Methods.ShotConfirm(compFieldGoal);
+                        string made = truth ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
+
+                        computerPlays.Add(made);
+
+                        ViewBag.Made = made;
+                        if (truth && !success)
+                        {
+                            int z = (int)Session["Comp"];
+                            z += 2;
+                            Session["Comp"] = z;
+                        }
                     }
-                }
-                else if (shot == "Paint")
-                {
-                    bool truth = Methods.ShotConfirm(Paint);
-                    string made = truth ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
-
-                    playerPlays.Add(made);
-
-                    ViewBag.Made = made;
-                    if (truth && !success)
+                    else if (shot == "Paint")
                     {
-                        int z = (int)Session["User"];
-                        z += 2;
-                        Session["User"] = 2;
+                        bool truth = Methods.ShotConfirm(compPaint);
+                        string made = truth ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
+
+                        computerPlays.Add(made);
+
+                        ViewBag.Made = made;
+                        if (truth && !success)
+                        {
+                            int z = (int)Session["Comp"];
+                            z += 2;
+                            Session["Comp"] = z;
+                        }
                     }
                 } 
             }
+
+            ViewBag.Player = playerPlays;
+            ViewBag.Computer = computerPlays;
 
             return View();
         }
