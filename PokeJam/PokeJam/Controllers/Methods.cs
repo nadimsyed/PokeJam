@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PokeJam.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -7,6 +8,8 @@ namespace PokeJam.Controllers
 {
     public class Methods
     {
+        private static PokeJamEntities db = new PokeJamEntities();
+
         public static string UppercaseFirst(string s)
         {
             if (string.IsNullOrEmpty(s))
@@ -466,6 +469,25 @@ namespace PokeJam.Controllers
                 x = 14;
             }
             return x;
+        }
+
+        public static void AddTournament(int TierCount, bool[] track, string[] pokeTrack, string UserId)
+        {
+            Tournament tournament = new Tournament();
+            tournament.Id = UserId;
+            tournament.T1 = track[0];
+            tournament.T2 = track[1];
+            tournament.T3 = track[2];
+            tournament.T4 = track[3];
+            tournament.T5 = track[4];
+            tournament.P1 = pokeTrack[0];
+            tournament.P2 = pokeTrack[1];
+            tournament.P3 = pokeTrack[2];
+            tournament.P4 = pokeTrack[3];
+            tournament.P5 = pokeTrack[4];
+
+            db.Tournaments.Add(tournament);
+            db.SaveChanges();
         }
     }
 }
