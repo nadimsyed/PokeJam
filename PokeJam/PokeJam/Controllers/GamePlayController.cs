@@ -1919,7 +1919,105 @@ namespace PokeJam.Controllers
 
         public ActionResult TournamentLoss()
         {
+            int TierCount = (int)Session["TierCount"];
+            if (TierCount == 4)
+            {
+                bool[] track = (bool[])Session["Track"];
+                string[] pokeTrack = (string[])Session["PokeTrack"];
+                Tournament tournament = new Tournament();
+                tournament.Id = (string)Session["UserID"];
+                tournament.T1 = track[0];
+                tournament.T2 = track[1];
+                tournament.T3 = track[2];
+                tournament.T4 = track[3];
+                tournament.T5 = false;
+                tournament.P1 = pokeTrack[0];
+                tournament.P2 = pokeTrack[1];
+                tournament.P3 = pokeTrack[2];
+                tournament.P4 = pokeTrack[3];
+                tournament.P5 = "N/A";
 
+                db.Tournaments.Add(tournament);
+                db.SaveChanges();
+            }
+            if (TierCount == 3)
+            {
+                bool[] track = (bool[])Session["Track"];
+                string[] pokeTrack = (string[])Session["PokeTrack"];
+                Tournament tournament = new Tournament();
+                tournament.Id = (string)Session["UserID"];
+                tournament.T1 = track[0];
+                tournament.T2 = track[1];
+                tournament.T3 = track[2];
+                tournament.T4 = false;
+                tournament.T5 = false;
+                tournament.P1 = pokeTrack[0];
+                tournament.P2 = pokeTrack[1];
+                tournament.P3 = pokeTrack[2];
+                tournament.P4 = "N/A";
+                tournament.P5 = "N/A";
+
+                db.Tournaments.Add(tournament);
+                db.SaveChanges();
+            }
+            if (TierCount == 2)
+            {
+                bool[] track = (bool[])Session["Track"];
+                string[] pokeTrack = (string[])Session["PokeTrack"];
+                Tournament tournament = new Tournament();
+                tournament.Id = (string)Session["UserID"];
+                tournament.T1 = track[0];
+                tournament.T2 = track[1];
+                tournament.T3 = false;
+                tournament.T4 = false;
+                tournament.T5 = false;
+                tournament.P1 = pokeTrack[0];
+                tournament.P2 = pokeTrack[1];
+                tournament.P3 = "N/A";
+                tournament.P4 = "N/A";
+                tournament.P5 = "N/A";
+
+                db.Tournaments.Add(tournament);
+                db.SaveChanges();
+            }
+            if (TierCount == 1)
+            {
+                bool[] track = (bool[])Session["Track"];
+                string[] pokeTrack = (string[])Session["PokeTrack"];
+                Tournament tournament = new Tournament();
+                tournament.Id = (string)Session["UserID"];
+                tournament.T1 = track[0];
+                tournament.T2 = false;
+                tournament.T3 = false;
+                tournament.T4 = false;
+                tournament.T5 = false;
+                tournament.P1 = pokeTrack[0];
+                tournament.P2 = "N/A";
+                tournament.P3 = "N/A";
+                tournament.P4 = "N/A";
+                tournament.P5 = "N/A";
+
+                db.Tournaments.Add(tournament);
+                db.SaveChanges();
+            }
+            if (TierCount == 0)
+            {
+                Tournament tournament = new Tournament();
+                tournament.Id = (string)Session["UserID"];
+                tournament.T1 = false;
+                tournament.T2 = false;
+                tournament.T3 = false;
+                tournament.T4 = false;
+                tournament.T5 = false;
+                tournament.P1 = "N/A";
+                tournament.P2 = "N/A";
+                tournament.P3 = "N/A";
+                tournament.P4 = "N/A";
+                tournament.P5 = "N/A";
+
+                db.Tournaments.Add(tournament);
+                db.SaveChanges();
+            }
 
             return View();
         }
