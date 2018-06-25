@@ -20,6 +20,7 @@ namespace PokeJam.Controllers
         {
             Session["UserID"] = User.Identity.GetUserId();
 
+            Session["TierCount"] = 0;
             Session["User"] = 0;
             Session["Comp"] = 0;
 
