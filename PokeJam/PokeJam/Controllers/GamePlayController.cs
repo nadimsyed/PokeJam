@@ -108,7 +108,7 @@ namespace PokeJam.Controllers
                 string name = ViewBag.Name.name;
                 ViewBag.NameProp = Methods.UppercaseFirst(name);
 
-                Session["PokeName"] = name;
+                Session["PokeName"] = Methods.UppercaseFirst(name);
 
                 string specialAtt = (string)JsonData["stats"][2]["base_stat"];
                 string att = (string)JsonData["stats"][4]["base_stat"];
@@ -1893,8 +1893,7 @@ namespace PokeJam.Controllers
             //Session["TierTrack"] = store;
 
             int TierCount = (int)Session["TierCount"];
-            if (TierCount == 5)
-            {
+
                 bool[] track = (bool[])Session["Track"];
                 string[] pokeTrack = (string[])Session["PokeTrack"];
                 Tournament tournament = new Tournament();
@@ -1912,7 +1911,6 @@ namespace PokeJam.Controllers
 
                 db.Tournaments.Add(tournament);
                 db.SaveChanges();
-            }
 
             return View();
         }
@@ -1920,7 +1918,7 @@ namespace PokeJam.Controllers
         public ActionResult TournamentLoss()
         {
             int TierCount = (int)Session["TierCount"];
-            if (TierCount == 4)
+            if (TierCount == 5)
             {
                 bool[] track = (bool[])Session["Track"];
                 string[] pokeTrack = (string[])Session["PokeTrack"];
@@ -1940,7 +1938,7 @@ namespace PokeJam.Controllers
                 db.Tournaments.Add(tournament);
                 db.SaveChanges();
             }
-            if (TierCount == 3)
+            if (TierCount == 4)
             {
                 bool[] track = (bool[])Session["Track"];
                 string[] pokeTrack = (string[])Session["PokeTrack"];
@@ -1960,7 +1958,7 @@ namespace PokeJam.Controllers
                 db.Tournaments.Add(tournament);
                 db.SaveChanges();
             }
-            if (TierCount == 2)
+            if (TierCount == 3)
             {
                 bool[] track = (bool[])Session["Track"];
                 string[] pokeTrack = (string[])Session["PokeTrack"];
@@ -1980,7 +1978,7 @@ namespace PokeJam.Controllers
                 db.Tournaments.Add(tournament);
                 db.SaveChanges();
             }
-            if (TierCount == 1)
+            if (TierCount == 2)
             {
                 bool[] track = (bool[])Session["Track"];
                 string[] pokeTrack = (string[])Session["PokeTrack"];
@@ -2000,7 +1998,7 @@ namespace PokeJam.Controllers
                 db.Tournaments.Add(tournament);
                 db.SaveChanges();
             }
-            if (TierCount == 0)
+            if (TierCount == 1)
             {
                 Tournament tournament = new Tournament();
                 tournament.Id = (string)Session["UserID"];
