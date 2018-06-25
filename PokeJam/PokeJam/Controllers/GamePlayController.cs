@@ -1910,7 +1910,7 @@ namespace PokeJam.Controllers
                 tournament.P5 = pokeTrack[4];
 
                 db.Tournaments.Add(tournament);
-                db.SaveChanges();
+                db.SaveChangesAsync();
 
             return View();
         }
@@ -1936,7 +1936,8 @@ namespace PokeJam.Controllers
                 tournament.P5 = "N/A";
 
                 db.Tournaments.Add(tournament);
-                db.SaveChanges();
+                db.SaveChangesAsync();
+
             }
             if (TierCount == 4)
             {
@@ -1956,7 +1957,8 @@ namespace PokeJam.Controllers
                 tournament.P5 = "N/A";
 
                 db.Tournaments.Add(tournament);
-                db.SaveChanges();
+                db.SaveChangesAsync();
+
             }
             if (TierCount == 3)
             {
@@ -1976,7 +1978,8 @@ namespace PokeJam.Controllers
                 tournament.P5 = "N/A";
 
                 db.Tournaments.Add(tournament);
-                db.SaveChanges();
+                db.SaveChangesAsync();
+
             }
             if (TierCount == 2)
             {
@@ -1996,7 +1999,8 @@ namespace PokeJam.Controllers
                 tournament.P5 = "N/A";
 
                 db.Tournaments.Add(tournament);
-                db.SaveChanges();
+                db.SaveChangesAsync();
+
             }
             if (TierCount == 1)
             {
@@ -2014,7 +2018,8 @@ namespace PokeJam.Controllers
                 tournament.P5 = "N/A";
 
                 db.Tournaments.Add(tournament);
-                db.SaveChanges();
+                db.SaveChangesAsync();
+
             }
 
             return View();
