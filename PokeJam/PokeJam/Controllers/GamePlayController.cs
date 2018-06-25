@@ -2006,6 +2006,7 @@ namespace PokeJam.Controllers
                 Session["Track"] = track;
                 string[] pokeTrack = (string[])Session["PokeTrack"];
                 pokeTrack[0] = (string)Session["PokeName"];
+                Session["PokeTrack"] = pokeTrack;
 
 
                 ViewBag.Redirect = "/GamePlay/Tier2/";
@@ -2022,6 +2023,7 @@ namespace PokeJam.Controllers
                 Session["Track"] = track;
                 string[] pokeTrack = (string[])Session["PokeTrack"];
                 pokeTrack[1] = (string)Session["PokeName"];
+                Session["PokeTrack"] = pokeTrack;
 
                 ViewBag.Redirect = "/GamePlay/Tier3/";
 
@@ -2036,6 +2038,7 @@ namespace PokeJam.Controllers
                 Session["Track"] = track;
                 string[] pokeTrack = (string[])Session["PokeTrack"];
                 pokeTrack[2] = (string)Session["PokeName"];
+                Session["PokeTrack"] = pokeTrack;
 
                 ViewBag.Redirect = "/GamePlay/Tier4/";
 
@@ -2050,6 +2053,7 @@ namespace PokeJam.Controllers
                 Session["Track"] = track;
                 string[] pokeTrack = (string[])Session["PokeTrack"];
                 pokeTrack[3] = (string)Session["PokeName"];
+                Session["PokeTrack"] = pokeTrack;
 
                 ViewBag.Redirect = "/GamePlay/Tier5/";
 
@@ -2057,16 +2061,7 @@ namespace PokeJam.Controllers
                 store++;
                 Session["TierTrack"] = store;
             }
-            else if (TierCount == 5)
-            {
-                bool[] track = (bool[])Session["Track"];
-                track[4] = true;
-                Session["Track"] = track;
-                string[] pokeTrack = (string[])Session["PokeTrack"];
-                pokeTrack[4] = (string)Session["PokeName"];
-
-                return RedirectToAction("Tier5Congratulations");
-            }
+            
             return View();
         }
 
@@ -2094,7 +2089,17 @@ namespace PokeJam.Controllers
                 {
                     if (TierCount == 5)
                     {
-                        return View("Tier5Congratulations");
+                       if (TierCount == 5)
+                        {
+                            bool[] track = (bool[])Session["Track"];
+                            track[4] = true;
+                            Session["Track"] = track;
+                            string[] pokeTrack = (string[])Session["PokeTrack"];
+                            pokeTrack[4] = (string)Session["PokeName"];
+                            Session["PokeTrack"] = pokeTrack;
+
+                            return RedirectToAction("Tier5Congratulations");
+                        }
                     }
                     ViewBag.Truth = "True"; 
                 }
@@ -2136,7 +2141,17 @@ namespace PokeJam.Controllers
                 {
                     if (TierCount == 5)
                     {
-                        return View("Tier5Congratulations");
+                        if (TierCount == 5)
+                        {
+                            bool[] track = (bool[])Session["Track"];
+                            track[4] = true;
+                            Session["Track"] = track;
+                            string[] pokeTrack = (string[])Session["PokeTrack"];
+                            pokeTrack[4] = (string)Session["PokeName"];
+                            Session["PokeTrack"] = pokeTrack;
+
+                            return RedirectToAction("Tier5Congratulations");
+                        }
                     }
                     ViewBag.Truth = "True";
                 }
