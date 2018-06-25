@@ -289,9 +289,7 @@ namespace PokeJam.Controllers
                 Session["Char"] = CharID;
             }
             //Attempting to clear Tournament Data if user returns to home pages aka "Quits"
-            Session["TierCount"] = 0;
-            Session["User"] = 0;
-            Session["Comp"] = 0;
+            
 
             int TierCount = (int)Session["TierCount"];
             if (TierCount == 5)
@@ -397,6 +395,10 @@ namespace PokeJam.Controllers
                 db.SaveChangesAsync();
 
             }
+
+            Session["TierCount"] = 0;
+            Session["User"] = 0;
+            Session["Comp"] = 0;
 
             return View();
         }
