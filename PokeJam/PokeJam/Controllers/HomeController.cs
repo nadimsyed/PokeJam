@@ -297,104 +297,69 @@ namespace PokeJam.Controllers
             {
                 bool[] track = (bool[])Session["Track"];
                 string[] pokeTrack = (string[])Session["PokeTrack"];
-                Tournament tournament = new Tournament();
-                tournament.Id = (string)Session["UserID"];
-                tournament.T1 = track[0];
-                tournament.T2 = track[1];
-                tournament.T3 = track[2];
-                tournament.T4 = track[3];
-                tournament.T5 = false;
-                tournament.P1 = pokeTrack[0];
-                tournament.P2 = pokeTrack[1];
-                tournament.P3 = pokeTrack[2];
-                tournament.P4 = pokeTrack[3];
-                tournament.P5 = "N/A";
-
-                db.Tournaments.Add(tournament);
-                db.SaveChangesAsync();
-
+                string UserId = (string)Session["UserID"];
+                track[4] = false;
+                pokeTrack[4] = "N/A";
+                Methods.AddTournament(TierCount, track, pokeTrack, UserId);
             }
             if (TierCount == 4)
             {
                 bool[] track = (bool[])Session["Track"];
                 string[] pokeTrack = (string[])Session["PokeTrack"];
-                Tournament tournament = new Tournament();
-                tournament.Id = (string)Session["UserID"];
-                tournament.T1 = track[0];
-                tournament.T2 = track[1];
-                tournament.T3 = track[2];
-                tournament.T4 = false;
-                tournament.T5 = false;
-                tournament.P1 = pokeTrack[0];
-                tournament.P2 = pokeTrack[1];
-                tournament.P3 = pokeTrack[2];
-                tournament.P4 = "N/A";
-                tournament.P5 = "N/A";
+                string UserId = (string)Session["UserID"];
+                track[3] = false;
+                pokeTrack[3] = "N/A";
+                track[4] = false;
+                pokeTrack[4] = "N/A";
+                Methods.AddTournament(TierCount, track, pokeTrack, UserId);
 
-                db.Tournaments.Add(tournament);
-                db.SaveChangesAsync();
 
             }
             if (TierCount == 3)
             {
                 bool[] track = (bool[])Session["Track"];
                 string[] pokeTrack = (string[])Session["PokeTrack"];
-                Tournament tournament = new Tournament();
-                tournament.Id = (string)Session["UserID"];
-                tournament.T1 = track[0];
-                tournament.T2 = track[1];
-                tournament.T3 = false;
-                tournament.T4 = false;
-                tournament.T5 = false;
-                tournament.P1 = pokeTrack[0];
-                tournament.P2 = pokeTrack[1];
-                tournament.P3 = "N/A";
-                tournament.P4 = "N/A";
-                tournament.P5 = "N/A";
-
-                db.Tournaments.Add(tournament);
-                db.SaveChangesAsync();
+                string UserId = (string)Session["UserID"];
+                track[2] = false;
+                pokeTrack[2] = "N/A";
+                track[3] = false;
+                pokeTrack[3] = "N/A";
+                track[4] = false;
+                pokeTrack[4] = "N/A";
+                Methods.AddTournament(TierCount, track, pokeTrack, UserId);
 
             }
             if (TierCount == 2)
             {
                 bool[] track = (bool[])Session["Track"];
                 string[] pokeTrack = (string[])Session["PokeTrack"];
-                Tournament tournament = new Tournament();
-                tournament.Id = (string)Session["UserID"];
-                tournament.T1 = track[0];
-                tournament.T2 = false;
-                tournament.T3 = false;
-                tournament.T4 = false;
-                tournament.T5 = false;
-                tournament.P1 = pokeTrack[0];
-                tournament.P2 = "N/A";
-                tournament.P3 = "N/A";
-                tournament.P4 = "N/A";
-                tournament.P5 = "N/A";
-
-                db.Tournaments.Add(tournament);
-                db.SaveChangesAsync();
+                string UserId = (string)Session["UserID"];
+                track[1] = false;
+                pokeTrack[1] = "N/A";
+                track[2] = false;
+                pokeTrack[2] = "N/A";
+                track[3] = false;
+                pokeTrack[3] = "N/A";
+                track[4] = false;
+                pokeTrack[4] = "N/A";
+                Methods.AddTournament(TierCount, track, pokeTrack, UserId);
 
             }
             if (TierCount == 1)
             {
-                Tournament tournament = new Tournament();
-                tournament.Id = (string)Session["UserID"];
-                tournament.T1 = false;
-                tournament.T2 = false;
-                tournament.T3 = false;
-                tournament.T4 = false;
-                tournament.T5 = false;
-                tournament.P1 = "N/A";
-                tournament.P2 = "N/A";
-                tournament.P3 = "N/A";
-                tournament.P4 = "N/A";
-                tournament.P5 = "N/A";
-
-                db.Tournaments.Add(tournament);
-                db.SaveChangesAsync();
-
+                bool[] track = (bool[])Session["Track"];
+                string[] pokeTrack = (string[])Session["PokeTrack"];
+                string UserId = (string)Session["UserID"];
+                track[0] = false;
+                pokeTrack[0] = "N/A";
+                track[1] = false;
+                pokeTrack[1] = "N/A";
+                track[2] = false;
+                pokeTrack[2] = "N/A";
+                track[3] = false;
+                pokeTrack[3] = "N/A";
+                track[4] = false;
+                pokeTrack[4] = "N/A";
             }
 
             Session["TierCount"] = 0;
