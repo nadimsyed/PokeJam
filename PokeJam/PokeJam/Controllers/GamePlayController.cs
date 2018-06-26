@@ -18,7 +18,7 @@ namespace PokeJam.Controllers
         // GET: GamePlay
         public ActionResult Index()
         {
-            
+
             return View();
         }
 
@@ -179,7 +179,7 @@ namespace PokeJam.Controllers
                 quarter++;
                 Session["Quarter"] = quarter;
 
-                return View(); 
+                return View();
             }
             else if (quarter == 4 && winner == "Player")
             {
@@ -205,8 +205,8 @@ namespace PokeJam.Controllers
 
             int charNum = (int)Session["Char"];
             Character player = (from c in db.Characters
-                                  where c.CharID == charNum
-                                  select c).Single();
+                                where c.CharID == charNum
+                                select c).Single();
             int playerThreePoint = player.ThreePoint;
             int playerFieldGoal = player.FieldGoal;
             int playerPaint = player.Paint;
@@ -237,7 +237,7 @@ namespace PokeJam.Controllers
                     if (success)
                     {
                         string happened = "Ball was stolen!";
-                        playerPlays.Add(happened); 
+                        playerPlays.Add(happened);
                     }
 
                     ViewBag.Which = 1;
@@ -250,7 +250,7 @@ namespace PokeJam.Controllers
                     if (success)
                     {
                         string happened = "Ball was blocked!";
-                        playerPlays.Add(happened); 
+                        playerPlays.Add(happened);
                     }
 
                     ViewBag.Which = 2;
@@ -318,7 +318,7 @@ namespace PokeJam.Controllers
                             Session["User"] = z;
                         }
                     }
-                } 
+                }
             }
 
             for (int i = 0; i < 5; i++)
@@ -414,7 +414,7 @@ namespace PokeJam.Controllers
                             Session["Comp"] = z;
                         }
                     }
-                } 
+                }
             }
 
             ViewBag.Player = playerPlays;
@@ -437,9 +437,9 @@ namespace PokeJam.Controllers
             List<PokeTier> all = db.PokeTiers.ToList();
 
             ViewBag.All = all;
-                
+
             return View();
-            
+
         }
 
         public ActionResult Tier1(string play)
@@ -783,7 +783,7 @@ namespace PokeJam.Controllers
             if (shot == "ThreePoint")
             {
                 bool truth = Methods.ShotConfirm(character.ThreePoint);
-                string made =  truth ? "Shot went in!": "Shot missed!";
+                string made = truth ? "Shot went in!" : "Shot missed!";
                 ViewBag.Made = made;
                 if (truth && !success)
                 {
@@ -793,7 +793,7 @@ namespace PokeJam.Controllers
             else if (shot == "MidRange")
             {
                 bool truth = Methods.ShotConfirm(character.FieldGoal);
-                string made =  truth ? "Shot went in!" : "Shot missed!";
+                string made = truth ? "Shot went in!" : "Shot missed!";
                 ViewBag.Made = made;
                 if (truth && !success)
                 {
@@ -803,7 +803,7 @@ namespace PokeJam.Controllers
             else if (shot == "Paint")
             {
                 bool truth = Methods.ShotConfirm(character.Paint);
-                string made =  truth ? "Shot went in!" : "Shot missed!";
+                string made = truth ? "Shot went in!" : "Shot missed!";
                 ViewBag.Made = made;
                 if (truth && !success)
                 {
@@ -1091,7 +1091,7 @@ namespace PokeJam.Controllers
             else if (shot == "MidRange")
             {
                 bool truth = Methods.ShotConfirm(FieldGoal);
-                string made =  truth ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
+                string made = truth ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
                 ViewBag.Made = made;
                 if (truth && !success)
                 {
@@ -1374,7 +1374,7 @@ namespace PokeJam.Controllers
             if (shot == "ThreePoint")
             {
                 bool truth = Methods.ShotConfirm(character.ThreePoint);
-                string made =  truth ? "Shot went in!" : "Shot missed!";
+                string made = truth ? "Shot went in!" : "Shot missed!";
                 ViewBag.Made = made;
                 if (truth && !success)
                 {
@@ -1894,12 +1894,25 @@ namespace PokeJam.Controllers
 
             int TierCount = (int)Session["TierCount"];
 
-                bool[] track = (bool[])Session["Track"];
-                string[] pokeTrack = (string[])Session["PokeTrack"];
-                //Tournament tournament = new Tournament();
-                string UserId = (string)Session["UserID"];
-                Methods.AddTournament(TierCount, track, pokeTrack, UserId);
+            bool[] track = (bool[])Session["Track"];
+            string[] pokeTrack = (string[])Session["PokeTrack"];
+            //Tournament tournament = new Tournament();
+            string UserId = (string)Session["UserID"];
+            Methods.AddTournament(TierCount, track, pokeTrack, UserId);
 
+            track[0] = false;
+            track[1] = false;
+            track[2] = false;
+            track[3] = false;
+            track[4] = false;
+            pokeTrack[0] = "N/A";
+            pokeTrack[1] = "N/A";
+            pokeTrack[2] = "N/A";
+            pokeTrack[3] = "N/A";
+            pokeTrack[4] = "N/A";
+
+            Session["Track"] = track;
+            Session["PokeTrack"] = pokeTrack;
             //tournament.Id = (string)Session["UserID"];
             //tournament.T1 = track[0];
             //tournament.T2 = track[1];
@@ -1940,7 +1953,7 @@ namespace PokeJam.Controllers
                 track[4] = false;
                 pokeTrack[4] = "N/A";
                 Methods.AddTournament(TierCount, track, pokeTrack, UserId);
-                
+
 
             }
             if (TierCount == 3)
@@ -2013,8 +2026,8 @@ namespace PokeJam.Controllers
 
                 int store = (int)Session["TierTrack"];
                 store++;
-                Session["TierTrack"] = store; 
-                
+                Session["TierTrack"] = store;
+
             }
             else if (TierCount == 2)
             {
@@ -2061,7 +2074,7 @@ namespace PokeJam.Controllers
                 store++;
                 Session["TierTrack"] = store;
             }
-            
+
             return View();
         }
 
@@ -2079,7 +2092,7 @@ namespace PokeJam.Controllers
             int TierCount = 0;
             if ((string)Session["PlayType"] == "Tournament")
             {
-                TierCount = (int)Session["TierCount"]; 
+                TierCount = (int)Session["TierCount"];
             }
 
             if (u > c)
@@ -2089,19 +2102,18 @@ namespace PokeJam.Controllers
                 {
                     if (TierCount == 5)
                     {
-                       if (TierCount == 5)
-                        {
-                            bool[] track = (bool[])Session["Track"];
-                            track[4] = true;
-                            Session["Track"] = track;
-                            string[] pokeTrack = (string[])Session["PokeTrack"];
-                            pokeTrack[4] = (string)Session["PokeName"];
-                            Session["PokeTrack"] = pokeTrack;
 
-                            return RedirectToAction("Tier5Congratulations");
-                        }
+                        bool[] track = (bool[])Session["Track"];
+                        track[4] = true;
+                        Session["Track"] = track;
+                        string[] pokeTrack = (string[])Session["PokeTrack"];
+                        pokeTrack[4] = (string)Session["PokeName"];
+                        Session["PokeTrack"] = pokeTrack;
+
+                        return RedirectToAction("Tier5Congratulations");
+
                     }
-                    ViewBag.Truth = "True"; 
+                    ViewBag.Truth = "True";
                 }
             }
             else if (c > u)
@@ -2141,17 +2153,16 @@ namespace PokeJam.Controllers
                 {
                     if (TierCount == 5)
                     {
-                        if (TierCount == 5)
-                        {
-                            bool[] track = (bool[])Session["Track"];
-                            track[4] = true;
-                            Session["Track"] = track;
-                            string[] pokeTrack = (string[])Session["PokeTrack"];
-                            pokeTrack[4] = (string)Session["PokeName"];
-                            Session["PokeTrack"] = pokeTrack;
 
-                            return RedirectToAction("Tier5Congratulations");
-                        }
+                        bool[] track = (bool[])Session["Track"];
+                        track[4] = true;
+                        Session["Track"] = track;
+                        string[] pokeTrack = (string[])Session["PokeTrack"];
+                        pokeTrack[4] = (string)Session["PokeName"];
+                        Session["PokeTrack"] = pokeTrack;
+
+                        return RedirectToAction("Tier5Congratulations");
+
                     }
                     ViewBag.Truth = "True";
                 }

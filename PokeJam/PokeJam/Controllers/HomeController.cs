@@ -366,6 +366,22 @@ namespace PokeJam.Controllers
             Session["User"] = 0;
             Session["Comp"] = 0;
 
+            bool[] track = (bool[])Session["Track"];
+            string[] pokeTrack = (string[])Session["PokeTrack"];
+            track[0] = false;
+            track[1] = false;
+            track[2] = false;
+            track[3] = false;
+            track[4] = false;
+            pokeTrack[0] = "N/A";
+            pokeTrack[1] = "N/A";
+            pokeTrack[2] = "N/A";
+            pokeTrack[3] = "N/A";
+            pokeTrack[4] = "N/A";
+
+            Session["Track"] = track;
+            Session["PokeTrack"] = pokeTrack;
+
             return View();
         }
 
