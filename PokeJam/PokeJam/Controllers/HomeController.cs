@@ -179,6 +179,27 @@ namespace PokeJam.Controllers
             return View();
         }
 
+        public ActionResult YourTournamentHistory()
+        {
+            string user = (string)Session["UserID"];
+
+            List<Tournament> tournaments = (from t in db.Tournaments
+                                          where t.Id == user
+                                          select t).ToList();
+            ViewBag.Tournaments = tournaments;
+
+            return View();
+        }
+
+        public ActionResult AllTournamentHistory()
+        {
+            List<Tournament> tournaments = (from t in db.Tournaments
+                                            select t).ToList();
+            ViewBag.Tournaments = tournaments;
+
+            return View();
+        }
+
         public ActionResult SkillPoint(int ThreePoint, int FieldGoat, int Paint, int Steal, int Block)
         {
 

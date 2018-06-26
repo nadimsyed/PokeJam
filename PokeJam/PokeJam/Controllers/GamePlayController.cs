@@ -193,7 +193,8 @@ namespace PokeJam.Controllers
             return RedirectToAction("GameplayResult");
         }
 
-        public ActionResult NumberCrunch(int ThreePoint, int MidRange, int Paint, int Steal, int Block)
+        //TODO: send a bool here from the overttime. use that to calculate and if overtime is true, pass back to a action/view for overttime
+        public ActionResult NumberCrunch(int ThreePoint, int MidRange, int Paint, int Steal, int Block, bool overtime = false)
         {
             List<string> playerPlays = new List<string>();
             List<string> computerPlays = new List<string>();

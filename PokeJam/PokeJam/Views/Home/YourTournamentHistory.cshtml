@@ -1,0 +1,92 @@
+﻿
+@{
+    ViewBag.Title = "YourTournamentHistory";
+}
+
+<h2>YourTournamentHistory</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            User ID
+        </th>
+        <th>
+            Tier 1
+        </th>
+        <th>
+            Tier 1 Opponent
+        </th>
+        <th>
+            Tier 2
+
+        </th>
+        <th>
+            Tier 2 Opponent
+
+        </th>
+        <th>
+            Tier 3
+
+        </th>
+        <th>
+            Tier 3 Opponent
+
+        </th>
+        <th>
+            Tier 4
+        </th>
+        <th>
+            Tier 4 Opponent
+        </th>
+        <th>
+            Tier 5
+
+        </th>
+        <th>
+            Tier 5 Opponent
+
+        </th>
+    </tr>
+
+    @foreach (var item in ViewBag.Tournaments)
+    {
+    <tr>
+        <td>
+            @item.Id
+        </td>
+        <td>
+            @(item.T1? "Beat":"Did not Beat")
+        </td>
+        <td>
+            @item.P1
+        </td>
+        <td>
+            @(item.T2 ? "Beat" : "Did not Beat")
+        </td>
+        <td>
+            @item.P2
+        </td>
+        <td>
+            @(item.T3 ? "Beat" : "Did not Beat")
+        </td>
+        <td>
+            @item.P3
+        </td>
+        <td>
+            @(item.T4 ? "Beat" : "Did not Beat")
+        </td>
+        <td>
+            @item.P4
+        </td>
+        <td>
+            @(item.T5 ? "Beat" : "Did not Beat")
+        </td>
+        <td>
+            @item.P5
+        </td>
+    </tr>
+    }
+
+</table>
+
+<a href="~/Home/PokeJam/">Rules</a>
