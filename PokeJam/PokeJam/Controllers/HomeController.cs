@@ -301,6 +301,20 @@ namespace PokeJam.Controllers
                 track[4] = false;
                 pokeTrack[4] = "N/A";
                 Methods.AddTournament(TierCount, track, pokeTrack, UserId);
+
+                track[0] = false;
+                track[1] = false;
+                track[2] = false;
+                track[3] = false;
+                track[4] = false;
+                pokeTrack[0] = "N/A";
+                pokeTrack[1] = "N/A";
+                pokeTrack[2] = "N/A";
+                pokeTrack[3] = "N/A";
+                pokeTrack[4] = "N/A";
+
+                Session["Track"] = track;
+                Session["PokeTrack"] = pokeTrack;
             }
             if (TierCount == 4)
             {
@@ -313,7 +327,19 @@ namespace PokeJam.Controllers
                 pokeTrack[4] = "N/A";
                 Methods.AddTournament(TierCount, track, pokeTrack, UserId);
 
+                track[0] = false;
+                track[1] = false;
+                track[2] = false;
+                track[3] = false;
+                track[4] = false;
+                pokeTrack[0] = "N/A";
+                pokeTrack[1] = "N/A";
+                pokeTrack[2] = "N/A";
+                pokeTrack[3] = "N/A";
+                pokeTrack[4] = "N/A";
 
+                Session["Track"] = track;
+                Session["PokeTrack"] = pokeTrack;
             }
             if (TierCount == 3)
             {
@@ -328,6 +354,19 @@ namespace PokeJam.Controllers
                 pokeTrack[4] = "N/A";
                 Methods.AddTournament(TierCount, track, pokeTrack, UserId);
 
+                track[0] = false;
+                track[1] = false;
+                track[2] = false;
+                track[3] = false;
+                track[4] = false;
+                pokeTrack[0] = "N/A";
+                pokeTrack[1] = "N/A";
+                pokeTrack[2] = "N/A";
+                pokeTrack[3] = "N/A";
+                pokeTrack[4] = "N/A";
+
+                Session["Track"] = track;
+                Session["PokeTrack"] = pokeTrack;
             }
             if (TierCount == 2)
             {
@@ -344,6 +383,19 @@ namespace PokeJam.Controllers
                 pokeTrack[4] = "N/A";
                 Methods.AddTournament(TierCount, track, pokeTrack, UserId);
 
+                track[0] = false;
+                track[1] = false;
+                track[2] = false;
+                track[3] = false;
+                track[4] = false;
+                pokeTrack[0] = "N/A";
+                pokeTrack[1] = "N/A";
+                pokeTrack[2] = "N/A";
+                pokeTrack[3] = "N/A";
+                pokeTrack[4] = "N/A";
+
+                Session["Track"] = track;
+                Session["PokeTrack"] = pokeTrack;
             }
             if (TierCount == 1)
             {
@@ -360,27 +412,42 @@ namespace PokeJam.Controllers
                 pokeTrack[3] = "N/A";
                 track[4] = false;
                 pokeTrack[4] = "N/A";
+                Methods.AddTournament(TierCount, track, pokeTrack, UserId);
+
+                track[0] = false;
+                track[1] = false;
+                track[2] = false;
+                track[3] = false;
+                track[4] = false;
+                pokeTrack[0] = "N/A";
+                pokeTrack[1] = "N/A";
+                pokeTrack[2] = "N/A";
+                pokeTrack[3] = "N/A";
+                pokeTrack[4] = "N/A";
+
+                Session["Track"] = track;
+                Session["PokeTrack"] = pokeTrack;
             }
 
             Session["TierCount"] = 0;
             Session["User"] = 0;
             Session["Comp"] = 0;
 
-            bool[] track = (bool[])Session["Track"];
-            string[] pokeTrack = (string[])Session["PokeTrack"];
-            track[0] = false;
-            track[1] = false;
-            track[2] = false;
-            track[3] = false;
-            track[4] = false;
-            pokeTrack[0] = "N/A";
-            pokeTrack[1] = "N/A";
-            pokeTrack[2] = "N/A";
-            pokeTrack[3] = "N/A";
-            pokeTrack[4] = "N/A";
+            //bool[] track = (bool[])Session["Track"];
+            //string[] pokeTrack = (string[])Session["PokeTrack"];
+            //track[0] = false;
+            //track[1] = false;
+            //track[2] = false;
+            //track[3] = false;
+            //track[4] = false;
+            //pokeTrack[0] = "N/A";
+            //pokeTrack[1] = "N/A";
+            //pokeTrack[2] = "N/A";
+            //pokeTrack[3] = "N/A";
+            //pokeTrack[4] = "N/A";
 
-            Session["Track"] = track;
-            Session["PokeTrack"] = pokeTrack;
+            //Session["Track"] = track;
+            //Session["PokeTrack"] = pokeTrack;
 
             return View();
         }

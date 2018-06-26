@@ -1913,6 +1913,7 @@ namespace PokeJam.Controllers
 
             Session["Track"] = track;
             Session["PokeTrack"] = pokeTrack;
+            Session["TierCount"] = 0;
             //tournament.Id = (string)Session["UserID"];
             //tournament.T1 = track[0];
             //tournament.T2 = track[1];
