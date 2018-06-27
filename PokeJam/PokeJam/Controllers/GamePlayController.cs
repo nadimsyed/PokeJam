@@ -18,7 +18,7 @@ namespace PokeJam.Controllers
         // GET: GamePlay
         public ActionResult Index()
         {
-            
+
             return View();
         }
 
@@ -37,7 +37,6 @@ namespace PokeJam.Controllers
                 Session["TierCount"] = x;
             }
 
-            //TODO: might be able to remove the &&, pretty sure already validated in the tiernext
             if (Session["TierTrack"] == null && (string)Session["PlayType"] == "Tournament")
             {
                 Session["TierTrack"] = 0;
@@ -75,6 +74,7 @@ namespace PokeJam.Controllers
             int compPaint = 0;
             int compSteal = 0;
             int compBlock = 0;
+
             HttpWebRequest WR;
             try
             {
@@ -87,6 +87,7 @@ namespace PokeJam.Controllers
                 return RedirectToAction("APIError", "Home");
             }
 
+
             HttpWebResponse Response;
 
             try
@@ -97,14 +98,18 @@ namespace PokeJam.Controllers
             {
                 ViewBag.Error = "Exception";
                 ViewBag.ErrorDescription = e.Message;
+
                 return RedirectToAction("APIError", "Home");
+
             }
 
             if (Response.StatusCode != HttpStatusCode.OK)
             {
                 ViewBag.Error = Response.StatusCode;
                 ViewBag.ErrorDescription = Response.StatusDescription;
+
                 return RedirectToAction("APIError", "Home");
+
             }
 
             StreamReader reader = new StreamReader(Response.GetResponseStream());
@@ -137,7 +142,9 @@ namespace PokeJam.Controllers
             {
                 ViewBag.Error = "JSON Issue";
                 ViewBag.ErrorDescription = e.Message;
+
                 return RedirectToAction("APIError", "Home");
+
             }
 
             Session["compThreePoint"] = compThreePoint;
@@ -173,22 +180,25 @@ namespace PokeJam.Controllers
                     Session["Winner"] = "Computer";
 
                     return RedirectToAction("QuarterSelector");
+
                 }
             }
 
             return RedirectToAction("QuarterSelector");
         }
 
-        public ActionResult QuarterSelector()
+        public ActionResult QuarterSelector(string move)
         {
+            
             int quarter = (int)Session["Quarter"];
             string winner = (string)Session["Winner"];
+
             if (quarter != 4)
             {
                 quarter++;
                 Session["Quarter"] = quarter;
 
-                return View(); 
+                return View();
             }
             else if (quarter == 4 && winner == "Player")
             {
@@ -202,9 +212,9 @@ namespace PokeJam.Controllers
             return RedirectToAction("GameplayResult");
         }
 
-        public ActionResult NumberCrunch(int ThreePoint, int MidRange, int Paint, int Steal, int Block)
+        //TODO: send a bool here from the overttime. use that to calculate and if overtime is true, pass back to a action/view for overttime
+        public ActionResult NumberCrunch(int ThreePoint, int MidRange, int Paint, int Steal, int Block, string overtime = "no")
         {
-          
             List<string> playerPlays = new List<string>();
             List<string> computerPlays = new List<string>();
 
@@ -213,7 +223,7 @@ namespace PokeJam.Controllers
             Random random = new Random();
 
 
-            int charNum;
+             int charNum;
             try
             {
                 charNum = (int)Session["Char"];
@@ -224,8 +234,8 @@ namespace PokeJam.Controllers
                return  RedirectToAction("Index", "Home");
             }
             Character player = (from c in db.Characters
-                                  where c.CharID == charNum
-                                  select c).Single();
+                                where c.CharID == charNum
+                                select c).Single();
             int playerThreePoint = player.ThreePoint;
             int playerFieldGoal = player.FieldGoal;
             int playerPaint = player.Paint;
@@ -256,7 +266,7 @@ namespace PokeJam.Controllers
                     if (success)
                     {
                         string happened = "Ball was stolen!";
-                        playerPlays.Add(happened); 
+                        playerPlays.Add(happened);
                     }
 
                     ViewBag.Which = 1;
@@ -269,7 +279,7 @@ namespace PokeJam.Controllers
                     if (success)
                     {
                         string happened = "Ball was blocked!";
-                        playerPlays.Add(happened); 
+                        playerPlays.Add(happened);
                     }
 
                     ViewBag.Which = 2;
@@ -293,7 +303,6 @@ namespace PokeJam.Controllers
 
                     if (shot == "ThreePoint")
                     {
-                        //TODO: For past MVP, insert Pokemon name, can store that name and just use as Variable for replacement
                         bool truth = Methods.ShotConfirm(playerThreePoint);
                         string made = truth ? "Player's Three-Point shot went in!" : "Player's Three-Point shot missed!";
 
@@ -337,7 +346,7 @@ namespace PokeJam.Controllers
                             Session["User"] = z;
                         }
                     }
-                } 
+                }
             }
 
             for (int i = 0; i < 5; i++)
@@ -389,7 +398,6 @@ namespace PokeJam.Controllers
                 {
                     if (shot == "ThreePoint")
                     {
-                        //TODO: For past MVP, insert Pokemon name, can store that name and just use as Variable for replacement
                         bool truth = Methods.ShotConfirm(compThreePoint);
                         string made = truth ? "Pokemon's Three-Point shot went in!" : "Pokemon's Three-Point shot missed!";
 
@@ -433,11 +441,17 @@ namespace PokeJam.Controllers
                             Session["Comp"] = z;
                         }
                     }
-                } 
+                }
             }
 
             ViewBag.Player = playerPlays;
             ViewBag.Computer = computerPlays;
+            ViewBag.Over = overtime;
+            //if (overtime == "yes")
+            //{
+            //    return RedirectToAction("OverTime"); 
+            //}
+
 
             return View();
         }
@@ -456,9 +470,9 @@ namespace PokeJam.Controllers
             List<PokeTier> all = db.PokeTiers.ToList();
 
             ViewBag.All = all;
-                
+
             return View();
-            
+
         }
 
         public ActionResult Tier1(string play)
@@ -569,7 +583,6 @@ namespace PokeJam.Controllers
 
             int PID = (int)Session["Pokemon"];
 
-            //TODO: Ask whats worse practice, making a bunch of sessions and storing the Pokemons Basketball Stats, or a second request to the API
             HttpWebRequest WR = WebRequest.CreateHttp($"https://pokeapi.co/api/v2/pokemon/{PID}/");
             WR.UserAgent = ".NET Framework Test Client";
 
@@ -661,7 +674,6 @@ namespace PokeJam.Controllers
 
             if (shot == "ThreePoint")
             {
-                //TODO: For past MVP, insert Pokemon name, can store that name and just use as Variable for replacement
                 bool truth = Methods.ShotConfirm(ThreePoint);
                 string made = truth ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
                 ViewBag.Made = made;
@@ -750,12 +762,11 @@ namespace PokeJam.Controllers
                 string specialDef = (string)JsonData["stats"][1]["base_stat"];
                 string def = (string)JsonData["stats"][3]["base_stat"];
 
-                //TODO: Replace all the int.parse with the method
                 int SA = Methods.StatConverter(specialAtt);
-                int A = (int.Parse(att)) / 3 + 10;
-                int S = (int.Parse(speed)) / 3 + 15;
-                int SD = (int.Parse(specialDef)) / 3 - 20;
-                int D = (int.Parse(def)) / 3 - 15;
+                int A = (Methods.StatConverter(att)) / 3 + 10;
+                int S = (Methods.StatConverter(speed)) / 3 + 15;
+                int SD = (Methods.StatConverter(specialDef)) / 3 - 20;
+                int D = (Methods.StatConverter(def)) / 3 - 15;
 
 
                 ViewBag.ThreePoint = SA;
@@ -802,7 +813,7 @@ namespace PokeJam.Controllers
             if (shot == "ThreePoint")
             {
                 bool truth = Methods.ShotConfirm(character.ThreePoint);
-                string made =  truth ? "Shot went in!": "Shot missed!";
+                string made = truth ? "Shot went in!" : "Shot missed!";
                 ViewBag.Made = made;
                 if (truth && !success)
                 {
@@ -812,7 +823,7 @@ namespace PokeJam.Controllers
             else if (shot == "MidRange")
             {
                 bool truth = Methods.ShotConfirm(character.FieldGoal);
-                string made =  truth ? "Shot went in!" : "Shot missed!";
+                string made = truth ? "Shot went in!" : "Shot missed!";
                 ViewBag.Made = made;
                 if (truth && !success)
                 {
@@ -822,7 +833,7 @@ namespace PokeJam.Controllers
             else if (shot == "Paint")
             {
                 bool truth = Methods.ShotConfirm(character.Paint);
-                string made =  truth ? "Shot went in!" : "Shot missed!";
+                string made = truth ? "Shot went in!" : "Shot missed!";
                 ViewBag.Made = made;
                 if (truth && !success)
                 {
@@ -889,12 +900,11 @@ namespace PokeJam.Controllers
                 string specialDef = (string)JsonData["stats"][1]["base_stat"];
                 string def = (string)JsonData["stats"][3]["base_stat"];
 
-                //TODO: Replace all the int.parse with the method
                 int SA = Methods.StatConverter(specialAtt);
-                int A = (int.Parse(att)) / 3 + 10;
-                int S = (int.Parse(speed)) / 3 + 15;
-                int SD = (int.Parse(specialDef)) / 3 - 20;
-                int D = (int.Parse(def)) / 3 - 15;
+                int A = (Methods.StatConverter(att)) / 3 + 10;
+                int S = (Methods.StatConverter(speed)) / 3 + 15;
+                int SD = (Methods.StatConverter(specialDef)) / 3 - 20;
+                int D = (Methods.StatConverter(def)) / 3 - 15;
 
 
                 ViewBag.ThreePoint = SA;
@@ -1006,7 +1016,6 @@ namespace PokeJam.Controllers
 
             int PID = (int)Session["Pokemon"];
 
-            //TODO: Ask whats worse practice, making a bunch of sessions and storing the Pokemons Basketball Stats, or a second request to the API
             HttpWebRequest WR = WebRequest.CreateHttp($"https://pokeapi.co/api/v2/pokemon/{PID}/");
             WR.UserAgent = ".NET Framework Test Client";
 
@@ -1098,7 +1107,6 @@ namespace PokeJam.Controllers
 
             if (shot == "ThreePoint")
             {
-                //TODO: For past MVP, insert Pokemon name, can store that name and just use as Variable for replacement
                 bool truth = Methods.ShotConfirm(ThreePoint);
                 string made = truth ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
                 ViewBag.Made = made;
@@ -1110,7 +1118,7 @@ namespace PokeJam.Controllers
             else if (shot == "MidRange")
             {
                 bool truth = Methods.ShotConfirm(FieldGoal);
-                string made =  truth ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
+                string made = truth ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
                 ViewBag.Made = made;
                 if (truth && !success)
                 {
@@ -1165,7 +1173,6 @@ namespace PokeJam.Controllers
 
             int PID = (int)Session["Pokemon"];
 
-            //TODO: Ask whats worse practice, making a bunch of sessions and storing the Pokemons Basketball Stats, or a second request to the API
             HttpWebRequest WR = WebRequest.CreateHttp($"https://pokeapi.co/api/v2/pokemon/{PID}/");
             WR.UserAgent = ".NET Framework Test Client";
 
@@ -1257,7 +1264,6 @@ namespace PokeJam.Controllers
 
             if (shot == "ThreePoint")
             {
-                //TODO: For past MVP, insert Pokemon name, can store that name and just use as Variable for replacement
                 bool truth = Methods.ShotConfirm(ThreePoint);
                 string made = truth ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
                 ViewBag.Made = made;
@@ -1393,11 +1399,10 @@ namespace PokeJam.Controllers
             if (shot == "ThreePoint")
             {
                 bool truth = Methods.ShotConfirm(character.ThreePoint);
-                string made =  truth ? "Shot went in!" : "Shot missed!";
+                string made = truth ? "Shot went in!" : "Shot missed!";
                 ViewBag.Made = made;
                 if (truth && !success)
                 {
-                    //TODO: Somehting is going wrong with storing session value into ints as well as later on at the end for winning, figure that out
                     string z = (string)Session["User"].ToString();
                     int x = int.Parse(z);
                     x += 3;
@@ -1539,7 +1544,6 @@ namespace PokeJam.Controllers
                 ViewBag.Made = made;
                 if (truth && !success)
                 {
-                    //TODO: Somehting is going wrong with storing session value into ints as well as later on at the end for winning, figure that out
                     string z = (string)Session["User"].ToString();
                     int x = int.Parse(z);
                     x += 3;
@@ -1608,7 +1612,6 @@ namespace PokeJam.Controllers
 
             int PID = (int)Session["Pokemon"];
 
-            //TODO: Ask whats worse practice, making a bunch of sessions and storing the Pokemons Basketball Stats, or a second request to the API
             HttpWebRequest WR = WebRequest.CreateHttp($"https://pokeapi.co/api/v2/pokemon/{PID}/");
             WR.UserAgent = ".NET Framework Test Client";
 
@@ -1700,7 +1703,6 @@ namespace PokeJam.Controllers
 
             if (shot == "ThreePoint")
             {
-                //TODO: For past MVP, insert Pokemon name, can store that name and just use as Variable for replacement
                 bool truth = Methods.ShotConfirm(ThreePoint);
                 string made = truth ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
                 ViewBag.Made = made;
@@ -1773,7 +1775,6 @@ namespace PokeJam.Controllers
 
             int PID = (int)Session["Pokemon"];
 
-            //TODO: Ask whats worse practice, making a bunch of sessions and storing the Pokemons Basketball Stats, or a second request to the API
             HttpWebRequest WR = WebRequest.CreateHttp($"https://pokeapi.co/api/v2/pokemon/{PID}/");
             WR.UserAgent = ".NET Framework Test Client";
 
@@ -1865,7 +1866,6 @@ namespace PokeJam.Controllers
 
             if (shot == "ThreePoint")
             {
-                //TODO: For past MVP, insert Pokemon name, can store that name and just use as Variable for replacement
                 bool truth = Methods.ShotConfirm(ThreePoint);
                 string made = truth ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
                 ViewBag.Made = made;
@@ -1910,7 +1910,8 @@ namespace PokeJam.Controllers
             //int store = (int)Session["TierTrack"];
             //store++;
             //Session["TierTrack"] = store;
-            int TierCount;
+
+           int TierCount;
             try
             {
                 TierCount = (int)Session["TierCount"];
@@ -1921,11 +1922,26 @@ namespace PokeJam.Controllers
                 return RedirectToAction("Index","Home");
             }
 
-                bool[] track = (bool[])Session["Track"];
-                string[] pokeTrack = (string[])Session["PokeTrack"];
-                //Tournament tournament = new Tournament();
-                string UserId = (string)Session["UserID"];
-                Methods.AddTournament(TierCount, track, pokeTrack, UserId);
+            bool[] track = (bool[])Session["Track"];
+            string[] pokeTrack = (string[])Session["PokeTrack"];
+            //Tournament tournament = new Tournament();
+            string UserId = (string)Session["UserID"];
+            Methods.AddTournament(TierCount, track, pokeTrack, UserId);
+
+            track[0] = false;
+            track[1] = false;
+            track[2] = false;
+            track[3] = false;
+            track[4] = false;
+            pokeTrack[0] = "N/A";
+            pokeTrack[1] = "N/A";
+            pokeTrack[2] = "N/A";
+            pokeTrack[3] = "N/A";
+            pokeTrack[4] = "N/A";
+
+            Session["Track"] = track;
+            Session["PokeTrack"] = pokeTrack;
+            Session["TierCount"] = 0;
 
             //tournament.Id = (string)Session["UserID"];
             //tournament.T1 = track[0];
@@ -1947,7 +1963,8 @@ namespace PokeJam.Controllers
 
         public ActionResult TournamentLoss()
         {
-            int TierCount;
+
+             int TierCount;
             try
             {
                 TierCount = (int)Session["TierCount"];
@@ -1976,7 +1993,7 @@ namespace PokeJam.Controllers
                 track[4] = false;
                 pokeTrack[4] = "N/A";
                 Methods.AddTournament(TierCount, track, pokeTrack, UserId);
-                
+
 
             }
             if (TierCount == 3)
@@ -2043,13 +2060,16 @@ namespace PokeJam.Controllers
                 string[] pokeTrack = (string[])Session["PokeTrack"];
                 pokeTrack[0] = (string)Session["PokeName"];
 
+                Session["PokeTrack"] = pokeTrack;
+
+
 
                 ViewBag.Redirect = "/GamePlay/Tier2/";
 
                 int store = (int)Session["TierTrack"];
                 store++;
-                Session["TierTrack"] = store; 
-                
+                Session["TierTrack"] = store;
+
             }
             else if (TierCount == 2)
             {
@@ -2058,6 +2078,9 @@ namespace PokeJam.Controllers
                 Session["Track"] = track;
                 string[] pokeTrack = (string[])Session["PokeTrack"];
                 pokeTrack[1] = (string)Session["PokeName"];
+
+                Session["PokeTrack"] = pokeTrack;
+
 
                 ViewBag.Redirect = "/GamePlay/Tier3/";
 
@@ -2073,6 +2096,9 @@ namespace PokeJam.Controllers
                 string[] pokeTrack = (string[])Session["PokeTrack"];
                 pokeTrack[2] = (string)Session["PokeName"];
 
+                Session["PokeTrack"] = pokeTrack;
+
+
                 ViewBag.Redirect = "/GamePlay/Tier4/";
 
                 int store = (int)Session["TierTrack"];
@@ -2087,22 +2113,16 @@ namespace PokeJam.Controllers
                 string[] pokeTrack = (string[])Session["PokeTrack"];
                 pokeTrack[3] = (string)Session["PokeName"];
 
+                Session["PokeTrack"] = pokeTrack;
+
+
                 ViewBag.Redirect = "/GamePlay/Tier5/";
 
                 int store = (int)Session["TierTrack"];
                 store++;
                 Session["TierTrack"] = store;
             }
-            else if (TierCount == 5)
-            {
-                bool[] track = (bool[])Session["Track"];
-                track[4] = true;
-                Session["Track"] = track;
-                string[] pokeTrack = (string[])Session["PokeTrack"];
-                pokeTrack[4] = (string)Session["PokeName"];
 
-                return RedirectToAction("Tier5Congratulations");
-            }
             return View();
         }
 
@@ -2120,7 +2140,7 @@ namespace PokeJam.Controllers
             int TierCount = 0;
             if ((string)Session["PlayType"] == "Tournament")
             {
-                TierCount = (int)Session["TierCount"]; 
+                TierCount = (int)Session["TierCount"];
             }
 
             if (u > c)
@@ -2130,9 +2150,18 @@ namespace PokeJam.Controllers
                 {
                     if (TierCount == 5)
                     {
-                        return View("Tier5Congratulations");
+
+                        bool[] track = (bool[])Session["Track"];
+                        track[4] = true;
+                        Session["Track"] = track;
+                        string[] pokeTrack = (string[])Session["PokeTrack"];
+                        pokeTrack[4] = (string)Session["PokeName"];
+                        Session["PokeTrack"] = pokeTrack;
+
+                        return RedirectToAction("Tier5Congratulations");
+
                     }
-                    ViewBag.Truth = "True"; 
+                    ViewBag.Truth = "True";
                 }
             }
             else if (c > u)
@@ -2146,7 +2175,9 @@ namespace PokeJam.Controllers
             else if (u == c)
             {
                 ViewBag.Winner = "Game was a Tie!.";
-                if ((string)Session["PlayType"] == "Tournament")
+
+                if ((string)Session["PlayType"] == "Tournament" || (string)Session["PlayType"] == "Single")
+
                 {
                     ViewBag.Truth = "Tie";
                 }
@@ -2172,7 +2203,16 @@ namespace PokeJam.Controllers
                 {
                     if (TierCount == 5)
                     {
-                        return View("Tier5Congratulations");
+
+                        bool[] track = (bool[])Session["Track"];
+                        track[4] = true;
+                        Session["Track"] = track;
+                        string[] pokeTrack = (string[])Session["PokeTrack"];
+                        pokeTrack[4] = (string)Session["PokeName"];
+                        Session["PokeTrack"] = pokeTrack;
+
+                        return RedirectToAction("Tier5Congratulations");
+
                     }
                     ViewBag.Truth = "True";
                 }
@@ -2188,11 +2228,27 @@ namespace PokeJam.Controllers
             else if (u == c)
             {
                 ViewBag.Winner = "Game was a Tie!.";
-                if ((string)Session["PlayType"] == "Tournament")
+
+                if ((string)Session["PlayType"] == "Tournament" || (string)Session["PlayType"] == "Single")
+
                 {
                     ViewBag.Truth = "Tie";
                 }
             }
+            return View();
+        }
+
+        //TODO: Create Overtime here. Redirect to HeadsTails and play the game for one more round. or just play another round and display the overtime result. And keeps going to overtime till game is not a tie
+        public ActionResult OvertimeStart()
+        {
+
+
+            return View();
+        }
+
+        public ActionResult OverTime()
+        {
+
             return View();
         }
     }

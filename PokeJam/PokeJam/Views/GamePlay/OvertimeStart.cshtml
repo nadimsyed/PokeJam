@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "OvertimeStart";
+}
+
+<h2>OvertimeStart</h2>
+
+
+<form action="~/GamePlay/NumberCrunch" method="post">
+    Distribute 100 Points Across the Three Types of Shot to Decide how your Character Will Play this Quarter<br /><br />
+    Three Pointers: <input type="number" name="ThreePoint" value="34" min="0" max="100" /><br />
+    Mid-Range Shots: <input type="number" name="MidRange" value="33" min="0" max="100" /><br />
+    In-the-Paint Shots: <input type="number" name="Paint" value="33" min="0" max="100" /><br /><br /><br />
+
+    Distribute 100 Points Across the Two Types of Defensive Options for the Quarter<br /><br />
+    Steals: <input type="number" name="Steal" value="50" min="0" max="100" /><br />
+    Blocks: <input type="number" name="Block" value="50" min="0" max="100" /><br /><br />
+
+    <input type="submit" name="submit" value="Submit Distributions" onclick="return CheckShot() && Check()" />
+    <input type="hidden" name="overtime" value="yes" />
+</form>
+
+<script>
+    function CheckShot() {
+        var a = parseInt(document.getElementById("ThreePoint").value );
+        var b = parseInt(document.getElementById("MidRange").value );
+        var c = parseInt(document.getElementById("Paint").value );
+        if ((100 - (a +b+c) == 0)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+
+    }
+    function Check() {
+        var d = parseInt( document.getElementById("Steal").value );
+        var e = parseInt(document.getElementById("Block").value);
+        if ((100 - (d + e) == 0)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+
+
+</script>
+<a href="~/Home/PokeJam">Quit</a>

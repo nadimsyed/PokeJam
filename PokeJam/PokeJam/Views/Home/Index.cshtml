@@ -34,6 +34,7 @@
         </th>
     </tr>
 
+<<<<<<< HEAD
             @foreach (var item in ViewBag.Characters)
             {
                 <tr>
@@ -79,6 +80,47 @@
 </table>
 
 
+=======
+    @foreach (var item in ViewBag.Characters)
+    {
+        <tr>
+            <td>
+                 @*@item.CharName*@
+                <form action="~/Home/PokeJam" method="post">
+                    <input type="hidden"  name="CharID" value="@item.CharID" />
+                    <input type="submit" name="CharName" value="@item.CharName" />
+                </form>
+            </td>
+            <td>
+                @item.Height
+            </td>
+            <td>
+                @item.Weight
+            </td>
+            <td>
+                @item.ThreePoint
+            </td>
+            <td>
+                @item.FieldGoal
+            </td>
+            <td>
+                @item.Paint
+            </td>
+            <td>
+                @item.Steal
+            </td>
+            <td>
+                @item.Block
+            </td>
+            <td>
+                <a href="/Characters/Delete/@item.CharID">Delete</a>
+            </td>
+        </tr>
+    }
+
+</table>
+
+>>>>>>> 22a5f166c14c76b5e2515d803610f599d5363a91
 @*<h1>@ViewBag.NameProp</h1>
 <h3>Speed: @ViewBag.Speed.base_stat</h3>
 <h3>SpecialDef: @ViewBag.SpecialDef.base_stat</h3>
