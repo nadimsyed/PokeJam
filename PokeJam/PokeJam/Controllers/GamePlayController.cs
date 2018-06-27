@@ -239,9 +239,6 @@ namespace PokeJam.Controllers
                         string happened = "Ball was stolen!";
                         playerPlays.Add(happened);
                     }
-
-                    ViewBag.Which = 1;
-                    ViewBag.Success = success;
                 }
                 else if (which > Steal && which <= 100)
                 {
@@ -252,9 +249,6 @@ namespace PokeJam.Controllers
                         string happened = "Ball was blocked!";
                         playerPlays.Add(happened);
                     }
-
-                    ViewBag.Which = 2;
-                    ViewBag.Success = success;
                 }
 
                 if (!success)
@@ -333,9 +327,6 @@ namespace PokeJam.Controllers
                         string happened = "Ball was stolen!";
                         computerPlays.Add(happened);
                     }
-
-                    ViewBag.Which = 1;
-                    ViewBag.Success = success;
                 }
                 else if (which2 == 2)
                 {
@@ -346,9 +337,6 @@ namespace PokeJam.Controllers
                         string happened = "Ball was blocked!";
                         computerPlays.Add(happened);
                     }
-
-                    ViewBag.Which = 2;
-                    ViewBag.Success = success;
                 }
                 int iShot = random.Next(1, 4);
 
@@ -438,7 +426,6 @@ namespace PokeJam.Controllers
             ViewBag.All = all;
 
             return View();
-
         }
 
         public ActionResult Tier1(string play)
@@ -507,11 +494,6 @@ namespace PokeJam.Controllers
         
         public ActionResult Tier5Congratulations()
         {
-
-            //int store = (int)Session["TierTrack"];
-            //store++;
-            //Session["TierTrack"] = store;
-
            int TierCount;
             try
             {
@@ -525,7 +507,6 @@ namespace PokeJam.Controllers
 
             bool[] track = (bool[])Session["Track"];
             string[] pokeTrack = (string[])Session["PokeTrack"];
-            //Tournament tournament = new Tournament();
             string UserId = (string)Session["UserID"];
             Methods.AddTournament(TierCount, track, pokeTrack, UserId);
 
@@ -550,7 +531,7 @@ namespace PokeJam.Controllers
         public ActionResult TournamentLoss()
         {
 
-             int TierCount;
+            int TierCount;
             try
             {
                 TierCount = (int)Session["TierCount"];
@@ -648,8 +629,6 @@ namespace PokeJam.Controllers
 
                 Session["PokeTrack"] = pokeTrack;
 
-
-
                 ViewBag.Redirect = "/GamePlay/Tier2/";
 
                 int store = (int)Session["TierTrack"];
@@ -667,7 +646,6 @@ namespace PokeJam.Controllers
 
                 Session["PokeTrack"] = pokeTrack;
 
-
                 ViewBag.Redirect = "/GamePlay/Tier3/";
 
                 int store = (int)Session["TierTrack"];
@@ -684,7 +662,6 @@ namespace PokeJam.Controllers
 
                 Session["PokeTrack"] = pokeTrack;
 
-
                 ViewBag.Redirect = "/GamePlay/Tier4/";
 
                 int store = (int)Session["TierTrack"];
@@ -700,7 +677,6 @@ namespace PokeJam.Controllers
                 pokeTrack[3] = (string)Session["PokeName"];
 
                 Session["PokeTrack"] = pokeTrack;
-
 
                 ViewBag.Redirect = "/GamePlay/Tier5/";
 
@@ -736,7 +712,6 @@ namespace PokeJam.Controllers
                 {
                     if (TierCount == 5)
                     {
-
                         bool[] track = (bool[])Session["Track"];
                         track[4] = true;
                         Session["Track"] = track;
@@ -745,7 +720,6 @@ namespace PokeJam.Controllers
                         Session["PokeTrack"] = pokeTrack;
 
                         return RedirectToAction("Tier5Congratulations");
-
                     }
                     ViewBag.Truth = "True";
                 }
@@ -789,7 +763,6 @@ namespace PokeJam.Controllers
                 {
                     if (TierCount == 5)
                     {
-
                         bool[] track = (bool[])Session["Track"];
                         track[4] = true;
                         Session["Track"] = track;
@@ -824,17 +797,13 @@ namespace PokeJam.Controllers
             return View();
         }
 
-        //TODO: Create Overtime here. Redirect to HeadsTails and play the game for one more round. or just play another round and display the overtime result. And keeps going to overtime till game is not a tie
         public ActionResult OvertimeStart()
         {
-
-
             return View();
         }
 
         public ActionResult OverTime()
         {
-
             return View();
         }
     }
