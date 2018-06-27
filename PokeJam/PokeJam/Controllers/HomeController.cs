@@ -16,7 +16,7 @@ namespace PokeJam.Controllers
     {
         private PokeJamEntities db = new PokeJamEntities();
 
-        
+
         public ActionResult Index()
         {
             Session["UserID"] = User.Identity.GetUserId();
@@ -29,7 +29,7 @@ namespace PokeJam.Controllers
 
             List<Character> characters = (from c in db.Characters
                                           where c.Id == user
-                                          select c).ToList(); 
+                                          select c).ToList();
             ViewBag.Characters = characters;
 
             if (characters.Count == 0)
@@ -48,14 +48,71 @@ namespace PokeJam.Controllers
             return View();
         }
 
-        
- public ActionResult YourTournamentHistory()
+        public ActionResult CreatePlayer(string CharName, int? CharHeight, int? CharWeight)
+        {
+            ViewBag.CharName = CharName;
+            ViewBag.CharHeight = CharHeight;
+            ViewBag.CharWeight = CharWeight;
+
+            Random random = new Random();
+
+
+            int z = Methods.WeightReturn((int)CharWeight);
+
+            ViewBag.Weight = z;
+
+            int SA2 = Methods.WeightToSA(z);
+            int A2 = Methods.WeightToA(z);
+            int S2 = Methods.WeightToS(z);
+            int SD2 = (Methods.WeightToSA(z)) / 2;
+            int D2 = (Methods.WeightToA(z)) / 2;
+
+            int SDx = random.Next(SD2 - 2, SD2 + 6);
+            int Dx = random.Next(D2 - 2, D2 + 6);
+
+
+            ViewBag.ThreePointW = SA2;
+            ViewBag.FieldGoalW = A2;
+            ViewBag.PaintW = S2;
+            ViewBag.StealW = SDx;
+            ViewBag.BlockW = Dx;
+
+            int a = Methods.HeightReturn((int)CharHeight);
+
+            ViewBag.Height = a;
+
+            int SA3 = Methods.HeightToSA(a);
+            int A3 = Methods.HeightToA(a);
+            int S3 = Methods.HeightToS(a);
+            int SD3 = (Methods.HeightToSA(a)) / 2;
+            int D3 = (Methods.HeightToA(a)) / 2;
+
+            int SDy = random.Next(SD3 - 2, SD3 + 4);
+            int Dy = random.Next(D3 - 2, D3 + 4);
+
+
+            ViewBag.ThreePointH = SA3;
+            ViewBag.FieldGoalH = A3;
+            ViewBag.PaintH = S3;
+            ViewBag.StealH = SDy;
+            ViewBag.BlockH = Dy;
+
+            ViewBag.ThreePointWH = SA2 + SA3;
+            ViewBag.FieldGoalWH = A2 + A3;
+            ViewBag.PaintWH = S2 + S3;
+            ViewBag.StealWH = SDx + SDy;
+            ViewBag.BlockWH = Dx + Dy;
+
+            return View();
+        }
+
+        public ActionResult YourTournamentHistory()
         {
             string user = (string)Session["UserID"];
 
             List<Tournament> tournaments = (from t in db.Tournaments
-                                          where t.Id == user
-                                          select t).ToList();
+                                            where t.Id == user
+                                            select t).ToList();
             ViewBag.Tournaments = tournaments;
 
             return View();
@@ -68,17 +125,17 @@ namespace PokeJam.Controllers
             ViewBag.Tournaments = tournaments;
 
 
+            return RedirectToAction("CreatePlayerStart");
+        }
+
+        public ActionResult SuccessfullyCreatedChar(string CharName, int? CharHeight, int? CharWeight, int? ThreePoint, int? FieldGoat, int? Paint, int? Steal, int? Block)
+        {
+
+            if (CharName == null)
+            {
                 return RedirectToAction("CreatePlayerStart");
             }
-        
-        public ActionResult SuccessfullyCreatedChar(string CharName, int? CharHeight,  int? CharWeight, int? ThreePoint, int? FieldGoat, int? Paint, int? Steal, int? Block)
-        {
-           
-                if (CharName == null)
-                {
-                    return RedirectToAction("CreatePlayerStart");
-                }
-                else if(CharName != null)
+            else if (CharName != null)
             {
                 Character character = new Character();
                 character.Id = (string)Session["UserID"];
@@ -100,7 +157,7 @@ namespace PokeJam.Controllers
                 Session["Char"] = character.CharID;
             }
 
-                return View();      
+            return View();
         }
 
         public ActionResult PokeJam(int CharID = 0)
@@ -109,11 +166,11 @@ namespace PokeJam.Controllers
             {
                 Session["Char"] = CharID;
             }
-            
+
             int TierCount;
             try
             {
-                 TierCount = (int)Session["TierCount"];
+                TierCount = (int)Session["TierCount"];
                 if (TierCount == 5)
                 {
                     bool[] track = (bool[])Session["Track"];
@@ -188,7 +245,7 @@ namespace PokeJam.Controllers
 
                 return RedirectToAction("Index");
             }
-            
+
 
             TierCount = (int)Session["TierCount"];
             if (TierCount == 5)
