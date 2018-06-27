@@ -11,11 +11,12 @@ using Microsoft.AspNet.Identity;
 
 namespace PokeJam.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private PokeJamEntities db = new PokeJamEntities();
 
-        [Authorize]
+        
         public ActionResult Index()
         {
             Session["UserID"] = User.Identity.GetUserId();
@@ -51,9 +52,6 @@ namespace PokeJam.Controllers
  public ActionResult YourTournamentHistory()
         {
             string user = (string)Session["UserID"];
-
-
-                return View();
 
             List<Tournament> tournaments = (from t in db.Tournaments
                                           where t.Id == user
