@@ -411,6 +411,8 @@
     <Content Include="Views\GamePlay\GameplayResult2.cshtml" />
     <Content Include="Views\GamePlay\QuarterSelector.cshtml" />
     <Content Include="Views\GamePlay\NumberCrunch.cshtml" />
+    <Content Include="Views\Home\DatabaseError.cshtml" />
+    <Content Include="Views\Home\APIError.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

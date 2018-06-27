@@ -75,8 +75,17 @@ namespace PokeJam.Controllers
             int compPaint = 0;
             int compSteal = 0;
             int compBlock = 0;
-            HttpWebRequest WR = WebRequest.CreateHttp($"https://pokeapi.co/api/v2/pokemon/{PID}/");
-            WR.UserAgent = ".NET Framework Test Client";
+            HttpWebRequest WR;
+            try
+            {
+                WR = WebRequest.CreateHttp($"https://pokeapi.co/api/v2/pokemon/{PID}/");
+                WR.UserAgent = ".NET Framework Test Client";
+            }
+            catch (Exception)
+            {
+
+                return RedirectToAction("APIError", "Home");
+            }
 
             HttpWebResponse Response;
 
@@ -88,14 +97,14 @@ namespace PokeJam.Controllers
             {
                 ViewBag.Error = "Exception";
                 ViewBag.ErrorDescription = e.Message;
-                return View();
+                return RedirectToAction("APIError", "Home");
             }
 
             if (Response.StatusCode != HttpStatusCode.OK)
             {
                 ViewBag.Error = Response.StatusCode;
                 ViewBag.ErrorDescription = Response.StatusDescription;
-                return View();
+                return RedirectToAction("APIError", "Home");
             }
 
             StreamReader reader = new StreamReader(Response.GetResponseStream());
@@ -128,7 +137,7 @@ namespace PokeJam.Controllers
             {
                 ViewBag.Error = "JSON Issue";
                 ViewBag.ErrorDescription = e.Message;
-                return View();
+                return RedirectToAction("APIError", "Home");
             }
 
             Session["compThreePoint"] = compThreePoint;
@@ -195,6 +204,7 @@ namespace PokeJam.Controllers
 
         public ActionResult NumberCrunch(int ThreePoint, int MidRange, int Paint, int Steal, int Block)
         {
+          
             List<string> playerPlays = new List<string>();
             List<string> computerPlays = new List<string>();
 
@@ -203,7 +213,16 @@ namespace PokeJam.Controllers
             Random random = new Random();
 
 
-            int charNum = (int)Session["Char"];
+            int charNum;
+            try
+            {
+                charNum = (int)Session["Char"];
+            }
+            catch (Exception)
+            {
+
+               return  RedirectToAction("Index", "Home");
+            }
             Character player = (from c in db.Characters
                                   where c.CharID == charNum
                                   select c).Single();
@@ -1891,8 +1910,16 @@ namespace PokeJam.Controllers
             //int store = (int)Session["TierTrack"];
             //store++;
             //Session["TierTrack"] = store;
+            int TierCount;
+            try
+            {
+                TierCount = (int)Session["TierCount"];
+            }
+            catch (Exception)
+            {
 
-            int TierCount = (int)Session["TierCount"];
+                return RedirectToAction("Index","Home");
+            }
 
                 bool[] track = (bool[])Session["Track"];
                 string[] pokeTrack = (string[])Session["PokeTrack"];
@@ -1920,7 +1947,16 @@ namespace PokeJam.Controllers
 
         public ActionResult TournamentLoss()
         {
-            int TierCount = (int)Session["TierCount"];
+            int TierCount;
+            try
+            {
+                TierCount = (int)Session["TierCount"];
+            }
+            catch (Exception)
+            {
+
+                return RedirectToAction("Index", "Home");
+            }
             if (TierCount == 5)
             {
                 bool[] track = (bool[])Session["Track"];

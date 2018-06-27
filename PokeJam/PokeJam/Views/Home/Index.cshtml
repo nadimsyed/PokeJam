@@ -34,44 +34,50 @@
         </th>
     </tr>
 
-    @foreach (var item in ViewBag.Characters)
-    {
-        <tr>
-            <td>
-                 @*@item.CharName*@
-                <form action="~/Home/PokeJam" method="post">
-                    <input type="hidden"  name="CharID" value="@item.CharID" />
-                    <input type="submit" name="CharName" value="@item.CharName" />
-                </form>
-            </td>
-            <td>
-                @item.Height
-            </td>
-            <td>
-                @item.Weight
-            </td>
-            <td>
-                @item.ThreePoint
-            </td>
-            <td>
-                @item.FieldGoal
-            </td>
-            <td>
-                @item.Paint
-            </td>
-            <td>
-                @item.Steal
-            </td>
-            <td>
-                @item.Block
-            </td>
-            <td>
-                <a href="/Characters/Delete/@item.CharID">Delete</a>
-            </td>
-        </tr>
-    }
+            @foreach (var item in ViewBag.Characters)
+            {
+                <tr>
+                    <td>
+                        @*@item.CharName*@
+                        <form action="~/Home/PokeJam" method="post">
+                            <input type="hidden" name="CharID" value="@item.CharID" />
+                            <input type="submit" name="CharName" value="@item.CharName" />
+                        </form>
+                    </td>
+                    <td>
+                        @item.Height
+                    </td>
+                    <td>
+                        @item.Weight
+                    </td>
+                    <td>
+                        @item.ThreePoint
+                    </td>
+                    <td>
+                        @item.FieldGoal
+                    </td>
+                    <td>
+                        @item.Paint
+                    </td>
+                    <td>
+                        @item.Steal
+                    </td>
+                    <td>
+                        @item.Block
+                    </td>
+                    <td>
+                        <a href="/Characters/Delete/@item.CharID">Delete</a>
+                    </td>
+                </tr>
+            }
 
+
+        
+      
+
+    
 </table>
+
 
 @*<h1>@ViewBag.NameProp</h1>
 <h3>Speed: @ViewBag.Speed.base_stat</h3>

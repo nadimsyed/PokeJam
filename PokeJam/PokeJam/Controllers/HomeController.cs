@@ -185,6 +185,7 @@ namespace PokeJam.Controllers
             return View();
         }
 
+        [Authorize]
         public ActionResult CreatePlayerStart()
         {
 
@@ -193,79 +194,92 @@ namespace PokeJam.Controllers
 
         public ActionResult CreatePlayer(string CharName, int? CharHeight, int? CharWeight)
         {
-            ViewBag.CharName = CharName;
-            ViewBag.CharHeight = CharHeight;
-            ViewBag.CharWeight = CharWeight;
+            try
+            {
+                ViewBag.CharName = CharName;
+                ViewBag.CharHeight = CharHeight;
+                ViewBag.CharWeight = CharWeight;
 
-            Random random = new Random();
-
-
-            int z = Methods.WeightReturn((int)CharWeight);
-
-            ViewBag.Weight = z;
-
-            int SA2 = Methods.WeightToSA(z);
-            int A2 = Methods.WeightToA(z);
-            int S2 = Methods.WeightToS(z);
-            int SD2 = (Methods.WeightToSA(z)) / 2;
-            int D2 = (Methods.WeightToA(z)) / 2;
-
-            int SDx = random.Next(SD2 - 2, SD2 + 6);
-            int Dx = random.Next(D2 - 2, D2 + 6);
+                Random random = new Random();
 
 
-            ViewBag.ThreePointW = SA2;
-            ViewBag.FieldGoalW = A2;
-            ViewBag.PaintW = S2;
-            ViewBag.StealW = SDx;
-            ViewBag.BlockW = Dx;
+                int z = Methods.WeightReturn((int)CharWeight);
 
-            int a = Methods.HeightReturn((int)CharHeight);
+                ViewBag.Weight = z;
 
-            ViewBag.Height = a;
+                int SA2 = Methods.WeightToSA(z);
+                int A2 = Methods.WeightToA(z);
+                int S2 = Methods.WeightToS(z);
+                int SD2 = (Methods.WeightToSA(z)) / 2;
+                int D2 = (Methods.WeightToA(z)) / 2;
 
-            int SA3 = Methods.HeightToSA(a);
-            int A3 = Methods.HeightToA(a);
-            int S3 = Methods.HeightToS(a);
-            int SD3 = (Methods.HeightToSA(a)) / 2;
-            int D3 = (Methods.HeightToA(a)) / 2;
-
-            int SDy = random.Next(SD3 - 2, SD3 + 4);
-            int Dy = random.Next(D3 - 2, D3 + 4);
+                int SDx = random.Next(SD2 - 2, SD2 + 6);
+                int Dx = random.Next(D2 - 2, D2 + 6);
 
 
-            ViewBag.ThreePointH = SA3;
-            ViewBag.FieldGoalH = A3;
-            ViewBag.PaintH = S3;
-            ViewBag.StealH = SDy;
-            ViewBag.BlockH = Dy;
+                ViewBag.ThreePointW = SA2;
+                ViewBag.FieldGoalW = A2;
+                ViewBag.PaintW = S2;
+                ViewBag.StealW = SDx;
+                ViewBag.BlockW = Dx;
 
-            ViewBag.ThreePointWH = SA2 + SA3;
-            ViewBag.FieldGoalWH = A2 + A3;
-            ViewBag.PaintWH = S2 + S3;
-            ViewBag.StealWH = SDx + SDy;
-            ViewBag.BlockWH = Dx + Dy;
+                int a = Methods.HeightReturn((int)CharHeight);
 
-            return View();
+                ViewBag.Height = a;
+
+                int SA3 = Methods.HeightToSA(a);
+                int A3 = Methods.HeightToA(a);
+                int S3 = Methods.HeightToS(a);
+                int SD3 = (Methods.HeightToSA(a)) / 2;
+                int D3 = (Methods.HeightToA(a)) / 2;
+
+                int SDy = random.Next(SD3 - 2, SD3 + 4);
+                int Dy = random.Next(D3 - 2, D3 + 4);
+
+
+                ViewBag.ThreePointH = SA3;
+                ViewBag.FieldGoalH = A3;
+                ViewBag.PaintH = S3;
+                ViewBag.StealH = SDy;
+                ViewBag.BlockH = Dy;
+
+                ViewBag.ThreePointWH = SA2 + SA3;
+                ViewBag.FieldGoalWH = A2 + A3;
+                ViewBag.PaintWH = S2 + S3;
+                ViewBag.StealWH = SDx + SDy;
+                ViewBag.BlockWH = Dx + Dy;
+
+                return View();
+            }
+            catch (Exception)
+            {
+
+                return RedirectToAction("CreatePlayerStart");
+            }
         }
 
         //Might have to pass in CharName, CharHeight, CharWeight from previous action to this action to make the character in database
-        public ActionResult SuccessfullyCreatedChar(string CharName, int CharHeight,  int CharWeight, int ThreePoint, int FieldGoat, int Paint, int Steal, int Block)
+        public ActionResult SuccessfullyCreatedChar(string CharName, int? CharHeight,  int? CharWeight, int? ThreePoint, int? FieldGoat, int? Paint, int? Steal, int? Block)
         {
-            if (CharName != null)
+           
+                if (CharName == null)
+                {
+                    return RedirectToAction("CreatePlayerStart");
+                }
+                else if(CharName != null)
             {
                 Character character = new Character();
                 //The ID will be the ID from the identity if we make that switch
                 //character.UserID = 2;
                 character.Id = (string)Session["UserID"];
                 character.CharName = CharName;
-                character.Height = CharHeight;
-                character.Weight = CharWeight;
-                character.ThreePoint = ThreePoint;
-                character.FieldGoal = FieldGoat;
-                character.Paint = Paint;
-                character.Steal = Steal;
-                character.Block = Block;
+                character.Height = (int)CharHeight;
+                character.Weight = (int)CharWeight;
+                character.ThreePoint = (int)ThreePoint;
+                character.FieldGoal = (int)FieldGoat;
+                character.Paint = (int)Paint;
+                character.Steal = (int)Steal;
+                character.Block = (int)Block;
 
                 db.Characters.Add(character);
                 db.SaveChanges();
@@ -276,8 +290,7 @@ namespace PokeJam.Controllers
                 Session["Char"] = character.CharID;
             }
 
-
-            return View();
+                return View();      
         }
 
         public ActionResult PokeJam(int CharID = 0)
@@ -290,76 +303,84 @@ namespace PokeJam.Controllers
                 Session["Char"] = CharID;
             }
             //Attempting to clear Tournament Data if user returns to home pages aka "Quits"
-            
 
-            int TierCount = (int)Session["TierCount"];
-            if (TierCount == 5)
+
+            try
             {
-                bool[] track = (bool[])Session["Track"];
-                string[] pokeTrack = (string[])Session["PokeTrack"];
-                string UserId = (string)Session["UserID"];
-                track[4] = false;
-                pokeTrack[4] = "N/A";
-                Methods.AddTournament(TierCount, track, pokeTrack, UserId);
+                int TierCount = (int)Session["TierCount"];
+                if (TierCount == 5)
+                {
+                    bool[] track = (bool[])Session["Track"];
+                    string[] pokeTrack = (string[])Session["PokeTrack"];
+                    string UserId = (string)Session["UserID"];
+                    track[4] = false;
+                    pokeTrack[4] = "N/A";
+                    Methods.AddTournament(TierCount, track, pokeTrack, UserId);
+                }
+                if (TierCount == 4)
+                {
+                    bool[] track = (bool[])Session["Track"];
+                    string[] pokeTrack = (string[])Session["PokeTrack"];
+                    string UserId = (string)Session["UserID"];
+                    track[3] = false;
+                    pokeTrack[3] = "N/A";
+                    track[4] = false;
+                    pokeTrack[4] = "N/A";
+                    Methods.AddTournament(TierCount, track, pokeTrack, UserId);
+
+
+                }
+                if (TierCount == 3)
+                {
+                    bool[] track = (bool[])Session["Track"];
+                    string[] pokeTrack = (string[])Session["PokeTrack"];
+                    string UserId = (string)Session["UserID"];
+                    track[2] = false;
+                    pokeTrack[2] = "N/A";
+                    track[3] = false;
+                    pokeTrack[3] = "N/A";
+                    track[4] = false;
+                    pokeTrack[4] = "N/A";
+                    Methods.AddTournament(TierCount, track, pokeTrack, UserId);
+
+                }
+                if (TierCount == 2)
+                {
+                    bool[] track = (bool[])Session["Track"];
+                    string[] pokeTrack = (string[])Session["PokeTrack"];
+                    string UserId = (string)Session["UserID"];
+                    track[1] = false;
+                    pokeTrack[1] = "N/A";
+                    track[2] = false;
+                    pokeTrack[2] = "N/A";
+                    track[3] = false;
+                    pokeTrack[3] = "N/A";
+                    track[4] = false;
+                    pokeTrack[4] = "N/A";
+                    Methods.AddTournament(TierCount, track, pokeTrack, UserId);
+
+                }
+                if (TierCount == 1)
+                {
+                    bool[] track = (bool[])Session["Track"];
+                    string[] pokeTrack = (string[])Session["PokeTrack"];
+                    string UserId = (string)Session["UserID"];
+                    track[0] = false;
+                    pokeTrack[0] = "N/A";
+                    track[1] = false;
+                    pokeTrack[1] = "N/A";
+                    track[2] = false;
+                    pokeTrack[2] = "N/A";
+                    track[3] = false;
+                    pokeTrack[3] = "N/A";
+                    track[4] = false;
+                    pokeTrack[4] = "N/A";
+                }
             }
-            if (TierCount == 4)
+            catch (Exception)
             {
-                bool[] track = (bool[])Session["Track"];
-                string[] pokeTrack = (string[])Session["PokeTrack"];
-                string UserId = (string)Session["UserID"];
-                track[3] = false;
-                pokeTrack[3] = "N/A";
-                track[4] = false;
-                pokeTrack[4] = "N/A";
-                Methods.AddTournament(TierCount, track, pokeTrack, UserId);
 
-
-            }
-            if (TierCount == 3)
-            {
-                bool[] track = (bool[])Session["Track"];
-                string[] pokeTrack = (string[])Session["PokeTrack"];
-                string UserId = (string)Session["UserID"];
-                track[2] = false;
-                pokeTrack[2] = "N/A";
-                track[3] = false;
-                pokeTrack[3] = "N/A";
-                track[4] = false;
-                pokeTrack[4] = "N/A";
-                Methods.AddTournament(TierCount, track, pokeTrack, UserId);
-
-            }
-            if (TierCount == 2)
-            {
-                bool[] track = (bool[])Session["Track"];
-                string[] pokeTrack = (string[])Session["PokeTrack"];
-                string UserId = (string)Session["UserID"];
-                track[1] = false;
-                pokeTrack[1] = "N/A";
-                track[2] = false;
-                pokeTrack[2] = "N/A";
-                track[3] = false;
-                pokeTrack[3] = "N/A";
-                track[4] = false;
-                pokeTrack[4] = "N/A";
-                Methods.AddTournament(TierCount, track, pokeTrack, UserId);
-
-            }
-            if (TierCount == 1)
-            {
-                bool[] track = (bool[])Session["Track"];
-                string[] pokeTrack = (string[])Session["PokeTrack"];
-                string UserId = (string)Session["UserID"];
-                track[0] = false;
-                pokeTrack[0] = "N/A";
-                track[1] = false;
-                pokeTrack[1] = "N/A";
-                track[2] = false;
-                pokeTrack[2] = "N/A";
-                track[3] = false;
-                pokeTrack[3] = "N/A";
-                track[4] = false;
-                pokeTrack[4] = "N/A";
+                return RedirectToAction("Index");
             }
 
             Session["TierCount"] = 0;
@@ -375,6 +396,14 @@ namespace PokeJam.Controllers
         }
 
         public ActionResult ViewStats()
+        {
+            return View();
+        }
+        public ActionResult DatabaseError()
+        {
+            return View();
+        }
+        public ActionResult APIError()
         {
             return View();
         }
