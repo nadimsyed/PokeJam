@@ -1,21 +1,9 @@
 ﻿
 @{
-    ViewBag.Title = "NumberCrunch";
+    ViewBag.Title = "OverTime";
 }
 
-@*TODO: Ask Peter why even though this if is working properly routing to overtime actions, it does not work for displaying titile. WHY?!*@
-@if (ViewBag.Over != "yes")
-{
-    <h2>Quarter @Session["Quarter"]</h2>
-}
-else if (ViewBag.Over == "yes")
-{
-    <h2>Over Time!</h2>
-
-}
-
-<h1>@ViewBag.Error</h1>
-<h1>@ViewBag.ErrorDescription</h1>
+<h2>OverTime</h2>
 
 @if ((string)Session["Winner"] == "Player")
 {
@@ -91,12 +79,6 @@ else if ((string)Session["Winner"] == "Computer")
 }
 
 
-@if (ViewBag.Over != "yes")
-{
-    <a href="~/GamePlay/QuarterSelector">Move on to the Next Quarter</a>
-}
-else
-{
-    <a href="~/GamePlay/GameplayResult">Move to end of OverTime</a>
-}
+
+<a href="~/GamePlay/QuarterSelector">Move on to the Next Quarter</a>
 <a href="~/Home/PokeJam">Quit</a>

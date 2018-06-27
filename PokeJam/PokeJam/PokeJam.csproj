@@ -413,6 +413,8 @@
     <Content Include="Views\GamePlay\NumberCrunch.cshtml" />
     <Content Include="Views\Home\YourTournamentHistory.cshtml" />
     <Content Include="Views\Home\AllTournamentHistory.cshtml" />
+    <Content Include="Views\GamePlay\OvertimeStart.cshtml" />
+    <Content Include="Views\GamePlay\OverTime.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

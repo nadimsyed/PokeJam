@@ -169,10 +169,11 @@ namespace PokeJam.Controllers
             return RedirectToAction("QuarterSelector");
         }
 
-        public ActionResult QuarterSelector()
+        public ActionResult QuarterSelector(string move)
         {
             int quarter = (int)Session["Quarter"];
             string winner = (string)Session["Winner"];
+
             if (quarter != 4)
             {
                 quarter++;
@@ -193,7 +194,7 @@ namespace PokeJam.Controllers
         }
 
         //TODO: send a bool here from the overttime. use that to calculate and if overtime is true, pass back to a action/view for overttime
-        public ActionResult NumberCrunch(int ThreePoint, int MidRange, int Paint, int Steal, int Block, bool overtime = false)
+        public ActionResult NumberCrunch(int ThreePoint, int MidRange, int Paint, int Steal, int Block, string overtime = "no")
         {
             List<string> playerPlays = new List<string>();
             List<string> computerPlays = new List<string>();
@@ -417,6 +418,11 @@ namespace PokeJam.Controllers
 
             ViewBag.Player = playerPlays;
             ViewBag.Computer = computerPlays;
+            ViewBag.Over = overtime;
+            //if (overtime == "yes")
+            //{
+            //    return RedirectToAction("OverTime"); 
+            //}
 
             return View();
         }
@@ -2172,6 +2178,17 @@ namespace PokeJam.Controllers
         }
 
         //TODO: Create Overtime here. Redirect to HeadsTails and play the game for one more round. or just play another round and display the overtime result. And keeps going to overtime till game is not a tie
+        public ActionResult OvertimeStart()
+        {
 
+
+            return View();
+        }
+
+        public ActionResult OverTime()
+        {
+
+            return View();
+        }
     }
 }
