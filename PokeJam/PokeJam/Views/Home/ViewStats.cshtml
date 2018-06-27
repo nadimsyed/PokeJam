@@ -5,6 +5,49 @@
 
 <h2>ViewStats</h2>
 
-@*TODO:PULL STATS FROM CREATED CHARACTER*@
+<table class="table table-bordered table-striped">
+    <tr>
+        <th>CharName</th>
+        <th>CharHeight</th>
+        <th>CharWeight</th>
+        <th>ThreePoint</th>
+        <th>FieldGoal</th>
+        <th>In-the-Paint</th>
+        <th>Steal</th>
+        <th>Block</th>
+
+
+    </tr>
+    @for (int i = 0; i < ViewBag.Characters.Count; i++)
+    {
+        var Char = ViewBag.Characters[i];
+        <tr>
+            <td>
+                @Char.CharName
+            </td>
+            <td>
+                @Char.Height
+            </td>
+            <td>
+                @Char.Weight
+            </td>
+            <td>
+                @Char.ThreePoint
+            </td>
+            <td>
+                @Char.FieldGoal
+            </td>
+            <td>
+                @Char.Paint
+            </td>
+            <td>
+                @Char.Steal
+            </td>
+            <td>
+                @Char.Block
+            </td>
+        </tr>
+    }
+</table>
 
 <a href="~/Home/PokeJam/">Back</a>

@@ -37,7 +37,6 @@ namespace PokeJam.Controllers
                 Session["TierCount"] = x;
             }
 
-            //TODO: might be able to remove the &&, pretty sure already validated in the tiernext
             if (Session["TierTrack"] == null && (string)Session["PlayType"] == "Tournament")
             {
                 Session["TierTrack"] = 0;
@@ -275,7 +274,6 @@ namespace PokeJam.Controllers
 
                     if (shot == "ThreePoint")
                     {
-                        //TODO: For past MVP, insert Pokemon name, can store that name and just use as Variable for replacement
                         bool truth = Methods.ShotConfirm(playerThreePoint);
                         string made = truth ? "Player's Three-Point shot went in!" : "Player's Three-Point shot missed!";
 
@@ -371,7 +369,6 @@ namespace PokeJam.Controllers
                 {
                     if (shot == "ThreePoint")
                     {
-                        //TODO: For past MVP, insert Pokemon name, can store that name and just use as Variable for replacement
                         bool truth = Methods.ShotConfirm(compThreePoint);
                         string made = truth ? "Pokemon's Three-Point shot went in!" : "Pokemon's Three-Point shot missed!";
 
@@ -551,7 +548,6 @@ namespace PokeJam.Controllers
 
             int PID = (int)Session["Pokemon"];
 
-            //TODO: Ask whats worse practice, making a bunch of sessions and storing the Pokemons Basketball Stats, or a second request to the API
             HttpWebRequest WR = WebRequest.CreateHttp($"https://pokeapi.co/api/v2/pokemon/{PID}/");
             WR.UserAgent = ".NET Framework Test Client";
 
@@ -643,7 +639,6 @@ namespace PokeJam.Controllers
 
             if (shot == "ThreePoint")
             {
-                //TODO: For past MVP, insert Pokemon name, can store that name and just use as Variable for replacement
                 bool truth = Methods.ShotConfirm(ThreePoint);
                 string made = truth ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
                 ViewBag.Made = made;
@@ -732,12 +727,11 @@ namespace PokeJam.Controllers
                 string specialDef = (string)JsonData["stats"][1]["base_stat"];
                 string def = (string)JsonData["stats"][3]["base_stat"];
 
-                //TODO: Replace all the int.parse with the method
                 int SA = Methods.StatConverter(specialAtt);
-                int A = (int.Parse(att)) / 3 + 10;
-                int S = (int.Parse(speed)) / 3 + 15;
-                int SD = (int.Parse(specialDef)) / 3 - 20;
-                int D = (int.Parse(def)) / 3 - 15;
+                int A = (Methods.StatConverter(att)) / 3 + 10;
+                int S = (Methods.StatConverter(speed)) / 3 + 15;
+                int SD = (Methods.StatConverter(specialDef)) / 3 - 20;
+                int D = (Methods.StatConverter(def)) / 3 - 15;
 
 
                 ViewBag.ThreePoint = SA;
@@ -871,12 +865,11 @@ namespace PokeJam.Controllers
                 string specialDef = (string)JsonData["stats"][1]["base_stat"];
                 string def = (string)JsonData["stats"][3]["base_stat"];
 
-                //TODO: Replace all the int.parse with the method
                 int SA = Methods.StatConverter(specialAtt);
-                int A = (int.Parse(att)) / 3 + 10;
-                int S = (int.Parse(speed)) / 3 + 15;
-                int SD = (int.Parse(specialDef)) / 3 - 20;
-                int D = (int.Parse(def)) / 3 - 15;
+                int A = (Methods.StatConverter(att)) / 3 + 10;
+                int S = (Methods.StatConverter(speed)) / 3 + 15;
+                int SD = (Methods.StatConverter(specialDef)) / 3 - 20;
+                int D = (Methods.StatConverter(def)) / 3 - 15;
 
 
                 ViewBag.ThreePoint = SA;
@@ -988,7 +981,6 @@ namespace PokeJam.Controllers
 
             int PID = (int)Session["Pokemon"];
 
-            //TODO: Ask whats worse practice, making a bunch of sessions and storing the Pokemons Basketball Stats, or a second request to the API
             HttpWebRequest WR = WebRequest.CreateHttp($"https://pokeapi.co/api/v2/pokemon/{PID}/");
             WR.UserAgent = ".NET Framework Test Client";
 
@@ -1080,7 +1072,6 @@ namespace PokeJam.Controllers
 
             if (shot == "ThreePoint")
             {
-                //TODO: For past MVP, insert Pokemon name, can store that name and just use as Variable for replacement
                 bool truth = Methods.ShotConfirm(ThreePoint);
                 string made = truth ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
                 ViewBag.Made = made;
@@ -1147,7 +1138,6 @@ namespace PokeJam.Controllers
 
             int PID = (int)Session["Pokemon"];
 
-            //TODO: Ask whats worse practice, making a bunch of sessions and storing the Pokemons Basketball Stats, or a second request to the API
             HttpWebRequest WR = WebRequest.CreateHttp($"https://pokeapi.co/api/v2/pokemon/{PID}/");
             WR.UserAgent = ".NET Framework Test Client";
 
@@ -1239,7 +1229,6 @@ namespace PokeJam.Controllers
 
             if (shot == "ThreePoint")
             {
-                //TODO: For past MVP, insert Pokemon name, can store that name and just use as Variable for replacement
                 bool truth = Methods.ShotConfirm(ThreePoint);
                 string made = truth ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
                 ViewBag.Made = made;
@@ -1379,7 +1368,6 @@ namespace PokeJam.Controllers
                 ViewBag.Made = made;
                 if (truth && !success)
                 {
-                    //TODO: Somehting is going wrong with storing session value into ints as well as later on at the end for winning, figure that out
                     string z = (string)Session["User"].ToString();
                     int x = int.Parse(z);
                     x += 3;
@@ -1521,7 +1509,6 @@ namespace PokeJam.Controllers
                 ViewBag.Made = made;
                 if (truth && !success)
                 {
-                    //TODO: Somehting is going wrong with storing session value into ints as well as later on at the end for winning, figure that out
                     string z = (string)Session["User"].ToString();
                     int x = int.Parse(z);
                     x += 3;
@@ -1590,7 +1577,6 @@ namespace PokeJam.Controllers
 
             int PID = (int)Session["Pokemon"];
 
-            //TODO: Ask whats worse practice, making a bunch of sessions and storing the Pokemons Basketball Stats, or a second request to the API
             HttpWebRequest WR = WebRequest.CreateHttp($"https://pokeapi.co/api/v2/pokemon/{PID}/");
             WR.UserAgent = ".NET Framework Test Client";
 
@@ -1682,7 +1668,6 @@ namespace PokeJam.Controllers
 
             if (shot == "ThreePoint")
             {
-                //TODO: For past MVP, insert Pokemon name, can store that name and just use as Variable for replacement
                 bool truth = Methods.ShotConfirm(ThreePoint);
                 string made = truth ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
                 ViewBag.Made = made;
@@ -1755,7 +1740,6 @@ namespace PokeJam.Controllers
 
             int PID = (int)Session["Pokemon"];
 
-            //TODO: Ask whats worse practice, making a bunch of sessions and storing the Pokemons Basketball Stats, or a second request to the API
             HttpWebRequest WR = WebRequest.CreateHttp($"https://pokeapi.co/api/v2/pokemon/{PID}/");
             WR.UserAgent = ".NET Framework Test Client";
 
@@ -1847,7 +1831,6 @@ namespace PokeJam.Controllers
 
             if (shot == "ThreePoint")
             {
-                //TODO: For past MVP, insert Pokemon name, can store that name and just use as Variable for replacement
                 bool truth = Methods.ShotConfirm(ThreePoint);
                 string made = truth ? "Pokemon's shot went in!" : "Pokemon's shot missed!";
                 ViewBag.Made = made;

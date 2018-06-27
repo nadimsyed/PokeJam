@@ -480,6 +480,12 @@ namespace PokeJam.Controllers
 
         public ActionResult ViewStats()
         {
+            int charID = (int)Session["Char"];
+            List<Character> characters = (from c in db.Characters
+                                          where c.CharID == charID
+                                          select c).ToList();
+
+            ViewBag.Characters = characters;
             return View();
         }
     }
