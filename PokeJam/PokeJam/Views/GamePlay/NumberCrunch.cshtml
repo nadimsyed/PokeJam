@@ -3,10 +3,6 @@
     ViewBag.Title = "NumberCrunch";
 }
 
-<<<<<<< HEAD
-<h2>Quarter @Session["Quarter"]</h2>
-=======
-@*TODO: Ask Peter why even though this if is working properly routing to overtime actions, it does not work for displaying titile. WHY?!*@
 @if (ViewBag.Over != "yes")
 {
     <h2>Quarter @Session["Quarter"]</h2>
@@ -16,7 +12,6 @@ else if (ViewBag.Over == "yes")
     <h2>Over Time!</h2>
 
 }
->>>>>>> 22a5f166c14c76b5e2515d803610f599d5363a91
 
 <h1>@ViewBag.Error</h1>
 <h1>@ViewBag.ErrorDescription</h1>
@@ -26,7 +21,6 @@ else if (ViewBag.Over == "yes")
     <table class="table table-bordered">
         <tr>
             <th>Play's for Player</th>
-            @*Add quarter number to these header title or as a title of the page*@
             <th>Total Points For Player at end of Quarter</th>
             <th>Play's for Pokemon</th>
             <th>Total Points For Pokemon at end of Quarter</th>
@@ -59,11 +53,9 @@ else if (ViewBag.Over == "yes")
 }
 else if ((string)Session["Winner"] == "Computer")
 {
-<<<<<<< HEAD
 <table class="table table-bordered">
     <tr>
         <th>Play's for Player</th>
-        @*Add quarter number to these header title or as a title of the page*@
         <th>Total Points For Player at end of Quarter</th>
         <th>Play's for Pokemon</th>
         <th>Total Points For Pokemon at end of Quarter</th>
@@ -95,46 +87,6 @@ else if ((string)Session["Winner"] == "Computer")
 </table>
 }
 
-
-
-<a href="~/GamePlay/QuarterSelector">Move on to the Next Quarter</a>
-=======
-    <table class="table table-bordered">
-        <tr>
-            <th>Play's for Player</th>
-            @*Add quarter number to these header title or as a title of the page*@
-            <th>Total Points For Player at end of Quarter</th>
-            <th>Play's for Pokemon</th>
-            <th>Total Points For Pokemon at end of Quarter</th>
-        </tr>
-        @foreach (var item in ViewBag.Computer)
-        {
-            <tr>
-
-                <td>@item</td>
-            </tr>
-
-        }
-        <tr>
-            <td>@Session["Comp"]</td>
-        </tr>
-
-        @foreach (var item in ViewBag.Player)
-        {
-            <tr>
-
-                <td>@item</td>
-            </tr>
-
-        }
-        <tr>
-            <td>@Session["User"]</td>
-        </tr>
-
-    </table>
-}
-
-
 @if (ViewBag.Over != "yes")
 {
     <a href="~/GamePlay/QuarterSelector">Move on to the Next Quarter</a>
@@ -143,5 +95,5 @@ else
 {
     <a href="~/GamePlay/GameplayResult">Move to end of OverTime</a>
 }
->>>>>>> 22a5f166c14c76b5e2515d803610f599d5363a91
+
 <a href="~/Home/PokeJam">Quit</a>
