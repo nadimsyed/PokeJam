@@ -28,7 +28,6 @@
 </form>
 <script>
     function Check() {
-        @*var x = parseInt(@Session["SkillPoints"].ToString())*@
         var a = parseInt( document.getElementById("ThreePointPerc").value ) - @ViewBag.ThreePointWH;
         var b = parseInt( document.getElementById("FieldGoatPerc").value ) - @ViewBag.FieldGoalWH;
         var c = parseInt( document.getElementById("PaintPerc").value ) - @ViewBag.PaintWH;

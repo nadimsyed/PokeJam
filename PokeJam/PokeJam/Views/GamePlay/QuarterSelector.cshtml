@@ -1,87 +1,4 @@
-﻿
-@{
-    ViewBag.Title = "QuarterSelector";
-}
-
-<h2>Point Distribution for Quarter @Session["Quarter"]</h2>
-
-<form action="~/GamePlay/NumberCrunch" method="post">
-    Distribute 100 Points Across the Three Types of Shot to Decide how your Character Will Play this Quarter<br /><br />
-    Three Pointers: <input type="number" name="ThreePoint" value="34" min="0" max="100" /><br />
-    Mid-Range Shots: <input type="number" name="MidRange" value="33" min="0" max="100" /><br />
-    In-the-Paint Shots: <input type="number" name="Paint" value="33" min="0" max="100" /><br /><br /><br />
-
-    Distribute 100 Points Across the Two Types of Defensive Options for the Quarter<br /><br />
-    Steals: <input type="number" name="Steal" value="50" min="0" max="100" /><br />
-    Blocks: <input type="number" name="Block" value="50" min="0" max="100" /><br /><br />
-
-    <input type="submit" name="submit" value="Submit Distributions" onclick="return CheckShot() && Check()" />
-</form>
-
-<script>
-    function CheckShot() {
-        var a = parseInt(document.getElementById("ThreePoint").value);
-        var b = parseInt(document.getElementById("MidRange").value);
-        var c = parseInt(document.getElementById("Paint").value);
-        if ((100 - (a + b + c) == 0)) {
-            return true;
-        }
-        else {
-            return false;
-        }
-
-    }
-    function Check() {
-        var d = parseInt(document.getElementById("Steal").value);
-        var e = parseInt(document.getElementById("Block").value);
-        if ((100 - (d + e) == 0)) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
-
-
-</script>
-@*<div class="slidecontainer">
-        Three Pointers: <input type="range" min="1" max="100" value="50" onchange="slider1()" class="slider" id="ThreePoint" name="ThreePoint">
-    </div>
-    <div class="slidecontainer">
-        Mid-Rangers: <input type="range" min="1" max="100" value="50" onchange="slider2()" class="slider" id="MidRange" name="MidRange">
-    </div>
-    <div class="slidecontainer">
-        In-the-Paint: <input type="range" min="1" max="100" value="50" onchange="slider3()" class="slider" id="Paint" name="Paint">
-    </div>
-    <div>
-        <h3 id="total"></h3>
-    </div>
-
-    <script>
-        var slider1 = document.getElementById("ThreePoint");
-        var slider2 = document.getElementById("MidRange");
-        var slider3 = document.getElementById("Paint");
-
-        var output = document.getElementById("total");
-        output.innerHTML = slider.value; // Display the default slider value
-
-        // Update the current slider value (each time you drag the slider handle)
-        function slider1() {
-            output.innerHTML = slider1 + slider2.value + slider3.value
-        }
-        function slider2() {
-            output.innerHTML = slider1 + slider2.value + slider3.value
-        }
-        function slider3() {
-            output.innerHTML = slider1 + slider2.value + slider3.value
-        }
-    </script>*@
-
-
-<!DOCTYPE html>
-<html>
-<head>
+﻿<head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         .slidecontainer {
@@ -128,7 +45,7 @@
             background: red;
         }
 
-        #layup {
+        #paint {
             background: blue;
         }
 
@@ -140,29 +57,75 @@
         }
     </style>
 </head>
-<body>
+
+@{
+    ViewBag.Title = "QuarterSelector";
+}
+
+<h2>Point Distribution for Quarter @Session["Quarter"]</h2>
+
+<form action="~/GamePlay/NumberCrunch" method="post"  onsubmit="return CheckShot() && Check() && totalVal()">
+    @*Distribute 100 Points Across the Three Types of Shot to Decide how your Character Will Play this Quarter<br /><br />
+    Three Pointers: <input type="number" name="ThreePoint" value="34" min="0" max="100" /><br />
+    Mid-Range Shots: <input type="number" name="MidRange" value="33" min="0" max="100" /><br />
+    In-the-Paint Shots: <input type="number" name="Paint" value="33" min="0" max="100" /><br /><br /><br />*@
+
+    Distribute 100 Points Across the Two Types of Defensive Options for the Quarter<br /><br />
+    Steals: <input type="number" id="steal" name="Steal" value="50" min="0" max="100" /><br />
+    Blocks: <input type="number" id="block" name="Block" value="50" min="0" max="100" /><br /><br />
 
     <h1>Distribute Skill Points</h1>
     <p>Drag the slider to display the current value.</p>
-
     <div class="slidecontainer">
-        <input type="range" min="1" max="100" value="0" class="slider" id="threePointer" onchange="totalVal()">
+        <input type="range" min="1" max="100" value="0" class="slider" id="threePointer" name="ThreePoint" onchange="totalVal()">
         <p>Three-Pointer: <span id="demo"></span></p>
     </div>
     <div class="slidecontainer">
-        <input type="range" min="1" max="100" value="0" class="slider" id="midRange" onchange="totalVal()">
+        <input type="range" min="1" max="100" value="0" class="slider" id="midRange" name="MidRange" onchange="totalVal()">
         <p>Mid-Range: <span id="demo1"></span></p>
     </div>
     <div class="slidecontainer">
-        <input type="range" min="1" max="100" value="0" class="slider" id="layup" onchange="totalVal()">
+        <input type="range" min="1" max="100" value="0" class="slider" id="paint" name="Paint" onchange="totalVal()">
         <p>In-The-Paint: <span id="demo2"></span></p>
     </div>
     <div id="grandTotalDiv">
         <p>Grand Total: <span id="grandTotal"></span></p>
 
     </div>
-    <script>
-        var threePointer = document.getElementById("threePointer");
+   
+    <span id="span">
+
+    </span>
+
+    <input type="submit" name="submit" value="Submit Distributions"  />
+</form>
+
+<script>
+    function CheckShot() {
+        var a = parseInt(document.getElementById("threePointer").value);
+        var b = parseInt(document.getElementById("midRange").value);
+        var c = parseInt(document.getElementById("paint").value);
+        if ((100 - (a + b + c) === 0)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+
+    }
+    function Check() {
+        var d = parseInt(document.getElementById("steal").value);
+        var e = parseInt(document.getElementById("block").value);
+        if ((100 - (d + e) == 0)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+   
+
+    var threePointer = document.getElementById("threePointer");
         var output = document.getElementById("demo");
         output.innerHTML = threePointer.value;
 
@@ -170,7 +133,7 @@
             output.innerHTML = this.value;
         }
 
-        var midRange = document.getElementById("midRange");
+    var midRange = document.getElementById("midRange");
         var output1 = document.getElementById("demo1");
         output1.innerHTML = midRange.value;
 
@@ -178,7 +141,7 @@
             output1.innerHTML = this.value;
         }
 
-        var layup = document.getElementById("layup");
+    var layup = document.getElementById("paint");
         var output2 = document.getElementById("demo2");
         output2.innerHTML = layup.value;
 
@@ -190,10 +153,13 @@
             var output3 = document.getElementById("grandTotal");
             var total = +threePointer.value + +midRange.value + +layup.value
             if (total > 100) {
-                alert("Your total should equal 100!");
+                document.getElementById("span").innerHTML = "You can at max distribute 100 points total to your shots";
+                return false;
             }
             else {
                 output3.innerHTML = total;
+                document.getElementById("span").innerHTML = "";
+                return true;
             }
         }
 
