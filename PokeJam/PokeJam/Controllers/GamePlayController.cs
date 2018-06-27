@@ -2118,7 +2118,7 @@ namespace PokeJam.Controllers
             else if (u == c)
             {
                 ViewBag.Winner = "Game was a Tie!.";
-                if ((string)Session["PlayType"] == "Tournament")
+                if ((string)Session["PlayType"] == "Tournament" || (string)Session["PlayType"] == "Single")
                 {
                     ViewBag.Truth = "Tie";
                 }
@@ -2169,7 +2169,7 @@ namespace PokeJam.Controllers
             else if (u == c)
             {
                 ViewBag.Winner = "Game was a Tie!.";
-                if ((string)Session["PlayType"] == "Tournament")
+                if ((string)Session["PlayType"] == "Tournament" || (string)Session["PlayType"] == "Single")
                 {
                     ViewBag.Truth = "Tie";
                 }
