@@ -125,7 +125,7 @@ namespace PokeJam.Controllers
             ViewBag.Tournaments = tournaments;
 
 
-            return RedirectToAction("CreatePlayerStart");
+            return View();
         }
 
         public ActionResult SuccessfullyCreatedChar(string CharName, int? CharHeight, int? CharWeight, int? ThreePoint, int? FieldGoat, int? Paint, int? Steal, int? Block)
