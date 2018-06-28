@@ -50,60 +50,68 @@ namespace PokeJam.Controllers
 
         public ActionResult CreatePlayer(string CharName, int? CharHeight, int? CharWeight)
         {
-            ViewBag.CharName = CharName;
-            ViewBag.CharHeight = CharHeight;
-            ViewBag.CharWeight = CharWeight;
+            try
+            {
+                ViewBag.CharName = CharName;
+                ViewBag.CharHeight = CharHeight;
+                ViewBag.CharWeight = CharWeight;
 
-            Random random = new Random();
-
-
-            int z = Methods.WeightReturn((int)CharWeight);
-
-            ViewBag.Weight = z;
-
-            int SA2 = Methods.WeightToSA(z);
-            int A2 = Methods.WeightToA(z);
-            int S2 = Methods.WeightToS(z);
-            int SD2 = (Methods.WeightToSA(z)) / 2;
-            int D2 = (Methods.WeightToA(z)) / 2;
-
-            int SDx = random.Next(SD2 - 2, SD2 + 6);
-            int Dx = random.Next(D2 - 2, D2 + 6);
+                Random random = new Random();
 
 
-            ViewBag.ThreePointW = SA2;
-            ViewBag.FieldGoalW = A2;
-            ViewBag.PaintW = S2;
-            ViewBag.StealW = SDx;
-            ViewBag.BlockW = Dx;
+                int z = Methods.WeightReturn((int)CharWeight);
 
-            int a = Methods.HeightReturn((int)CharHeight);
+                ViewBag.Weight = z;
 
-            ViewBag.Height = a;
+                int SA2 = Methods.WeightToSA(z);
+                int A2 = Methods.WeightToA(z);
+                int S2 = Methods.WeightToS(z);
+                int SD2 = (Methods.WeightToSA(z)) / 2;
+                int D2 = (Methods.WeightToA(z)) / 2;
 
-            int SA3 = Methods.HeightToSA(a);
-            int A3 = Methods.HeightToA(a);
-            int S3 = Methods.HeightToS(a);
-            int SD3 = (Methods.HeightToSA(a)) / 2;
-            int D3 = (Methods.HeightToA(a)) / 2;
-
-            int SDy = random.Next(SD3 - 2, SD3 + 4);
-            int Dy = random.Next(D3 - 2, D3 + 4);
+                int SDx = random.Next(SD2 - 2, SD2 + 6);
+                int Dx = random.Next(D2 - 2, D2 + 6);
 
 
-            ViewBag.ThreePointH = SA3;
-            ViewBag.FieldGoalH = A3;
-            ViewBag.PaintH = S3;
-            ViewBag.StealH = SDy;
-            ViewBag.BlockH = Dy;
+                ViewBag.ThreePointW = SA2;
+                ViewBag.FieldGoalW = A2;
+                ViewBag.PaintW = S2;
+                ViewBag.StealW = SDx;
+                ViewBag.BlockW = Dx;
 
-            ViewBag.ThreePointWH = SA2 + SA3;
-            ViewBag.FieldGoalWH = A2 + A3;
-            ViewBag.PaintWH = S2 + S3;
-            ViewBag.StealWH = SDx + SDy;
-            ViewBag.BlockWH = Dx + Dy;
+                int a = Methods.HeightReturn((int)CharHeight);
 
-            return View();
+                ViewBag.Height = a;
+
+                int SA3 = Methods.HeightToSA(a);
+                int A3 = Methods.HeightToA(a);
+                int S3 = Methods.HeightToS(a);
+                int SD3 = (Methods.HeightToSA(a)) / 2;
+                int D3 = (Methods.HeightToA(a)) / 2;
+
+                int SDy = random.Next(SD3 - 2, SD3 + 4);
+                int Dy = random.Next(D3 - 2, D3 + 4);
+
+
+                ViewBag.ThreePointH = SA3;
+                ViewBag.FieldGoalH = A3;
+                ViewBag.PaintH = S3;
+                ViewBag.StealH = SDy;
+                ViewBag.BlockH = Dy;
+
+                ViewBag.ThreePointWH = SA2 + SA3;
+                ViewBag.FieldGoalWH = A2 + A3;
+                ViewBag.PaintWH = S2 + S3;
+                ViewBag.StealWH = SDx + SDy;
+                ViewBag.BlockWH = Dx + Dy;
+
+                return View();
+            }
+            catch (Exception)
+            {
+
+                return RedirectToAction("Index");
+            }
         }
 
         public ActionResult YourTournamentHistory()
@@ -122,10 +130,11 @@ namespace PokeJam.Controllers
         {
             List<Tournament> tournaments = (from t in db.Tournaments
                                             select t).ToList();
+            
             ViewBag.Tournaments = tournaments;
 
 
-            return RedirectToAction("CreatePlayerStart");
+            return View();
         }
 
         public ActionResult SuccessfullyCreatedChar(string CharName, int? CharHeight, int? CharWeight, int? ThreePoint, int? FieldGoat, int? Paint, int? Steal, int? Block)
@@ -133,7 +142,7 @@ namespace PokeJam.Controllers
 
             if (CharName == null)
             {
-                return RedirectToAction("CreatePlayerStart");
+                return RedirectToAction("Index");
             }
             else if (CharName != null)
             {

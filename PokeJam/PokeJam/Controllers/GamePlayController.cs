@@ -15,7 +15,7 @@ namespace PokeJam.Controllers
     {
         private PokeJamEntities db = new PokeJamEntities();
 
-        public ActionResult HeadsTailsSingle(int pokemon, string Coin)
+        public ActionResult HeadsTailsSingle(int? pokemon, string Coin)
         {
             Session["Quarter"] = 0;
 
@@ -40,10 +40,18 @@ namespace PokeJam.Controllers
 
             Session["Pokemon"] = pokemon;
 
-
-            int PID = (from p in db.PokeTiers
+            int PID;
+            try
+            {
+                PID = (from p in db.PokeTiers
                        where p.PokeID == pokemon
                        select p.PokedexNumber).Single();
+            }
+            catch (Exception)
+            {
+
+                return RedirectToAction("Index", "Home");
+            }
             int compThreePoint = 0;
             int compFieldGoal = 0;
             int compPaint = 0;
@@ -161,9 +169,19 @@ namespace PokeJam.Controllers
 
         public ActionResult QuarterSelector(string move)
         {
-            
-            int quarter = (int)Session["Quarter"];
-            string winner = (string)Session["Winner"];
+            int quarter;
+            string winner;
+
+            try
+            {
+                quarter = (int)Session["Quarter"];
+                winner = (string)Session["Winner"];
+            }
+            catch (Exception)
+            {
+
+                return RedirectToAction("Index", "Home");
+            }
 
             if (quarter != 4)
             {
@@ -184,7 +202,7 @@ namespace PokeJam.Controllers
             return RedirectToAction("GameplayResult");
         }
 
-        public ActionResult NumberCrunch(int ThreePoint, int MidRange, int Paint, int Steal, int Block, string overtime = "no")
+        public ActionResult NumberCrunch(int? ThreePoint, int? MidRange, int? Paint, int? Steal, int? Block, string overtime = "no")
         {
             List<string> playerPlays = new List<string>();
             List<string> computerPlays = new List<string>();
@@ -207,23 +225,43 @@ namespace PokeJam.Controllers
             Character player = (from c in db.Characters
                                 where c.CharID == charNum
                                 select c).Single();
-            int playerThreePoint = player.ThreePoint;
-            int playerFieldGoal = player.FieldGoal;
-            int playerPaint = player.Paint;
-            int playerSteal = player.Steal;
-            int playerBlock = player.Block;
 
-            int compNum = (int)Session["Pokemon"];
-            int PID = (from p in db.PokeTiers
-                       where p.PokeID == compNum
-                       select p.PokedexNumber).Single();
-            int compThreePoint = (int)Session["compThreePoint"];
-            int compFieldGoal = (int)Session["compFieldGoal"];
-            int compPaint = (int)Session["compPaint"];
-            int compSteal = (int)Session["compSteal"];
-            int compBlock = (int)Session["compBlock"];
+            int playerThreePoint;
+            int playerFieldGoal;
+            int playerPaint;
+            int playerSteal;
+            int playerBlock;
+            int compThreePoint;
+            int compFieldGoal;
+            int compPaint;
+            int compSteal;
+            int compBlock;
+
+            try
+            {
+                playerThreePoint = player.ThreePoint;
+                playerFieldGoal = player.FieldGoal;
+                playerPaint = player.Paint;
+                playerSteal = player.Steal;
+                playerBlock = player.Block;
+
+                int compNum = (int)Session["Pokemon"];
+                int PID = (from p in db.PokeTiers
+                           where p.PokeID == compNum
+                           select p.PokedexNumber).Single();
+                compThreePoint = (int)Session["compThreePoint"];
+                compFieldGoal = (int)Session["compFieldGoal"];
+                compPaint = (int)Session["compPaint"];
+                compSteal = (int)Session["compSteal"];
+                compBlock = (int)Session["compBlock"];
 
 
+            }
+            catch (Exception)
+            {
+
+                return RedirectToAction("Index");
+            }
             for (int i = 0; i < 5; i++)
             {
                 int shotter = Methods.Generator();
@@ -527,7 +565,15 @@ namespace PokeJam.Controllers
             string[] pokeTrack = (string[])Session["PokeTrack"];
             //Tournament tournament = new Tournament();
             string UserId = (string)Session["UserID"];
-            Methods.AddTournament(TierCount, track, pokeTrack, UserId);
+            try
+            {
+                Methods.AddTournament(TierCount, track, pokeTrack, UserId);
+            }
+            catch (Exception)
+            {
+
+                return RedirectToAction("Index", "Home");
+            }
 
             track[0] = false;
             track[1] = false;
