@@ -11,7 +11,8 @@ namespace PokeJam.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Character
     {
         public int CharID { get; set; }
@@ -19,10 +20,16 @@ namespace PokeJam.Models
         public string CharName { get; set; }
         public int Height { get; set; }
         public int Weight { get; set; }
+
+        [Range(0, 75, ErrorMessage = "ThreePoint must be between 0 and 75")]
         public int ThreePoint { get; set; }
+        [Range(0, 75, ErrorMessage = "FieldGoal must be between 0 and 75")]
         public int FieldGoal { get; set; }
+        [Range(0, 75, ErrorMessage = "Paint must be between 0 and 75")]
         public int Paint { get; set; }
+        [Range(0, 75, ErrorMessage = "Steal must be between 0 and 75")]
         public int Steal { get; set; }
+        [Range(0, 75, ErrorMessage = "Block must be between 0 and 75")]
         public int Block { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
