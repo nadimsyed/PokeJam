@@ -27,9 +27,9 @@ namespace PokeJam.Models
         public int FieldGoal { get; set; }
         [Range(0, 75, ErrorMessage = "Paint must be between 0 and 75")]
         public int Paint { get; set; }
-        [Range(0, 75, ErrorMessage = "Steal must be between 0 and 75")]
+        [Range(0, 25, ErrorMessage = "Steal must be between 0 and 25")]
         public int Steal { get; set; }
-        [Range(0, 75, ErrorMessage = "Block must be between 0 and 75")]
+        [Range(0, 25, ErrorMessage = "Block must be between 0 and 25")]
         public int Block { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }

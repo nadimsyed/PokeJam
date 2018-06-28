@@ -3,10 +3,7 @@
     ViewBag.Title = "SinglePlayer";
 }
 
-<h2>SinglePlayer</h2>
-<h2>@Session["PlayType"]</h2>
-
-@*TODO: GRAB ALL NAMES FROM DATABASE*@
+<h2>Single Player Mode</h2>
 
 <form action="~/GamePlay/HeadsTailsSingle/" method="post">
 
@@ -22,11 +19,7 @@
     <br />
     <br />
 
-    Heads or Tails?
-    @*<select>
-        <option value="heads">Heads</option>
-        <option value="tails">Tails</option>
-    </select>*@
+    Decide Who Goes First. What's Your Pick<br /><br />
 
     <input type="submit" name="Coin" value="Heads" />
     <input type="submit" name="Coin" value="Tails" />

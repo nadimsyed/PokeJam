@@ -1,21 +1,13 @@
 
-<h2>Point Distribution for Quarter @Session["Quarter"]</h2>
+<h2>Coach Your Player for Quarter @Session["Quarter"]</h2>
 
 <form action="~/GamePlay/NumberCrunch" method="post" onsubmit="return CheckShot() && Check() && totalVal()">
-    @*Distribute 100 Points Across the Three Types of Shot to Decide how your Character Will Play this Quarter<br /><br />
-        Three Pointers: <input type="number" name="ThreePoint" value="34" min="0" max="100" /><br />
-        Mid-Range Shots: <input type="number" name="MidRange" value="33" min="0" max="100" /><br />
-        In-the-Paint Shots: <input type="number" name="Paint" value="33" min="0" max="100" /><br /><br /><br />*@
 
-    @*Distribute 100 Points Across the Two Types of Defensive Options for the Quarter<br /><br />
-        Steals: <input type="number" id="steal" name="Steal" value="50" min="0" max="100" /><br />
-        Blocks: <input type="number" id="block" name="Block" value="50" min="0" max="100" /><br /><br />*@
-
-    <h1>Distribute Skill Points</h1>
-    <p>Drag the slider to display the current value.</p>
+    <h3>Distribute Your Characters Shot Chance</h3>
+    <h4>Drag the Sliders to Display the Current Value.</h4>
     <div class="slidecontainer">
         <input type="range" min="1" max="100" value="34" class="slider" id="threePointer" name="ThreePoint" onchange="totalVal()">
-        <p>Three-Pointer: <span id="demo"></span></p>
+        <p>Three-Pointer: <span id="demo"></span></p> 
     </div>
     <div class="slidecontainer">
         <input type="range" min="1" max="100" value="33" class="slider" id="midRange" name="MidRange" onchange="totalVal()">
@@ -33,6 +25,7 @@
     <span id="span">
 
     </span>
+    <h3>Distribute Your Characters Defensive Options Chance</h3>
 
     <div class="slidecontainer">
         <input type="range" min="1" max="100" value="50" class="slider" id="steal" name="Steal" onchange="totalVal1()">

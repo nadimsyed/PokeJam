@@ -6,7 +6,9 @@
 <h2>Create Player</h2>
 
 <form action="~/Home/SuccessfullyCreatedChar/" method="post">
-    Distribute 100 Skill Points into the the stats below to build your character how you want! You Will Not Be Able to Submit till 100 Points Distributed<br />
+    Distribute 100 Skill Points into the the stats below to build your character how you want! You Will Not Be Able to Submit till 100 Points are Distributed<br /><br />
+    The Three Types of Shots can have at most 75% Chance<br />
+    The Steal and Block can at most have 25% Chance<br /><br /><br />
 
     <input type="hidden" name="CharName" value="@ViewBag.CharName" />
     <input type="hidden" name="CharHeight" value="@ViewBag.CharHeight" />
@@ -18,13 +20,13 @@
 
     Paint %:<input type="number" id="PaintPerc" name="Paint" min="@ViewBag.PaintWH" max="75" value="@ViewBag.PaintWH" /><br />
 
-    Steal %:<input type="number" id="StealPerc" name="Steal" min="@ViewBag.StealWH" max="75" value="@ViewBag.StealWH" /><br />
+    Steal %:<input type="number" id="StealPerc" name="Steal" min="@ViewBag.StealWH" max="25" value="@ViewBag.StealWH" /><br />
 
-    Block %:<input type="number" id="BlockPerc" name="Block" min="@ViewBag.BlockWH" max="75" value="@ViewBag.BlockWH" /><br />
+    Block %:<input type="number" id="BlockPerc" name="Block" min="@ViewBag.BlockWH" max="25" value="@ViewBag.BlockWH" /><br />
 
 
 
-    Submit: <input type="submit" name="submit" value="Submit SkillPoint Distribution" onclick="return Check()" /><br />
+    Submit: <input type="submit" name="submit" value="SkillPoint Distribution" onclick="return Check()" /><br />
 </form>
 <script>
     function Check() {

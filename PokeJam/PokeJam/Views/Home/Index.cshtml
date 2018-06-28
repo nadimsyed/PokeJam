@@ -5,6 +5,7 @@
 <h2>@ViewBag.Error</h2>
 <h2>@ViewBag.ErrorDescription</h2>
 
+<h2>Clicking the Character's Name Will Allow You to Play with that Character</h2>
 <a href="~/Home/CreatePlayerStart">Create</a>
 <table class="table">
     <tr>
@@ -21,7 +22,7 @@
             ThreePoint
         </th>
         <th>
-            FieldGoal
+            Mid-Range
         </th>
         <th>
             Paint
@@ -38,7 +39,6 @@
             {
                 <tr>
                     <td>
-                        @*@item.CharName*@
                         <form action="~/Home/PokeJam" method="post">
                             <input type="hidden" name="CharID" value="@item.CharID" />
                             <input type="submit" name="CharName" value="@item.CharName" />
@@ -51,19 +51,19 @@
                         @item.Weight
                     </td>
                     <td>
-                        @item.ThreePoint
+                        @item.ThreePoint %
                     </td>
                     <td>
-                        @item.FieldGoal
+                        @item.FieldGoal %
                     </td>
                     <td>
-                        @item.Paint
+                        @item.Paint %
                     </td>
                     <td>
-                        @item.Steal
+                        @item.Steal %
                     </td>
                     <td>
-                        @item.Block
+                        @item.Block %
                     </td>
                     <td>
                         <a href="/Characters/Delete/@item.CharID">Delete</a>

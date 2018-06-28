@@ -5,26 +5,7 @@
 
 <h2>Tier 1</h2>
 
-@*<form action="~/GamePlay/GamePlay/" method="post">
-
-        Choose your opponent
-        <select>
-            <option></option>
-        </select>
-        <br />
-        <br />
-        <br />
-
-        Heads or Tails?
-        <select>
-            <option value="heads">Heads</option>
-            <option value="tails">Tails</option>
-        </select>
-
-        <input type="submit" name="PlayType" value="PlayTournament" />
-    </form>*@
-
-<h2>@Session["PlayType"]</h2>
+<h2>@Session["PlayType"] Mode</h2>
 
 
 <form action="~/GamePlay/HeadsTailsSingle/" method="post">
@@ -41,7 +22,8 @@
     <br />
     <br />
 
-    Heads or Tails?
+    Decide Who Goes First. What's Your Pick<br /><br />
+
     <input type="submit" name="Coin" value="Heads" />
     <input type="submit" name="Coin" value="Tails" />
 </form>
